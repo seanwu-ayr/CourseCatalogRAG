@@ -18,7 +18,7 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 from dotenv import load_dotenv
 
 load_dotenv()
-os.environ[""] = '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'
+os.environ[""] = ''
 
 def get_pdf_text(pdf_docs):
     text=""
