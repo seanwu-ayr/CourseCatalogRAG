@@ -18,7 +18,7 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 from dotenv import load_dotenv
 
 load_dotenv()
-os.environ["OPENAI_API_KEY"] = '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'
+os.environ["OPENAI_API_KEY"] = ''
 
 def get_pdf_text(pdf_docs):
     text=""
