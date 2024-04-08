@@ -28,3 +28,24 @@ Answer: answer is not available in the context
 Question: what I learn from Coen 291
 Answer: answer is not available in the context
 
+Question: what are the prerequisites to coen11
+Answer: The prerequisites for COEN 11 are a grade of C- or better in CSEN/COEN 10 or an introductory computer programming course with previous programming experience.
+
+Question: what will i learn in coen 12?
+Answer: In CSEN/COEN 12, you will learn about Abstract Data Types and Data Structures. This includes topics such as different data structures like arrays, linked lists, stacks, queues, trees, and graphs, as well as abstract data types like stacks, queues, and priority queues. You will also learn about algorithms related to these data structures, such as searching and sorting algorithms. Additionally, you will gain hands-on experience in implementing these data structures and algorithms in a programming language like C or C++.
+
+Question: what are the prerequisites to coen11?
+Answer: The prerequisites for CSEN/COEN 11 are a grade of C- or better in an introductory computer programming course such as CSCI 10, 60, or 61.
+
+Question: what to learn in coen 12
+Answer: In COEN 12, students will learn about Abstract Data Types and Data Structures. This includes understanding different data structures such as arrays, linked lists, stacks, queues, trees, and graphs, as well as abstract data types like sets, maps, and dictionaries. Students will also learn about algorithms that operate on these data structures, such as searching, sorting, and graph traversal algorithms. Additionally, they will learn about the principles of object-oriented programming and how to implement these data structures and algorithms in a programming language like C or C++.
+
+Question: what to learn in coen 12
+Answer: In CSEN/COEN 12, students will learn about Abstract Data Types and Data Structures. This includes understanding different data structures such as arrays, linked lists, stacks, queues, trees, and graphs, as well as abstract data types like sets, maps, and dictionaries. Students will also learn about algorithms related to these data structures, such as searching, sorting, and traversing. Additionally, they will gain knowledge about how to implement these data structures and algorithms in a programming language like C.
+
+Question: what to learn in coen 12
+Answer: In CSEN/COEN 12, students will learn about Abstract Data Types and Data Structures. This includes understanding the concepts of abstract data types, such as stacks, queues, linked lists, trees, and graphs, as well as implementing these data structures in programming languages like C or Java. Students will also learn about algorithms associated with these data structures, such as searching, sorting, and traversing. Additionally, they will gain practical experience in designing and implementing efficient data structures and algorithms to solve real-world problems.
+
+Question: what to learn in coen 12
+Answer: In CSEN/COEN 12, students will learn about Abstract Data Types and Data Structures. This includes understanding different data structures such as arrays, linked lists, stacks, queues, trees, and graphs, as well as abstract data types like sets, maps, and dictionaries. Students will also learn about algorithms related to these data structures, such as searching, sorting, and traversal algorithms. Additionally, they will gain knowledge about the principles of object-oriented programming and how to implement these data structures and algorithms efficiently in a programming language like C or C++.
+
