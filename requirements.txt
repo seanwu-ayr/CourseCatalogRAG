@@ -5,3 +5,6 @@ langchain_openai
 langchain_community
 PyPDF2
 faiss-cpu
+beautifulsoup4
+chromadb
+lark
