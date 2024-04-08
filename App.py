@@ -18,7 +18,18 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 from dotenv import load_dotenv
 
 load_dotenv()
-os.environ["OPENAI_API_KEY"] = ''
+os.environ["OPENAI_API_KEY"] = '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'
+
+def read_pdf_from_path(path):
+    if os.path.isdir(path):  # If the path is a directory
+        pdf_files = [f for f in os.listdir(path) if f.endswith('.pdf')]
+        pdf_docs = [os.path.join(path, f) for f in pdf_files]
+    elif os.path.isfile(path) and path.endswith('.pdf'):  # If the path is a single PDF file
+        pdf_docs = [path]  # Wrap the single file path in a list
+    else:
+        raise ValueError("Provided path is neither a directory containing PDFs nor a PDF file.")
+    return get_pdf_text(pdf_docs)
+
 
 def get_pdf_text(pdf_docs):
     text=""
@@ -215,38 +226,69 @@ def user_input(user_question):
             print("default")
             
     print(output)
-    st.write("Reply: ", output)
-
-
-
+    # Log the question and answer
+    with open("conversation_log.txt", "a") as log_file:
+        log_file.write(f"Question: {user_question}\nAnswer: {output}\n\n")
+    st.session_state.conversation.append(f"Reply: {output}")  # Append the answer to the conversation history
 
 def main():
     st.set_page_config("Chat PDF")
     st.header("Santa Clara Course Catalog LLM")
 
-    user_question = st.text_input("Searching the Courses just got easy!")
+    # Initialize or retrieve the conversation history
+    if 'conversation' not in st.session_state:
+        st.session_state.conversation = []
 
-    if user_question:
-        user_input(user_question)
+    # Input for user questions
+    user_question = st.text_input("Ask your question here:", key="user_question")
 
+    if st.button("Ask") or 'enter_pressed' in st.session_state:
+        if user_question:
+            st.session_state.conversation.append(f"You: {user_question}")
+            user_input(user_question)
+            st.session_state['enter_pressed'] = False
+
+    # Inject custom CSS for conversation history
+    custom_css = """
+    <style>
+        .stExpander > div > div:first-child {
+            max-height: 500px; /* Adjust based on your needs */
+            overflow-y: auto;
+        }
+        .stMarkdown {
+            word-wrap: break-word;
+        }
+    </style>
+    """
+    st.markdown(custom_css, unsafe_allow_html=True)
+
+    # Display the conversation history in a scrollable container
+    with st.expander("Conversation History", expanded=True):
+        for message in st.session_state.conversation:
+            st.markdown(message)
+
+    # Sidebar for additional functionalities
     with st.sidebar:
         st.title("Menu:")
-        pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True)
-        if st.button("Submit & Process"):
-            with st.spinner("Processing..."):
-                raw_text = get_pdf_text(pdf_docs)
+
+        # Automatically process PDFs from a specified path
+        pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # Update this with the actual path
+        if st.button("Process PDFs"):
+            with st.spinner("Processing PDFs..."):
+                raw_text = read_pdf_from_path(pdf_path)
                 text_chunks = get_text_chunks(raw_text)
                 get_pdf_vector_store(text_chunks)
-                st.success("Done")
-        
-        with st.form("web_uploader", clear_on_submit=False, border=False):
-            url = st.text_input('URL', 'Enter url here')
-            if st.form_submit_button(label="Submit & Process"):
-                with st.spinner("Processing..."):
-                    web_text = get_web_text(url)
-                    get_web_vector_store(web_text)
-                    st.success("Done")
+                st.success("PDF Processing Done")
 
+        # Web URL processing form
+        url = st.text_input('URL', 'Enter URL here')
+        if st.button("Submit & Process URL"):
+            with st.spinner("Processing..."):
+                web_text = get_web_text(url)
+                documents = get_text_chunks(web_text)  # Assuming this processes the web text into a suitable format
+                get_web_vector_store(documents)
+                st.success("Web Processing Done")
 
+# Be sure to include the user_input function or any other necessary parts before this if statement
 if __name__ == "__main__":
     main()
