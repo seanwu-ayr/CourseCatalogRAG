@@ -1,0 +1,30 @@
+Question: who are the Associate Professors for the Computer Science & Engineering Department?
+Answer: The Associate Professors for the Computer Science & Engineering Department are Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, and Weijia Shang.
+
+Question: who are the Associate Professors for the Computer Science department?
+Answer: The Associate Professors for the Computer Science department are Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, and Weijia Shang.
+
+Question: what are the Prerequisites for Artificial Intelligence?
+Answer: Prerequisites for Artificial Intelligence are a grade of C- or better in either CSEN/COEN 12 or CSCI 61 and in either CSEN/COEN 19 or MATH 51.
+
+Question: what are the Prerequisites for Artificial Intelligence?
+Answer: Prerequisites for Artificial Intelligence are a grade of C- or better in either CSEN/COEN 12 or CSCI 61 and in either CSEN/COEN 19 or MATH 51.
+
+Question: what will I learn if I take Web Usability class.
+Answer: In the Web Usability class, you will learn about the principles of user-centered design, human-computer interaction, fundamental theories in cognition and human factors, information processing, perception and representation, constructivist and ecological theories, Gestalt laws of perceptual organization, usability engineering, user research, user profiling, methods for evaluating user interfaces, usability testing, prototyping in user interface, inclusive design in user interface design, accessibility issues, compliance with section 508 of Rehabilitation Act.
+
+Question: what will I learn if I take Web Usability class.
+Answer: In the Web Usability class, you will learn about the principles of user-centered design, human-computer interaction, fundamental theories in cognition and human factors, information processing, perception and representation, usability engineering, user research, user profiling, methods for evaluating user interfaces, usability testing, prototyping in user interface, inclusive design in user interface design, accessibility issues, compliance with section 508 of the Rehabilitation Act.
+
+Question: prequest to Coen 10
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: what is the Coen 291
+Answer: answer is not available in the context
+
+Question: what I learn from Coen 291
+Answer: answer is not available in the context
+
+Question: what I learn from Coen 291
+Answer: answer is not available in the context
+
