@@ -18,7 +18,7 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 from dotenv import load_dotenv
 
 load_dotenv()
-os.environ["OPENAI_API_KEY"] = ''
+os.environ["OPENAI_API_KEY"] = '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'
 
 def get_pdf_text(pdf_docs):
     text=""
@@ -35,8 +35,15 @@ def get_web_text(web_url):
     print(text)
     return text
 
+#def get_csv_text(web_url):
+    # loader = CSVLoader(web_url)
+    # text = loader.load()
+    # print(type(text))
+    # print(text)
+    # return text
+
 def get_text_chunks(text):
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_text(text)
     return chunks
 
@@ -59,9 +66,9 @@ def get_LLM_chain():
 
     prompt_template = """
 You are an AI tool that works as an initial module of an AI college advisor LLM that handles questions from students at Santa Clara University.
- Your only job is to categorize a prompt into what type of request they are, so they can be handled separately later with different actions.
-   The possible prompt categories are listed below. If a prompt branch does not fit into any of the first listed categories,
-     place it into the 'other' category (i.e. category 5). Return the structured ouput JSON with the numerical value and description associated with the propper prompt category.
+Your only job is to categorize a prompt into what type of request it is, so it can be handled separately later with different pipelines.
+The possible prompt categories are listed below. If a prompt branch does not fit into any of the first listed categories,
+place it into the 'other' category (i.e. category 5). Return the structured ouput JSON with the numerical value and description associated with the propper prompt category.
 
 Prompt category key:
   category 1: Greetings or other phatic communication
@@ -103,7 +110,7 @@ Context: {context}
 Output JSON:
 """
 
-    model = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.3)
+    model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
     parser = JsonOutputParser(pydantic_object=Category)
     prompt = PromptTemplate(
         template = prompt_template,
@@ -126,7 +133,7 @@ def get_document_chain():
     Answer:
     """
 
-    model = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.3)
+    model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
 
 
     prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
@@ -146,7 +153,7 @@ def get_conversational_chain():
     Answer:
     """
 
-    model = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.3)
+    model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
 
 
     prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
@@ -169,50 +176,49 @@ def user_input(user_question):
     category = json.loads(response["output_text"])["category"]
     print(category)
     
-    match category:
-        case 1:
-            chain = get_conversational_chain()
-            docs = {}
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-            output = response["output_text"]
+    if category == 1:
+        chain = get_conversational_chain()
+        docs = {}
+        response = chain.invoke(
+        {"question": user_question, "input_documents":docs}
+        , return_only_outputs=True
+        )
+        output = response["output_text"]
 
-        case 2:
-            chain = get_document_chain()            
-            new_db = FAISS.load_local("faiss_index", embeddings)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-            output = response["output_text"]
+    elif category == 2:
+        chain = get_document_chain()            
+        new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+        docs = new_db.similarity_search(user_question)
+        response = chain.invoke(
+        {"question": user_question, "input_documents":docs}
+        , return_only_outputs=True
+        )
+        output = response["output_text"]
 
-        case 3:
-            chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-            output = response["output_text"]
+    elif category == 3:
+        chain = get_document_chain()
+        new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+        docs = new_db.similarity_search(user_question)
+        response = chain.invoke(
+        {"question": user_question, "input_documents":docs}
+        , return_only_outputs=True
+        )
+        output = response["output_text"]
 
-        case 4:
-            chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-            output = response["output_text"]
+    elif category == 4:
+        chain = get_document_chain()
+        new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+        docs = new_db.similarity_search(user_question)
+        response = chain.invoke(
+        {"question": user_question, "input_documents":docs}
+        , return_only_outputs=True
+        )
+        output = response["output_text"]
 
-        case 5:
-            output = "Sorry, your input prompt is outside the scope of my capabilities."
-        case _:
-            print("default")
+    elif category == 5:
+        output = "Sorry, your input prompt is outside the scope of my capabilities."
+    else:
+        print("default")
             
     print(output)
     st.write("Reply: ", output)
