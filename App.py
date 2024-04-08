@@ -47,7 +47,7 @@ def get_web_text(web_url):
     return text
 
 def get_text_chunks(text):
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
     chunks = text_splitter.split_text(text)
     return chunks
 
@@ -192,7 +192,7 @@ def user_input(user_question):
 
         case 2:
             chain = get_document_chain()            
-            new_db = FAISS.load_local("faiss_index", embeddings)
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
@@ -202,7 +202,7 @@ def user_input(user_question):
 
         case 3:
             chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings)
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
@@ -212,7 +212,7 @@ def user_input(user_question):
 
         case 4:
             chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings)
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
@@ -272,7 +272,7 @@ def main():
         st.title("Menu:")
 
         # Automatically process PDFs from a specified path
-        pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # Update this with the actual path
+        pdf_path = './SCU.pdf'  # Update this with the actual path
         if st.button("Process PDFs"):
             with st.spinner("Processing PDFs..."):
                 raw_text = read_pdf_from_path(pdf_path)
