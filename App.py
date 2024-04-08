@@ -181,61 +181,69 @@ def user_input(user_question):
 
     embeddings = OpenAIEmbeddings()
     
-    response = chain0.invoke(
-        {"question": user_question, "input_documents": {}}
-        , return_only_outputs=True
-    )
+    # response = chain0.invoke(
+    #     {"question": user_question, "input_documents": {}}
+    #     , return_only_outputs=True
+    # )
 
-    category = json.loads(response["output_text"])["category"]
-    print(category)
+    # category = json.loads(response["output_text"])["category"]
+    # print(category)
 
-    output = None
     
-    match category:
-        case 1:
-            chain = get_conversational_chain()
-            docs = {}
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-            output = response["output_text"]
+    # match category:
+    #     case 1:
+    #         chain = get_conversational_chain()
+    #         docs = {}
+    #         response = chain.invoke(
+    #         {"question": user_question, "input_documents":docs}
+    #         , return_only_outputs=True
+    #         )
+    #         output = response["output_text"]
 
-        case 2:
-            chain = get_document_chain()            
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-            output = response["output_text"]
+    #     case 2:
+    #         chain = get_document_chain()            
+    #         new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    #         docs = new_db.similarity_search(user_question)
+    #         response = chain.invoke(
+    #         {"question": user_question, "input_documents":docs}
+    #         , return_only_outputs=True
+    #         )
+    #         output = response["output_text"]
 
-        case 3:
-            chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-            output = response["output_text"]
+    #     case 3:
+    #         chain = get_document_chain()
+    #         new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    #         docs = new_db.similarity_search(user_question)
+    #         response = chain.invoke(
+    #         {"question": user_question, "input_documents":docs}
+    #         , return_only_outputs=True
+    #         )
+    #         output = response["output_text"]
 
-        case 4:
-            chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-            output = response["output_text"]
+    #     case 4:
+    #         chain = get_document_chain()
+    #         new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    #         docs = new_db.similarity_search(user_question)
+    #         response = chain.invoke(
+    #         {"question": user_question, "input_documents":docs}
+    #         , return_only_outputs=True
+    #         )
+    #         output = response["output_text"]
 
-        case 5:
-            output = "Sorry, your input prompt is outside the scope of my capabilities."
-        case _:
-            print("default")
-            
+    #     case 5:
+    #         output = "Sorry, your input prompt is outside the scope of my capabilities."
+    #     case _:
+    #         print("default")
+    chain = get_document_chain()
+    new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    docs = new_db.similarity_search(user_question)
+    response = chain.invoke(
+    {"question": user_question, "input_documents":docs}
+    , return_only_outputs=True
+    )
+    output = response["output_text"]
+    
+    print(docs)      
     print(output)
     # Log the question and answer
     with open("conversation_log.txt", "a") as log_file:
