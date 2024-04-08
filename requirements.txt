@@ -6,3 +6,5 @@ langchain_community
 PyPDF2
 faiss-cpu
 bs4
+chromadb
+lark
