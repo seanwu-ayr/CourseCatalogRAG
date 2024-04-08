@@ -20,24 +20,33 @@ from dotenv import load_dotenv
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = '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'
 
-def read_pdf_from_path(path):
-    if os.path.isdir(path):  # If the path is a directory
-        pdf_files = [f for f in os.listdir(path) if f.endswith('.pdf')]
-        pdf_docs = [os.path.join(path, f) for f in pdf_files]
-    elif os.path.isfile(path) and path.endswith('.pdf'):  # If the path is a single PDF file
-        pdf_docs = [path]  # Wrap the single file path in a list
-    else:
-        raise ValueError("Provided path is neither a directory containing PDFs nor a PDF file.")
-    return get_pdf_text(pdf_docs)
+# def read_pdf_from_path(path):
+#     if os.path.isdir(path):  # If the path is a directory
+#         pdf_files = [f for f in os.listdir(path) if f.endswith('.pdf')]
+#         pdf_docs = [os.path.join(path, f) for f in pdf_files]
+#     elif os.path.isfile(path) and path.endswith('.pdf'):  # If the path is a single PDF file
+#         pdf_docs = [path]  # Wrap the single file path in a list
+#     else:
+#         raise ValueError("Provided path is neither a directory containing PDFs nor a PDF file.")
+#     return get_pdf_text(pdf_docs)
 
 
-def get_pdf_text(pdf_docs):
-    text=""
-    for pdf in pdf_docs:
-        pdf_reader= PdfReader(pdf)
+def get_pdf_text(pdf_sources):
+    text = ""
+    for source in pdf_sources:
+        # If the source is a file path, open it as a PDF file
+        if isinstance(source, str) and os.path.isfile(source):
+            pdf_reader = PdfReader(source)
+        # If the source is an uploaded file, it's already a file-like object
+        elif hasattr(source, "read"):  # Checking if source is a file-like object
+            pdf_reader = PdfReader(source)
+        else:
+            continue  # If neither, skip to the next source
+        
         for page in pdf_reader.pages:
-            text+= page.extract_text()
-    return  text
+            text += page.extract_text() or ""  # Using 'or ""' to avoid appending None if extract_text() fails
+    return text
+
 
 def get_web_text(web_url):
     loader = WebBaseLoader(web_url)
@@ -235,18 +244,24 @@ def main():
     st.set_page_config("Chat PDF")
     st.header("Santa Clara Course Catalog LLM")
 
-    # Initialize or retrieve the conversation history
     if 'conversation' not in st.session_state:
         st.session_state.conversation = []
+    
+    # Ensure 'user_question' is initialized in session_state
+    if 'user_question' not in st.session_state:
+        st.session_state.user_question = ''
 
-    # Input for user questions
-    user_question = st.text_input("Ask your question here:", key="user_question")
+    # A callback function to update 'user_question' in session_state
+    def update_user_question():
+        st.session_state.user_question = st.session_state.new_user_question
 
-    if st.button("Ask") or 'enter_pressed' in st.session_state:
-        if user_question:
-            st.session_state.conversation.append(f"You: {user_question}")
-            user_input(user_question)
-            st.session_state['enter_pressed'] = False
+    # Input for user questions with an on_change callback
+    st.text_input("Ask your question here:", key="new_user_question", on_change=update_user_question)
+
+    if st.button("Ask"):
+        if st.session_state.user_question:  # Now safely using 'user_question' from session_state
+            st.session_state.conversation.append(f"You: {st.session_state.user_question}")
+            user_input(st.session_state.user_question)
 
     # Inject custom CSS for conversation history
     custom_css = """
@@ -270,15 +285,37 @@ def main():
     # Sidebar for additional functionalities
     with st.sidebar:
         st.title("Menu:")
+        # PDF Upload and Process PDFs button logic updated
+        uploaded_pdfs = st.file_uploader("Upload a PDF", type=['pdf'], accept_multiple_files=True)
 
-        # Automatically process PDFs from a specified path
-        pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # Update this with the actual path
         if st.button("Process PDFs"):
             with st.spinner("Processing PDFs..."):
-                raw_text = read_pdf_from_path(pdf_path)
-                text_chunks = get_text_chunks(raw_text)
-                get_pdf_vector_store(text_chunks)
-                st.success("PDF Processing Done")
+                # Variable for the path, which could be either a directory or a single PDF file
+                pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # This can be a directory or a single PDF file
+                
+                all_text = ""
+                
+                # Check if the path is a directory and process all PDFs within it
+                if os.path.isdir(pdf_path):
+                    pdf_docs = [os.path.join(pdf_path, f) for f in os.listdir(pdf_path) if f.endswith('.pdf')]
+                    all_text += get_pdf_text(pdf_docs)
+                
+                # If it's not a directory, check if it's a file and process the single PDF
+                elif os.path.isfile(pdf_path) and pdf_path.endswith('.pdf'):
+                    all_text += get_pdf_text([pdf_path])
+                
+                # Process uploaded PDFs
+                if uploaded_pdfs:
+                    all_text += get_pdf_text(uploaded_pdfs)  # Ensure get_pdf_text can handle uploaded file objects
+                
+                # Proceed with processing the accumulated text
+                if all_text:
+                    text_chunks = get_text_chunks(all_text)
+                    get_pdf_vector_store(text_chunks)
+                    st.success("PDF Processing Done")
+                else:
+                    st.warning("No PDFs were processed. Please upload PDFs or check the specified directory.")
+
 
         # Web URL processing form
         url = st.text_input('URL', 'Enter URL here')

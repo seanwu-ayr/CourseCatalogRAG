@@ -28,3 +28,18 @@ Answer: answer is not available in the context
 Question: what I learn from Coen 291
 Answer: answer is not available in the context
 
+Question: what are the preq for Coen 10
+Answer: answer is not available in the context
+
+Question: what are the preq for Coen 91
+Answer: answer is not available in the context
+
+Question: tell me about the Theory of Algorithms class
+Answer: answer is not available in the context
+
+Question: What will I learn if I take Theory of Algorithms class.
+Answer: If you take the Theory of Algorithms class, you will learn about techniques for the design and analysis of algorithms. This includes topics such as asymptotic notations, running times of recursive algorithms, design strategies like divide and conquer and dynamic programming, intractability (P and NP), approximation algorithms, and more. The course will provide you with a solid foundation in algorithmic problem-solving and analysis.
+
+Question: can you tell me if Operating Systems has any perquisite?
+Answer: Prerequisites for the Operating Systems course include a grade of C- or better in either CSEN/COEN 12 or CSCI 61 and in CSEN/COEN 20 (or ECEN/ELEN 120). Corequisite for Operating Systems is CSEN/COEN 177L.
+
