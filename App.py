@@ -56,7 +56,7 @@ def get_web_text(web_url):
     return text
 
 def get_text_chunks(text):
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_text(text)
     return chunks
 
@@ -123,7 +123,7 @@ Context: {context}
 Output JSON:
 """
 
-    model = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.3)
+    model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
     parser = JsonOutputParser(pydantic_object=Category)
     prompt = PromptTemplate(
         template = prompt_template,
@@ -146,7 +146,7 @@ def get_document_chain():
     Answer:
     """
 
-    model = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.3)
+    model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
 
 
     prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
@@ -166,7 +166,7 @@ def get_conversational_chain():
     Answer:
     """
 
-    model = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.3)
+    model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
 
 
     prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
@@ -188,6 +188,8 @@ def user_input(user_question):
 
     category = json.loads(response["output_text"])["category"]
     print(category)
+
+    output = None
     
     match category:
         case 1:
@@ -201,7 +203,7 @@ def user_input(user_question):
 
         case 2:
             chain = get_document_chain()            
-            new_db = FAISS.load_local("faiss_index", embeddings)
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
@@ -211,7 +213,7 @@ def user_input(user_question):
 
         case 3:
             chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings)
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
@@ -221,7 +223,7 @@ def user_input(user_question):
 
         case 4:
             chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings)
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
