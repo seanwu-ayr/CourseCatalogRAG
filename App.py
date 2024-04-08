@@ -3,13 +3,17 @@ from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 import json
+import tempfile
 from langchain_community.document_loaders import WebBaseLoader
+from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain.indexes import VectorstoreIndexCreator
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
+from langchain.retrievers.document_compressors import LLMChainFilter
+from langchain.retrievers import ContextualCompressionRetriever
 
 from typing import List
 from langchain_core.output_parsers import JsonOutputParser
@@ -23,37 +27,37 @@ os.environ["OPENAI_API_KEY"] = 'sk-c34fP5RBp8IrNjNP98ztT3BlbkFJcpoHnT1M7HYBpwApw
 def get_pdf_text(pdf_docs):
     text=""
     for pdf in pdf_docs:
-        pdf_reader= PdfReader(pdf)
+        pdf_reader = PdfReader(pdf)
         for page in pdf_reader.pages:
             text+= page.extract_text()
     return  text
-
-def get_web_text(web_url):
-    loader = WebBaseLoader(web_url)
-    text = loader.load()
-    print(type(text))
-    print(text)
-    return text
-
-#def get_csv_text(web_url):
-    # loader = CSVLoader(web_url)
-    # text = loader.load()
-    # print(type(text))
-    # print(text)
-    # return text
 
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_text(text)
     return chunks
 
+def get_web_docs(web_url):
+    loader = WebBaseLoader(web_url)
+    docs = loader.load()
+    return docs
 
-def get_pdf_vector_store(text_chunks):
+def get_csv_docs(csv_docs):
+    for csv in csv_docs:
+        temp_dir = tempfile.mkdtemp()
+        path = os.path.join(temp_dir, csv.name)
+        with open(path, "wb") as f:
+                f.write(csv.getvalue())
+        loader = CSVLoader(file_path=path)
+        docs = loader.load()
+    return docs
+
+def get_vector_store_from_text(text_chunks):
     embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
     
-def get_web_vector_store(documents):
+def get_vector_store_from_docs(documents):
     embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_documents(documents, embedding=embeddings)
     vector_store.save_local("faiss_index")
@@ -208,7 +212,9 @@ def user_input(user_question):
     elif category == 4:
         chain = get_document_chain()
         new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-        docs = new_db.similarity_search(user_question)
+        docs = new_db.similarity_search(user_question, k=5)
+
+        print(len(docs))
         response = chain.invoke(
         {"question": user_question, "input_documents":docs}
         , return_only_outputs=True
@@ -220,7 +226,6 @@ def user_input(user_question):
     else:
         print("default")
             
-    print(output)
     st.write("Reply: ", output)
 
 
@@ -237,20 +242,27 @@ def main():
 
     with st.sidebar:
         st.title("Menu:")
-        pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True)
-        if st.button("Submit & Process"):
+        pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True, type=["pdf"])
+        if st.button("Submit & Process", key=1):
             with st.spinner("Processing..."):
                 raw_text = get_pdf_text(pdf_docs)
                 text_chunks = get_text_chunks(raw_text)
-                get_pdf_vector_store(text_chunks)
+                get_vector_store_from_text(text_chunks)
                 st.success("Done")
+
+        csv_docs = st.file_uploader("Upload your CSV Files and Click on the Submit & Process Button", accept_multiple_files=True, type=["csv"])
+        if st.button("Submit & Process", key=2):
+            with st.spinner("Processing..."):
+                csv_docs = get_csv_docs(csv_docs)
+                get_vector_store_from_docs(csv_docs)
+                st.success("Done")        
         
         with st.form("web_uploader", clear_on_submit=False, border=False):
             url = st.text_input('URL', 'Enter url here')
             if st.form_submit_button(label="Submit & Process"):
                 with st.spinner("Processing..."):
-                    web_text = get_web_text(url)
-                    get_web_vector_store(web_text)
+                    web_docs = get_web_docs(url)
+                    get_vector_store_from_docs(web_docs)
                     st.success("Done")
 
 
