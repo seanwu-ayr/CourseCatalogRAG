@@ -67,3 +67,87 @@ Answer: The answer is not available in the context.
 Question: what will i learn in coen 20
 Answer: In COEN 20, you will learn about arithmetic and logic operations, branching and looping, stack operations, procedure calls, parameter passing, and interrupts. You will also learn C language programming, including pointers, memory management, stack frames, and interrupt processing. The prerequisite for this course is a grade of C- or better in CSEN/COEN 12 or CSCI 61. This course also has a corequisite: CSEN/COEN 20L.
 
+Question: hello
+Answer: Hello! How can I assist you today?
+
+Question: What professor teaches CHEM 182
+Answer: None
+
+Question: What professor teaches CHEM 182
+Answer: None
+
+Question: What is the prereq for COEN 12
+Answer: None
+
+Question: Hello again
+Answer: None
+
+Question: Hello
+Answer: None
+
+Question: Hello
+Answer: None
+
+Question: Hello
+Answer: None
+
+Question: Hello
+Answer: Hello! How can I assist you today?
+
+Question: Hello
+Answer: Hello! How can I assist you today?
+
+Question: What is the prereq for COEN 12
+Answer: The prerequisite for COEN 12 is a grade of C- or better in CSEN/COEN 11.
+
+Question: What professors teach CHEM 182
+Answer: The answer is not available in the context.
+
+Question: What professors teach ACTG 11
+Answer: The answer is not available in the context.
+
+Question: What professors teach ACTG 11
+Answer: The professor who teaches ACTG 11 is Haidan Li.
+
+Question: List three of the professors that teach ACTG 12
+Answer: The professors that teach ACTG 12 are Joseph Maglione, Joe Maglione, and Stephen Carter.
+
+Question: Where and when does AMTH 106 section 2 meet
+Answer: AMTH 106 section 2 meets in Rm 214 Kenna Hall on Mondays, Wednesdays, and Fridays from 9:15 AM to 10:20 AM.
+
+Question: What are the prereqs for Phys 33
+Answer: None
+
+Question: What is the prereq for COEN 12
+Answer: The answer is not available in the context.
+
+Question: What is the prereq for COEN 12
+Answer: The prerequisite for COEN 12 is a grade of C- or better in CSEN/COEN 11.
+
+Question: What are the prereqs for phys 33
+Answer: The context does not provide information on the prerequisites for PHYS 33.
+
+Question: What are the prereqs for phys 32
+Answer: The answer is not available in the context.
+
+Question: What are the prereqs for COEN 21
+Answer: The prerequisites for COEN 21 are not mentioned in the provided context.
+
+Question: What are the corequisites for COEN 21
+Answer: The corequisites for COEN 21 are ECEN/ELEN 21 and CSEN/COEN 21L.
+
+Question: What professors teach BIOL 1A
+Answer: The professors teaching BIOL 1A are Brody Sandel and Raphael Ritson-Williams.
+
+Question: When and where does CENG 20L section 2 meet
+Answer: CENG 20L section 2 meets on Thursdays from 2:15 PM to 5:00 PM at RM 1322 SCDI.
+
+Question: Is that class open
+Answer: The context does not specify which class the question is referring to.
+
+Question: Is CENG 20L section 1 open
+Answer: The answer is not available in the context.
+
+Question: Is CENG 20L section 2 open
+Answer: Yes, the CENG 20L section 2 is open.
+
