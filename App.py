@@ -187,7 +187,7 @@ def user_input(user_question):
     )
 
     category = json.loads(response["output_text"])["category"]
-    print(category)
+    print(f"prompt category: {category}")
 
     output = None
     
@@ -293,7 +293,7 @@ def main():
         if st.button("Process PDFs"):
             with st.spinner("Processing PDFs..."):
                 # Variable for the path, which could be either a directory or a single PDF file
-                pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # This can be a directory or a single PDF file
+                pdf_path = './SCU.pdf'  # This can be a directory or a single PDF file
                 
                 all_text = ""
                 
