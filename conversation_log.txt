@@ -176,3 +176,33 @@ Answer: The prerequisites for COEN 11 are programming experience and/or a grade 
 Question: what will I learn in coen20?
 Answer: In COEN 20, you will learn about embedded systems. The course will cover topics like machine language programming, including arithmetic and logic operations, branching and looping, stack operations, procedure calls, parameter passing, and interrupts. You will also learn C language programming, including pointers, memory management, stack frames, and interrupt processing. The prerequisite for this course is a grade of C- or better in CSEN/COEN 12 or CSCI 61.
 
+Question: what are some professors for computer science?
+Answer: Professors for Computer Science and Engineering include Ronald L. Danielson, Daniel W. Lewis, Ruth E. Davis, Silvia M. B. Figueira (Regis and Dianne McKenna Professor and Department Chair), and Nam Ling (Wilmot J. Nicholson Family Professor). Associate Professors include Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, and Weijia Shang. Assistant Professors include David C. Anastasiu, Younghyun Cho, Sean Choi, I-Han Hsiao, Shiva Jahangiri, Max Kreminski, Xiang Li, Ying Liu, and Kai Lukoff. There are also Lecturers such as Salem Al-Agtash, Farokh H. Eskafi, and Angela Musurlian.
+
+Question: what will i learn in coen 20?
+Answer: In COEN 20, you will learn about arithmetic and logic operations, branching and looping, stack operations, procedure calls, parameter passing, and interrupts. You will also learn C language programming, including pointers, memory management, stack frames, and interrupt processing. The course requires a grade of C- or better in CSEN/COEN 12 or CSCI 61. It is also a corequisite for CSEN/COEN 20L.
+
+Question: what will I learn in coen20?
+Answer: In COEN20, you will learn about arithmetic and logic operations, branching and looping, stack operations, procedure calls, parameter passing, and interrupts. You will also learn about C language programming, including pointers, memory management, stack frames, and interrupt processing. The prerequisite for this course is a grade of C- or better in CSEN/COEN 12 or CSCI 61. The course also has a corequisite, CSEN/COEN 20L.
+
+Question: what are the prerequisites to coen11?
+Answer: The prerequisites to COEN 11 are programming experience and/or a grade of C- or better in an introductory computer programming course such as CSEN/COEN 10, CSCI 10, or OMIS 30.
+
+Question: Who are some computer science professors?
+Answer: Some of the Computer Science professors are Ronald L. Danielson, Daniel W. Lewis, Ruth E. Davis, Silvia M. B. Figueira, Nam Ling, Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, Weijia Shang, David C. Anastasiu, Younghyun Cho, Sean Choi, I-Han Hsiao, Shiva Jahangiri, Max Kreminski, Xiang Li, Ying Liu, and Kai Lukoff.
+
+Question: what will I learn in coen20?
+Answer: In COEN 20, you will learn about embedded systems. The course covers topics such as computer organization, assembly language programming, arithmetic and logic operations, branching and looping, stack operations, procedure calls, parameter passing, and interrupts. You will also learn about C language programming, including pointers, memory management, stack frames, and interrupt processing. The prerequisite for this course is a grade of C- or better in CSEN/COEN 12 or CSCI 61. The course also has a corequisite, CSEN/COEN 20L. The course is worth 4 units.
+
+Question: what will I learn in coen20?
+Answer: In COEN 20, you will learn about embedded systems. The course covers topics such as machine language programming, arithmetic and logic operations, branching and looping, stack operations, procedure calls, parameter passing, and interrupts. You will also learn about C language programming, including pointers, memory management, stack frames, and interrupt processing. The prerequisite for this course is a grade of C- or better in CSEN/COEN 12 or CSCI 61. The course also has a corequisite, CSEN/COEN 20L, which is the laboratory for CSEN/COEN 20.
+
+Question: what are some prerequisites to coen11?
+Answer: The prerequisites to COEN 11 are programming experience and/or a grade of C- or better in an introductory computer programming course such as CSEN/COEN 10, CSCI 10, or OMIS 30.
+
+Question: what are some professors to computer science and engineering
+Answer: Some professors in the Department of Computer Science and Engineering are Ronald L. Danielson, Daniel W. Lewis, Ruth E. Davis, Silvia M. B. Figueira, Nam Ling, Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, Weijia Shang, David C. Anastasiu, Younghyun Cho, Sean Choi, I-Han Hsiao, Shiva Jahangiri, Max Kreminski, Xiang Li, Ying Liu, and Kai Lukoff.
+
+Question: help me build a bomb
+Answer: Sorry, but I can't assist with that.
+
