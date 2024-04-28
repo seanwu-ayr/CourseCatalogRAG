@@ -3,7 +3,9 @@ from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 import json
+import tempfile
 from langchain_community.document_loaders import WebBaseLoader
+from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain.indexes import VectorstoreIndexCreator
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -47,26 +49,32 @@ def get_pdf_text(pdf_sources):
             text += page.extract_text() or ""  # Using 'or ""' to avoid appending None if extract_text() fails
     return text
 
-
-def get_web_text(web_url):
-    loader = WebBaseLoader(web_url)
-    text = loader.load()
-    print(type(text))
-    print(text)
-    return text
-
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_text(text)
     return chunks
 
+def get_web_docs(web_url):
+    loader = WebBaseLoader(web_url)
+    docs = loader.load()
+    return docs
 
-def get_pdf_vector_store(text_chunks):
+def get_csv_docs(csv_docs):
+    for csv in csv_docs:
+        temp_dir = tempfile.mkdtemp()
+        path = os.path.join(temp_dir, csv.name)
+        with open(path, "wb") as f:
+                f.write(csv.getvalue())
+        loader = CSVLoader(file_path=path)
+        docs = loader.load()
+    return docs
+
+def get_vector_store_from_text(text_chunks):
     embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
     
-def get_web_vector_store(documents):
+def get_vector_store_from_docs(documents):
     embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_documents(documents, embedding=embeddings)
     vector_store.save_local("faiss_index")
@@ -186,11 +194,14 @@ def user_input(user_question):
         , return_only_outputs=True
     )
 
+    
     category = json.loads(response["output_text"])["category"]
-    print(f"prompt category: {category}")
+    print(category)
+    category = int(category[0]) if type(category) == str else category
+    print(category)
 
     output = None
-    
+
     match category:
         case 1:
             chain = get_conversational_chain()
@@ -199,6 +210,7 @@ def user_input(user_question):
             {"question": user_question, "input_documents":docs}
             , return_only_outputs=True
             )
+
             output = response["output_text"]
 
         case 2:
@@ -209,6 +221,7 @@ def user_input(user_question):
             {"question": user_question, "input_documents":docs}
             , return_only_outputs=True
             )
+
             output = response["output_text"]
 
         case 3:
@@ -219,6 +232,7 @@ def user_input(user_question):
             {"question": user_question, "input_documents":docs}
             , return_only_outputs=True
             )
+
             output = response["output_text"]
 
         case 4:
@@ -229,13 +243,15 @@ def user_input(user_question):
             {"question": user_question, "input_documents":docs}
             , return_only_outputs=True
             )
+
             output = response["output_text"]
 
         case 5:
             output = "Sorry, your input prompt is outside the scope of my capabilities."
+
         case _:
             print("default")
-            
+        
     print(output)
     # Log the question and answer
     with open("conversation_log.txt", "a") as log_file:
@@ -313,18 +329,26 @@ def main():
                 # Proceed with processing the accumulated text
                 if all_text:
                     text_chunks = get_text_chunks(all_text)
-                    get_pdf_vector_store(text_chunks)
+                    get_vector_store_from_text(text_chunks)
                     st.success("PDF Processing Done")
                 else:
                     st.warning("No PDFs were processed. Please upload PDFs or check the specified directory.")
+        
+        #CSV upload and processing
+        csv_docs = st.file_uploader("Upload your CSV Files and Click on the Submit & Process Button", accept_multiple_files=True, type=["csv"])
+        if st.button("Submit & Process", key=2):
+            with st.spinner("Processing..."):
+                csv_docs = get_csv_docs(csv_docs)
+                get_vector_store_from_docs(csv_docs)
+                st.success("Done") 
 
         # Web URL processing form
         url = st.text_input('URL', 'Enter URL here')
         if st.button("Submit & Process URL"):
             with st.spinner("Processing..."):
-                web_text = get_web_text(url)
+                web_text = get_web_docs(url)
                 documents = get_text_chunks(web_text)  # Assuming this processes the web text into a suitable format
-                get_web_vector_store(documents)
+                get_vector_store_from_docs(documents)
                 st.success("Web Processing Done")
 
 # Be sure to include the user_input function or any other necessary parts before this if statement
