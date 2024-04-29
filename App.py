@@ -18,16 +18,40 @@ from langchain.retrievers import ContextualCompressionRetriever
 from typing import List
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
+import transformers as tr
 
 from dotenv import load_dotenv
 
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = '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'
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
-def get_pdf_text(pdf_docs):
-    text=""
-    for pdf in pdf_docs:
-        pdf_reader = PdfReader(pdf)
+model_path = "prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
+classifier = tr.pipeline(task="text-classification", model=model_path)
+
+# def read_pdf_from_path(path):
+#     if os.path.isdir(path):  # If the path is a directory
+#         pdf_files = [f for f in os.listdir(path) if f.endswith('.pdf')]
+#         pdf_docs = [os.path.join(path, f) for f in pdf_files]
+#     elif os.path.isfile(path) and path.endswith('.pdf'):  # If the path is a single PDF file
+#         pdf_docs = [path]  # Wrap the single file path in a list
+#     else:
+#         raise ValueError("Provided path is neither a directory containing PDFs nor a PDF file.")
+#     return get_pdf_text(pdf_docs)
+
+
+def get_pdf_text(pdf_sources):
+    text = ""
+    for source in pdf_sources:
+        # If the source is a file path, open it as a PDF file
+        if isinstance(source, str) and os.path.isfile(source):
+            pdf_reader = PdfReader(source)
+        # If the source is an uploaded file, it's already a file-like object
+        elif hasattr(source, "read"):  # Checking if source is a file-like object
+            pdf_reader = PdfReader(source)
+        else:
+            continue  # If neither, skip to the next source
+        
         for page in pdf_reader.pages:
             text+= page.extract_text()
     return  text
@@ -168,26 +192,45 @@ def get_conversational_chain():
 
 
 def user_input(user_question):
-    chain0 = get_LLM_chain()
+    # chain0 = get_LLM_chain()
 
     embeddings = OpenAIEmbeddings()
-    
-    response = chain0.invoke(
-        {"question": user_question, "input_documents": {}}
-        , return_only_outputs=True
-    )
 
-    category = json.loads(response["output_text"])["category"]
-    print(category)
+    category = classifier(user_question)
+
+    labels = {0: "Phatic Communication",
+              1: "General Advice",
+              2: "Dates/Times",
+              3: "Specific Course Info",
+              5: "Miscellanious"
+            }
+    category = int(category[0]['label'])
     
-    if category == 1:
-        chain = get_conversational_chain()
-        docs = {}
-        response = chain.invoke(
-        {"question": user_question, "input_documents":docs}
-        , return_only_outputs=True
-        )
-        output = response["output_text"]
+    print(category, labels[category])
+    
+    # response = chain0.invoke(
+    #     {"question": user_question, "input_documents": {}}
+    #     , return_only_outputs=True
+    # )
+
+    
+    # category = json.loads(response["output_text"])["category"]
+    # print(category)
+    # category = int(category[0]) if type(category) == str else category
+    # print(category)
+
+    output = None
+
+    match category:
+        case 1:
+            chain = get_conversational_chain()
+            docs = {}
+            response = chain.invoke(
+            {"question": user_question, "input_documents":docs}
+            , return_only_outputs=True
+            )
+
+            output = response["output_text"]
 
     elif category == 2:
         chain = get_document_chain()            
@@ -242,14 +285,38 @@ def main():
 
     with st.sidebar:
         st.title("Menu:")
-        pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True, type=["pdf"])
-        if st.button("Submit & Process", key=1):
-            with st.spinner("Processing..."):
-                raw_text = get_pdf_text(pdf_docs)
-                text_chunks = get_text_chunks(raw_text)
-                get_vector_store_from_text(text_chunks)
-                st.success("Done")
+        # PDF Upload and Process PDFs button logic updated
+        uploaded_pdfs = st.file_uploader("Upload a PDF", type=['pdf'], accept_multiple_files=True)
 
+        if st.button("Process PDFs"):
+            with st.spinner("Processing PDFs..."):
+                # Variable for the path, which could be either a directory or a single PDF file
+                pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # This can be a directory or a single PDF file
+                
+                all_text = ""
+                
+                # Check if the path is a directory and process all PDFs within it
+                if os.path.isdir(pdf_path):
+                    pdf_docs = [os.path.join(pdf_path, f) for f in os.listdir(pdf_path) if f.endswith('.pdf')]
+                    all_text += get_pdf_text(pdf_docs)
+                
+                # If it's not a directory, check if it's a file and process the single PDF
+                elif os.path.isfile(pdf_path) and pdf_path.endswith('.pdf'):
+                    all_text += get_pdf_text([pdf_path])
+                
+                # Process uploaded PDFs
+                if uploaded_pdfs:
+                    all_text += get_pdf_text(uploaded_pdfs)  # Ensure get_pdf_text can handle uploaded file objects
+                
+                # Proceed with processing the accumulated text
+                if all_text:
+                    text_chunks = get_text_chunks(all_text)
+                    get_vector_store_from_text(text_chunks)
+                    st.success("PDF Processing Done")
+                else:
+                    st.warning("No PDFs were processed. Please upload PDFs or check the specified directory.")
+        
+        #CSV upload and processing
         csv_docs = st.file_uploader("Upload your CSV Files and Click on the Submit & Process Button", accept_multiple_files=True, type=["csv"])
         if st.button("Submit & Process", key=2):
             with st.spinner("Processing..."):

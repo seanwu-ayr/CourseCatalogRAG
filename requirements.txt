@@ -5,4 +5,12 @@ langchain_openai
 langchain_community
 PyPDF2
 faiss-cpu
+<<<<<<< Updated upstream
 bs4
+=======
+bs4
+chromadb
+lark
+transformers
+torch
+>>>>>>> Stashed changes
