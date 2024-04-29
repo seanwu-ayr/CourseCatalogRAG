@@ -5,18 +5,8 @@ langchain_openai
 langchain_community
 PyPDF2
 faiss-cpu
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-bs4
-=======
 bs4
 chromadb
 lark
 transformers
 torch
->>>>>>> Stashed changes
-=======
-bs4
-chromadb
-lark
->>>>>>> ca4a3945bea56900bce3a8291f70899a1538d578
