@@ -151,6 +151,7 @@ Answer: The answer is not available in the context.
 Question: Is CENG 20L section 2 open
 Answer: Yes, the CENG 20L section 2 is open.
 
+<<<<<<< HEAD
 Question: What are the prereqs for COEN 12?
 Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.
 
@@ -172,3 +173,5 @@ Answer: The requirements for a minor in Computer Science and Engineering at Sant
 Question: What are the dates for course registration
 Answer: The answer is not available in the context.
 
+=======
+>>>>>>> ca4a3945bea56900bce3a8291f70899a1538d578
