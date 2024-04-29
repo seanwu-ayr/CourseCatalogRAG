@@ -202,7 +202,7 @@ def user_input(user_question):
               1: "General Advice",
               2: "Dates/Times",
               3: "Specific Course Info",
-              5: "Miscellanious"
+              4: "Miscellanious"
             }
     category = int(category[0]['label'])
     
@@ -222,7 +222,7 @@ def user_input(user_question):
     output = None
 
     match category:
-        case 1:
+        case 0:
             chain = get_conversational_chain()
             docs = {}
             response = chain.invoke(
@@ -232,8 +232,19 @@ def user_input(user_question):
 
             output = response["output_text"]
 
-        case 2:
+        case 1:
             chain = get_document_chain()            
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+            docs = new_db.similarity_search(user_question)
+            response = chain.invoke(
+            {"question": user_question, "input_documents":docs}
+            , return_only_outputs=True
+            )
+
+            output = response["output_text"]
+
+        case 2:
+            chain = get_document_chain()
             new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
@@ -255,17 +266,6 @@ def user_input(user_question):
             output = response["output_text"]
 
         case 4:
-            chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-
-            output = response["output_text"]
-
-        case 5:
             output = "Sorry, your input prompt is outside the scope of my capabilities."
 
         case _:
