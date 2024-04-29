@@ -24,10 +24,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = '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'
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
-model_path = "prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
-classifier = tr.pipeline(task="text-classification", model=model_path)
 
 # def read_pdf_from_path(path):
 #     if os.path.isdir(path):  # If the path is a directory
@@ -53,8 +49,8 @@ def get_pdf_text(pdf_sources):
             continue  # If neither, skip to the next source
         
         for page in pdf_reader.pages:
-            text+= page.extract_text()
-    return  text
+            text += page.extract_text() or ""  # Using 'or ""' to avoid appending None if extract_text() fails
+    return text
 
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -195,29 +191,17 @@ def user_input(user_question):
     # chain0 = get_LLM_chain()
 
     embeddings = OpenAIEmbeddings()
-
-    category = classifier(user_question)
-
-    labels = {0: "Phatic Communication",
-              1: "General Advice",
-              2: "Dates/Times",
-              3: "Specific Course Info",
-              5: "Miscellanious"
-            }
-    category = int(category[0]['label'])
     
-    print(category, labels[category])
-    
-    # response = chain0.invoke(
-    #     {"question": user_question, "input_documents": {}}
-    #     , return_only_outputs=True
-    # )
+    response = chain0.invoke(
+        {"question": user_question, "input_documents": {}}
+        , return_only_outputs=True
+    )
 
     
-    # category = json.loads(response["output_text"])["category"]
-    # print(category)
-    # category = int(category[0]) if type(category) == str else category
-    # print(category)
+    category = json.loads(response["output_text"])["category"]
+    print(category)
+    category = int(category[0]) if type(category) == str else category
+    print(category)
 
     output = None
 
@@ -232,57 +216,94 @@ def user_input(user_question):
 
             output = response["output_text"]
 
-    elif category == 2:
-        chain = get_document_chain()            
-        new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-        docs = new_db.similarity_search(user_question)
-        response = chain.invoke(
-        {"question": user_question, "input_documents":docs}
-        , return_only_outputs=True
-        )
-        output = response["output_text"]
+        case 2:
+            chain = get_document_chain()            
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+            docs = new_db.similarity_search(user_question)
+            response = chain.invoke(
+            {"question": user_question, "input_documents":docs}
+            , return_only_outputs=True
+            )
 
-    elif category == 3:
-        chain = get_document_chain()
-        new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-        docs = new_db.similarity_search(user_question)
-        response = chain.invoke(
-        {"question": user_question, "input_documents":docs}
-        , return_only_outputs=True
-        )
-        output = response["output_text"]
+            output = response["output_text"]
 
-    elif category == 4:
-        chain = get_document_chain()
-        new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-        docs = new_db.similarity_search(user_question, k=5)
+        case 3:
+            chain = get_document_chain()
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+            docs = new_db.similarity_search(user_question)
+            response = chain.invoke(
+            {"question": user_question, "input_documents":docs}
+            , return_only_outputs=True
+            )
 
-        print(len(docs))
-        response = chain.invoke(
-        {"question": user_question, "input_documents":docs}
-        , return_only_outputs=True
-        )
-        output = response["output_text"]
+            output = response["output_text"]
 
-    elif category == 5:
-        output = "Sorry, your input prompt is outside the scope of my capabilities."
-    else:
-        print("default")
-            
-    st.write("Reply: ", output)
+        case 4:
+            chain = get_document_chain()
+            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+            docs = new_db.similarity_search(user_question)
+            response = chain.invoke(
+            {"question": user_question, "input_documents":docs}
+            , return_only_outputs=True
+            )
 
+            output = response["output_text"]
 
+        case 5:
+            output = "Sorry, your input prompt is outside the scope of my capabilities."
 
+        case _:
+            print("default")
+        
+    print(output)
+    # Log the question and answer
+    with open("conversation_log.txt", "a") as log_file:
+        log_file.write(f"Question: {user_question}\nAnswer: {output}\n\n")
+    st.session_state.conversation.append(f"Reply: {output}")  # Append the answer to the conversation history
 
 def main():
     st.set_page_config("Chat PDF")
     st.header("Santa Clara Course Catalog LLM")
 
-    user_question = st.text_input("Searching the Courses just got easy!")
+    if 'conversation' not in st.session_state:
+        st.session_state.conversation = []
+    
+    # Ensure 'user_question' is initialized in session_state
+    if 'user_question' not in st.session_state:
+        st.session_state.user_question = ''
 
-    if user_question:
-        user_input(user_question)
+    # A callback function to update 'user_question' in session_state
+    def update_user_question():
+        st.session_state.user_question = st.session_state.new_user_question
 
+    # Input for user questions with an on_change callback
+    st.text_input("Ask your question here:", key="new_user_question", on_change=update_user_question)
+
+    if st.button("Ask"):
+        if st.session_state.user_question:  # Now safely using 'user_question' from session_state
+            st.session_state.conversation.append(f"You: {st.session_state.user_question}")
+            user_input(st.session_state.user_question)
+
+    # Inject custom CSS for conversation history
+    custom_css = """
+    <style>
+        .stExpander > div > div:first-child {
+            max-height: 500px; /* Adjust based on your needs */
+            overflow-y: auto;
+        }
+        .stMarkdown {
+            word-wrap: break-word;
+        }
+    </style>
+    """
+    st.markdown(custom_css, unsafe_allow_html=True)
+
+    # Display the conversation history in a scrollable container
+    with st.expander("Conversation History", expanded=True):
+        for message in st.session_state.conversation:
+            st.markdown(message)
+
+    # Sidebar for additional functionalities
     with st.sidebar:
         st.title("Menu:")
         # PDF Upload and Process PDFs button logic updated
@@ -291,7 +312,7 @@ def main():
         if st.button("Process PDFs"):
             with st.spinner("Processing PDFs..."):
                 # Variable for the path, which could be either a directory or a single PDF file
-                pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # This can be a directory or a single PDF file
+                pdf_path = './SCU.pdf'  # This can be a directory or a single PDF file
                 
                 all_text = ""
                 
@@ -322,16 +343,17 @@ def main():
             with st.spinner("Processing..."):
                 csv_docs = get_csv_docs(csv_docs)
                 get_vector_store_from_docs(csv_docs)
-                st.success("Done")        
-        
-        with st.form("web_uploader", clear_on_submit=False, border=False):
-            url = st.text_input('URL', 'Enter url here')
-            if st.form_submit_button(label="Submit & Process"):
-                with st.spinner("Processing..."):
-                    web_docs = get_web_docs(url)
-                    get_vector_store_from_docs(web_docs)
-                    st.success("Done")
+                st.success("Done") 
 
+        # Web URL processing form
+        url = st.text_input('URL', 'Enter URL here')
+        if st.button("Submit & Process URL"):
+            with st.spinner("Processing..."):
+                web_text = get_web_docs(url)
+                documents = get_text_chunks(web_text)  # Assuming this processes the web text into a suitable format
+                get_vector_store_from_docs(documents)
+                st.success("Web Processing Done")
 
+# Be sure to include the user_input function or any other necessary parts before this if statement
 if __name__ == "__main__":
     main()
