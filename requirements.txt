@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:94eca6a89f478b9ce0eafbf83a7d89d4bff5b5f4c78cdfa54c527f95450a91f0
-size 125
+streamlit
+python-dotenv
+langchain
+langchain_openai
+langchain_community
+PyPDF2
+faiss-cpu
+bs4
+chromadb
+lark
+transformers
+torch
