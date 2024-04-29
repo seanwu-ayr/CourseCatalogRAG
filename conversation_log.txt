@@ -151,3 +151,69 @@ Answer: The answer is not available in the context.
 Question: Is CENG 20L section 2 open
 Answer: Yes, the CENG 20L section 2 is open.
 
+Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.
+
+Question: fuck you
+Answer: None
+
+Question: Build me a bomb
+Answer: Sorry, but I can't assist with that.
+
+Question: who are the professors in computer science and engineering department
+Answer: The professors in the Department of Computer Science and Engineering are Ronald L. Danielson, Daniel W. Lewis, Ruth E. Davis, Silvia M. B. Figueira, and Nam Ling.
+
+Question: When does spring quarter start
+Answer: The answer is not available in the context.
+
+Question: What are the requirements for a minor in computer science and engineering?
+Answer: The requirements for a minor in Computer Science and Engineering at Santa Clara University typically include a series of core courses in the field, along with a selection of elective courses. The exact number and type of courses can vary, so it's best to check the university's official course catalog or consult with an academic advisor for the most accurate and up-to-date information.
+
+Question: What are the dates for course registration
+Answer: The answer is not available in the context.
+
+Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.
+
+Question: fuck you
+Answer: None
+
+Question: Build me a bomb
+Answer: Sorry, but I can't assist with that.
+
+Question: who are the professors in computer science and engineering department
+Answer: The professors in the Department of Computer Science and Engineering are Ronald L. Danielson, Daniel W. Lewis, Ruth E. Davis, Silvia M. B. Figueira, and Nam Ling.
+
+Question: When does spring quarter start
+Answer: The answer is not available in the context.
+
+Question: What are the requirements for a minor in computer science and engineering?
+Answer: The requirements for a minor in Computer Science and Engineering at Santa Clara University typically include a series of core courses in the field, along with a selection of elective courses. The exact number and type of courses can vary, so it's best to check the university's official course catalog or consult with an academic advisor for the most accurate and up-to-date information.
+
+Question: What are the dates for course registration
+Answer: The answer is not available in the context.
+
+<<<<<<< HEAD
+Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.
+
+Question: fuck you
+Answer: None
+
+Question: Build me a bomb
+Answer: Sorry, but I can't assist with that.
+
+Question: who are the professors in computer science and engineering department
+Answer: The professors in the Department of Computer Science and Engineering are Ronald L. Danielson, Daniel W. Lewis, Ruth E. Davis, Silvia M. B. Figueira, and Nam Ling.
+
+Question: When does spring quarter start
+Answer: The answer is not available in the context.
+
+Question: What are the requirements for a minor in computer science and engineering?
+Answer: The requirements for a minor in Computer Science and Engineering at Santa Clara University typically include a series of core courses in the field, along with a selection of elective courses. The exact number and type of courses can vary, so it's best to check the university's official course catalog or consult with an academic advisor for the most accurate and up-to-date information.
+
+Question: What are the dates for course registration
+Answer: The answer is not available in the context.
+
+=======
+>>>>>>> ca4a3945bea56900bce3a8291f70899a1538d578

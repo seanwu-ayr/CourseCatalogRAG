@@ -12,15 +12,22 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
+from langchain.retrievers.document_compressors import LLMChainFilter
+from langchain.retrievers import ContextualCompressionRetriever
 
 from typing import List
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
+import transformers as tr
 
 from dotenv import load_dotenv
 
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = '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'
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
+model_path = "prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
+classifier = tr.pipeline(task="text-classification", model=model_path)
 
 # def read_pdf_from_path(path):
 #     if os.path.isdir(path):  # If the path is a directory
@@ -87,9 +94,9 @@ def get_LLM_chain():
 
     prompt_template = """
 You are an AI tool that works as an initial module of an AI college advisor LLM that handles questions from students at Santa Clara University.
- Your only job is to categorize a prompt into what type of request they are, so they can be handled separately later with different actions.
-   The possible prompt categories are listed below. If a prompt branch does not fit into any of the first listed categories,
-     place it into the 'other' category (i.e. category 5). Return the structured ouput JSON with the numerical value and description associated with the propper prompt category.
+Your only job is to categorize a prompt into what type of request it is, so it can be handled separately later with different pipelines.
+The possible prompt categories are listed below. If a prompt branch does not fit into any of the first listed categories,
+place it into the 'other' category (i.e. category 5). Return the structured ouput JSON with the numerical value and description associated with the propper prompt category.
 
 Prompt category key:
   category 1: Greetings or other phatic communication
@@ -185,20 +192,32 @@ def get_conversational_chain():
 
 
 def user_input(user_question):
-    chain0 = get_LLM_chain()
+    # chain0 = get_LLM_chain()
 
     embeddings = OpenAIEmbeddings()
+
+    category = classifier(user_question)
+
+    labels = {0: "Phatic Communication",
+              1: "General Advice",
+              2: "Dates/Times",
+              3: "Specific Course Info",
+              5: "Miscellanious"
+            }
+    category = int(category[0]['label'])
     
-    response = chain0.invoke(
-        {"question": user_question, "input_documents": {}}
-        , return_only_outputs=True
-    )
+    print(category, labels[category])
+    
+    # response = chain0.invoke(
+    #     {"question": user_question, "input_documents": {}}
+    #     , return_only_outputs=True
+    # )
 
     
-    category = json.loads(response["output_text"])["category"]
-    print(category)
-    category = int(category[0]) if type(category) == str else category
-    print(category)
+    # category = json.loads(response["output_text"])["category"]
+    # print(category)
+    # category = int(category[0]) if type(category) == str else category
+    # print(category)
 
     output = None
 
@@ -309,7 +328,7 @@ def main():
         if st.button("Process PDFs"):
             with st.spinner("Processing PDFs..."):
                 # Variable for the path, which could be either a directory or a single PDF file
-                pdf_path = './SCU.pdf'  # This can be a directory or a single PDF file
+                pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # This can be a directory or a single PDF file
                 
                 all_text = ""
                 
