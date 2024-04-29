@@ -8,3 +8,5 @@ faiss-cpu
 bs4
 chromadb
 lark
+transformers
+torch
