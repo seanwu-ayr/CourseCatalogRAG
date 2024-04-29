@@ -217,3 +217,15 @@ Answer: The answer is not available in the context.
 
 =======
 >>>>>>> ca4a3945bea56900bce3a8291f70899a1538d578
+Question: How are you
+Answer: None
+
+Question: Hi, how are you?
+Answer: Hello! As an AI, I don't have feelings, but I'm here and ready to assist you. How can I help you today?
+
+Question: Yo what's uppp!!!
+Answer: Hello! I'm here to help you with any questions or information you need regarding Santa Clara University. How can I assist you today?
+
+Question: That's a massive W tbh
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
