@@ -24,6 +24,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = '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'
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
+model_path = "prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
+classifier = tr.pipeline(task="text-classification", model=model_path)
 
 # def read_pdf_from_path(path):
 #     if os.path.isdir(path):  # If the path is a directory
@@ -191,17 +195,29 @@ def user_input(user_question):
     # chain0 = get_LLM_chain()
 
     embeddings = OpenAIEmbeddings()
+
+    category = classifier(user_question)
+
+    labels = {0: "Phatic Communication",
+              1: "General Advice",
+              2: "Dates/Times",
+              3: "Specific Course Info",
+              5: "Miscellanious"
+            }
+    category = int(category[0]['label'])
     
-    response = chain0.invoke(
-        {"question": user_question, "input_documents": {}}
-        , return_only_outputs=True
-    )
+    print(category, labels[category])
+    
+    # response = chain0.invoke(
+    #     {"question": user_question, "input_documents": {}}
+    #     , return_only_outputs=True
+    # )
 
     
-    category = json.loads(response["output_text"])["category"]
-    print(category)
-    category = int(category[0]) if type(category) == str else category
-    print(category)
+    # category = json.loads(response["output_text"])["category"]
+    # print(category)
+    # category = int(category[0]) if type(category) == str else category
+    # print(category)
 
     output = None
 
@@ -312,7 +328,7 @@ def main():
         if st.button("Process PDFs"):
             with st.spinner("Processing PDFs..."):
                 # Variable for the path, which could be either a directory or a single PDF file
-                pdf_path = './SCU.pdf'  # This can be a directory or a single PDF file
+                pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # This can be a directory or a single PDF file
                 
                 all_text = ""
                 
