@@ -25,9 +25,7 @@ from dotenv import load_dotenv
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = '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'
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
-model_path = "prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
-classifier = tr.pipeline(task="text-classification", model=model_path)
+os.environ["BERT_PATH"] = "prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
 
 # def read_pdf_from_path(path):
 #     if os.path.isdir(path):  # If the path is a directory
@@ -196,6 +194,7 @@ def user_input(user_question):
 
     embeddings = OpenAIEmbeddings()
 
+    classifier = tr.pipeline(task="text-classification", model=os.environ["BERT_PATH"])
     category = classifier(user_question)
 
     labels = {0: "Phatic Communication",
@@ -233,15 +232,7 @@ def user_input(user_question):
             output = response["output_text"]
 
         case 1:
-            chain = get_document_chain()            
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-
-            output = response["output_text"]
+            output = "Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/"
 
         case 2:
             chain = get_document_chain()
@@ -292,14 +283,18 @@ def main():
     def update_user_question():
         st.session_state.user_question = st.session_state.new_user_question
 
-    # Input for user questions with an on_change callback
-    st.text_input("Ask your question here:", key="new_user_question", on_change=update_user_question)
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        # Input for user questions with an on_change callback
+        st.text_input("Ask your question here:", key="new_user_question", on_change=update_user_question)
 
-    if st.button("Ask"):
-        if st.session_state.user_question:  # Now safely using 'user_question' from session_state
-            st.session_state.conversation.append(f"You: {st.session_state.user_question}")
-            user_input(st.session_state.user_question)
-
+    with col2:
+        if st.button("Ask", type="primary"):
+            if st.session_state.user_question:  # Now safely using 'user_question' from session_state
+                st.session_state.conversation.append(f"You: {st.session_state.user_question}")
+                user_input(st.session_state.user_question)
+        
+        st.markdown("<style>button[kind='primary'] {margin-top: 29px;}</style>", unsafe_allow_html=True)
     # Inject custom CSS for conversation history
     custom_css = """
     <style>
