@@ -229,3 +229,30 @@ Answer: Hello! I'm here to help you with any questions or information you need r
 Question: That's a massive W tbh
 Answer: Sorry, your input prompt is outside the scope of my capabilities.
 
+Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11.
+
+Question: What advice would you give a freshman ECEN student
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: What courses should a sophomore COEN major take fall quarter according to the 4-year plan
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: What math course should a sophomore COEN major take fall quarter according to the 4-year plan
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: Should a sophomore COEN major take MATH 14 fall quarter according to the 4-year plan
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: Should a sophomore COEN major take MATH 14 fall quarter
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: What are some math courses for a sophomore COEN major to take in winter quarter
+Answer: The answer is not available in the context.
+
+Question: What are some prerequisites to Phys 32
+Answer: The context does not provide information on the prerequisites to PHYS 32.
+
+Question: What are some prerequisites to COEN 20
+Answer: The prerequisites for COEN 20 are a grade of C- or better in CSEN/COEN 11.
+
