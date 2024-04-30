@@ -160,3 +160,33 @@ Answer: COEN11 is a course titled "Advanced Programming". It is a part of the Co
 Question: what are the prerequisites to coen11
 Answer: The context does not provide information on the prerequisites for the course COEN11.
 
+Question: what are the prerequisites to coen11
+Answer: The prerequisites to COEN11 Advanced Programming are previous programming experience and/or a grade of C- or better in an introductory computer programming course such as COEN 10, CSCI 10, or OMIS 30.
+
+Question: what are the major requirements for accounting?
+Answer: The major requirements for accounting include fulfilling undergraduate Core Curriculum and Leavey School of Business requirements for the bachelor of science in commerce. Students majoring in accounting must complete the following departmental requirements:
+
+- ACTG 120
+- ACTG 130, 131, 132, 134, 135, 136, and 138
+
+Note: Accounting majors may use ACTG 134 to satisfy both the information systems requirement in the Leavey School of Business curriculum and the Science, Technology & Society requirement in the 2009 University Core.
+
+Question: What will I learn in coen19?
+Answer: In COEN19, you will learn about Discrete Mathematics. The topics covered include Predicate logic, methods of proof, sets, functions, sequences and summations, modular arithmetic, cardinality, induction, elementary combinatorial analysis, recursion, and relations.
+
+Question: list all professors in computer science department
+Answer: Professors Emeritus: Ronald L. Danielson, Daniel W. Lewis
+Professors: Ruth E. Davis, Silvia M. B. Figueira (Regis and Dianne McKenna Professor and Department Chair), Nam Ling (Wilmot J. Nicholson Family Professor)
+Associate Professors: Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, Weijia Shang
+Assistant Professors: David C. Anastasiu, Younghyun Cho, Sean Choi, I-Han Hsiao, Shiva Jahangiri, Max Kreminski, Xiang Li, Ying Liu, Kai Lukoff
+Lecturers: Salem Al-Agtash, Farokh H. Eskafi, Angela Musurlian
+
+Question: when will fall 2023 classes begin?
+Answer: Fall 2023 classes will begin on September 18th.
+
+Question: when is last day to change grade to p/np in spring 2024?
+Answer: The last day to declare P/NP grading option in Spring 2024 is April 26.
+
+Question: show me a four year plan
+Answer: Answer is not available in the context.
+
