@@ -151,3 +151,12 @@ Answer: The answer is not available in the context.
 Question: Is CENG 20L section 2 open
 Answer: Yes, the CENG 20L section 2 is open.
 
+Question: que es COEN 11?
+Answer: The answer is not available in the context.
+
+Question: que es COEN11?
+Answer: COEN11 is a course titled "Advanced Programming". It is a part of the Computer Science and Engineering subject. The course number is 11 and it has multiple sections. The course is instructed by Angela Musurlian and Michael Schimpf for different sections. The course is delivered in-person and follows a lecture format. It is a part of the "Pathways :: The Digital Age" course tag. The course starts on 1/8/2024 and ends on 3/17/2024, taking place during the Winter 2024 Quarter.
+
+Question: what are the prerequisites to coen11
+Answer: The context does not provide information on the prerequisites for the course COEN11.
+
