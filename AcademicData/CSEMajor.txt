@@ -1,0 +1,47 @@
+Computer Science and Engineering Major Requirements Computer Science and Engineering Major Requirements 
+Bachelor of Science in Computer Science and Engineering
+In addition to fulfilling the undergraduate Core Curriculum requirements for a bachelor of science degree in the engineering school, students majoring in computer science and engineering must complete a minimum of 189 units and the following departmental requirements (together with associated labs):
+English
+ENGL 181
+Mathematics and Natural Science
+MATH 11, 12, 13, 14
+AMTH 106 (or MATH 22) or an advisor-approved mathematics or natural science elective*
+AMTH 108
+MATH 53 or CSCI 166 or AMTH 118
+CHEM 11 or CHEM 11T or an advisor-approved natural science elective*
+PHYS 31, 32, 33
+*Pre-approved replacements for CHEM 11: AP Biology (score of 4 or 5), AP Environmental Science (score of 4 or 5), BIOL 18, 21, 22, CHEM 1, ENVS 21, and PHYS 34; pre-approved substitutions for AMTH 106: CHEM 12, MATH 101–178, or any CHEM 11 replacement (if not used to replace CHEM 11).
+Engineering
+ENGR 1
+ECEN/ELEN 50, 153
+CSEN/COEN10 (or demonstrated equivalent programming proficiency)
+CSEN/COEN 11, 12, 19, 20, 21, 79, 122, 146, 171, 174, 175, 177, 179
+CSEN/COEN 194 (or ENGR 194), CSEN/COEN 195 (or ENGR 195), CSEN/COEN 196 (or ENGR 196)
+Computer Science and Engineering Electives
+Three upper-division courses (totaling at least 12 units) selected from CSEN/COEN 101–180, ECEN/ELEN 115, or 133, in an emphasis area selected in consultation with an academic advisor
+Note: 6 units of CSEN/COEN 193 or 4 units of CSEN/COEN 199 may be used as one elective, and at most one upper-division course from another department may be used as an elective, with advisor approval.
+Educational Enrichment Electives
+An educational enrichment experience selected from one of the following options:
+8 or more units in a study abroad program that does not duplicate other coursework
+Admission to one of the school’s master’s degree programs and completion of at least the first 12 units of that program prior to completion of the undergraduate degree
+Undergraduate research with completion of 6 or more units of CSEN/COEN 193 (cannot also be used to satisfy a CSEN/COEN elective)
+12 or more units approved by an academic advisor. The courses must be part of a theme or be in the same department, and may not also be used to satisfy other requirements of the student’s primary major. 
+Bachelor of Science in Web Design and Engineering
+In addition to fulfilling the undergraduate Core Curriculum requirements for a bachelor of science degree in the engineering school, students majoring in web design and engineering must complete a minimum of 175 units and the following departmental requirements (together with associated labs):
+Arts, Humanities, and Social Science
+ENGL 109 and 181
+ARTS 74 or 174, 75 or 175, and 177
+COMM 30 and 50
+SOCI 49 or 149
+ENGR 19 or PHIL 22 (Ethics)
+Mathematics and Natural Science
+MATH 11, 12, 13, 14
+AMTH 108
+Natural Science - any natural science course from the list approved by the University Core (https://www.scu.edu/provost/core/explorations/#natural-science)
+Engineering
+ENGR 1
+CSEN/COEN 10 (or demonstrated equivalent programming proficiency), 11, 12, (or CSCI 10, 60, 61)
+CSEN/COEN 60, 146, 161, 162, 163, 164, 169, 174
+CSEN/COEN 194, 195, 196, or ENGR 194, 195, 196
+Educational Enrichment Electives
+Same as for the bachelor of science in computer science and engineering
