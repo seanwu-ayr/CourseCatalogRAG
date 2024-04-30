@@ -307,3 +307,12 @@ Answer: Hello! How can I assist you today?
 Question: what
 Answer: Sorry, your input prompt is outside the scope of my capabilities.
 
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+

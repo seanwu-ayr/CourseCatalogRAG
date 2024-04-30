@@ -288,7 +288,7 @@ def main():
 
     if st.button("Ask"):
         if st.session_state.user_question:  # Now safely using 'user_question' from session_state
-            st.session_state.conversation.append(f"You: {st.session_state.user_question}")
+            st.session_state.conversation.append(f"**You: {st.session_state.user_question}**")  # User prompt bolded
             user_input(st.session_state.user_question)
 
     # Inject custom CSS for conversation history
@@ -344,7 +344,7 @@ def main():
                 else:
                     st.warning("No PDFs were processed. Please upload PDFs or check the specified directory.")
         
-        #CSV upload and processing
+        # CSV upload and processing
         csv_docs = st.file_uploader("Upload your CSV Files and Click on the Submit & Process Button", accept_multiple_files=True, type=["csv"])
         if st.button("Submit & Process", key=2):
             with st.spinner("Processing..."):
@@ -361,6 +361,5 @@ def main():
                 get_vector_store_from_docs(documents)
                 st.success("Web Processing Done")
 
-# Be sure to include the user_input function or any other necessary parts before this if statement
 if __name__ == "__main__":
     main()
