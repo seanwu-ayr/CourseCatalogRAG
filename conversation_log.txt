@@ -256,3 +256,54 @@ Answer: The context does not provide information on the prerequisites to PHYS 32
 Question: What are some prerequisites to COEN 20
 Answer: The prerequisites for COEN 20 are a grade of C- or better in CSEN/COEN 11.
 
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what will I learn from Machine learning class?
+Answer: In the Machine Learning and Data Mining class, you will learn about the main principles, algorithms, and applications of machine learning and data mining. The course is designed to cover the study of computing systems that improve their performance through learning from data. The course will also explore machine learning as a field that has become increasingly pervasive, with applications from the Web (search, advertisements, and recommendation) to national security, from analyzing biochemical interactions to traffic and emissions to astrophysics.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what's your name
+Answer: I'm an AI Advisory bot designed to assist students at Santa Clara University. I don't have a personal name, but you can simply call me Advisor! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what will I learn from the machine?
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+

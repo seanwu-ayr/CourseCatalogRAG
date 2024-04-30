@@ -25,7 +25,7 @@ from dotenv import load_dotenv
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = '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'
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-os.environ["BERT_PATH"] = "prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
+os.environ["BERT_PATH"] = "prompt_classifier/BERT_tuned/content/model_out/checkpoint-348/"
 
 # def read_pdf_from_path(path):
 #     if os.path.isdir(path):  # If the path is a directory
@@ -236,7 +236,7 @@ def user_input(user_question):
 
         case 2:
             chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+            new_db = FAISS.load_local("faiss_index", embeddings)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
@@ -247,7 +247,7 @@ def user_input(user_question):
 
         case 3:
             chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+            new_db = FAISS.load_local("faiss_index", embeddings)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
@@ -283,18 +283,14 @@ def main():
     def update_user_question():
         st.session_state.user_question = st.session_state.new_user_question
 
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        # Input for user questions with an on_change callback
-        st.text_input("Ask your question here:", key="new_user_question", on_change=update_user_question)
+    # Input for user questions with an on_change callback
+    st.text_input("**Ask your question here:**", key="new_user_question", on_change=update_user_question)
 
-    with col2:
-        if st.button("Ask", type="primary"):
-            if st.session_state.user_question:  # Now safely using 'user_question' from session_state
-                st.session_state.conversation.append(f"You: {st.session_state.user_question}")
-                user_input(st.session_state.user_question)
-        
-        st.markdown("<style>button[kind='primary'] {margin-top: 29px;}</style>", unsafe_allow_html=True)
+    if st.button("Ask"):
+        if st.session_state.user_question:  # Now safely using 'user_question' from session_state
+            st.session_state.conversation.append(f"You: {st.session_state.user_question}")
+            user_input(st.session_state.user_question)
+
     # Inject custom CSS for conversation history
     custom_css = """
     <style>
@@ -323,7 +319,7 @@ def main():
         if st.button("Process PDFs"):
             with st.spinner("Processing PDFs..."):
                 # Variable for the path, which could be either a directory or a single PDF file
-                pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # This can be a directory or a single PDF file
+                pdf_path = 'SCU.pdf'  # This can be a directory or a single PDF file
                 
                 all_text = ""
                 
