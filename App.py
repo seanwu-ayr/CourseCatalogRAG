@@ -270,7 +270,7 @@ def user_input(user_question):
 
 def main():
     st.set_page_config("Chat PDF")
-    st.header("Santa Clara Course Catalog LLM")
+    st.header("SCU virtual assistant🐎")
 
     if 'conversation' not in st.session_state:
         st.session_state.conversation = []
