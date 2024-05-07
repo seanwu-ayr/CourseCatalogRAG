@@ -3,31 +3,22 @@ from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 import json
-import tempfile
 from langchain_community.document_loaders import WebBaseLoader
-from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain.indexes import VectorstoreIndexCreator
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
-from langchain.retrievers.document_compressors import LLMChainFilter
-from langchain.retrievers import ContextualCompressionRetriever
 
 from typing import List
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
-import transformers as tr
 
 from dotenv import load_dotenv
 
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = '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'
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
-model_path = "prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
-classifier = tr.pipeline(task="text-classification", model=model_path)
 
 # def read_pdf_from_path(path):
 #     if os.path.isdir(path):  # If the path is a directory
@@ -56,32 +47,26 @@ def get_pdf_text(pdf_sources):
             text += page.extract_text() or ""  # Using 'or ""' to avoid appending None if extract_text() fails
     return text
 
+
+def get_web_text(web_url):
+    loader = WebBaseLoader(web_url)
+    text = loader.load()
+    print(type(text))
+    print(text)
+    return text
+
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_text(text)
     return chunks
 
-def get_web_docs(web_url):
-    loader = WebBaseLoader(web_url)
-    docs = loader.load()
-    return docs
 
-def get_csv_docs(csv_docs):
-    for csv in csv_docs:
-        temp_dir = tempfile.mkdtemp()
-        path = os.path.join(temp_dir, csv.name)
-        with open(path, "wb") as f:
-                f.write(csv.getvalue())
-        loader = CSVLoader(file_path=path)
-        docs = loader.load()
-    return docs
-
-def get_vector_store_from_text(text_chunks):
+def get_pdf_vector_store(text_chunks):
     embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
     
-def get_vector_store_from_docs(documents):
+def get_web_vector_store(documents):
     embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_documents(documents, embedding=embeddings)
     vector_store.save_local("faiss_index")
@@ -94,9 +79,9 @@ def get_LLM_chain():
 
     prompt_template = """
 You are an AI tool that works as an initial module of an AI college advisor LLM that handles questions from students at Santa Clara University.
-Your only job is to categorize a prompt into what type of request it is, so it can be handled separately later with different pipelines.
-The possible prompt categories are listed below. If a prompt branch does not fit into any of the first listed categories,
-place it into the 'other' category (i.e. category 5). Return the structured ouput JSON with the numerical value and description associated with the propper prompt category.
+ Your only job is to categorize a prompt into what type of request they are, so they can be handled separately later with different actions.
+   The possible prompt categories are listed below. If a prompt branch does not fit into any of the first listed categories,
+     place it into the 'other' category (i.e. category 5). Return the structured ouput JSON with the numerical value and description associated with the propper prompt category.
 
 Prompt category key:
   category 1: Greetings or other phatic communication
@@ -192,85 +177,73 @@ def get_conversational_chain():
 
 
 def user_input(user_question):
-    # chain0 = get_LLM_chain()
+    chain0 = get_LLM_chain()
 
     embeddings = OpenAIEmbeddings()
-
-    category = classifier(user_question)
-
-    labels = {0: "Phatic Communication",
-              1: "General Advice",
-              2: "Dates/Times",
-              3: "Specific Course Info",
-              4: "Miscellanious"
-            }
-    category = int(category[0]['label'])
-    
-    print(category, labels[category])
     
     # response = chain0.invoke(
     #     {"question": user_question, "input_documents": {}}
     #     , return_only_outputs=True
     # )
 
-    
     # category = json.loads(response["output_text"])["category"]
     # print(category)
-    # category = int(category[0]) if type(category) == str else category
-    # print(category)
 
-    output = None
+    
+    # match category:
+    #     case 1:
+    #         chain = get_conversational_chain()
+    #         docs = {}
+    #         response = chain.invoke(
+    #         {"question": user_question, "input_documents":docs}
+    #         , return_only_outputs=True
+    #         )
+    #         output = response["output_text"]
 
-    match category:
-        case 0:
-            chain = get_conversational_chain()
-            docs = {}
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
+    #     case 2:
+    #         chain = get_document_chain()            
+    #         new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    #         docs = new_db.similarity_search(user_question)
+    #         response = chain.invoke(
+    #         {"question": user_question, "input_documents":docs}
+    #         , return_only_outputs=True
+    #         )
+    #         output = response["output_text"]
 
-            output = response["output_text"]
+    #     case 3:
+    #         chain = get_document_chain()
+    #         new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    #         docs = new_db.similarity_search(user_question)
+    #         response = chain.invoke(
+    #         {"question": user_question, "input_documents":docs}
+    #         , return_only_outputs=True
+    #         )
+    #         output = response["output_text"]
 
-        case 1:
-            chain = get_document_chain()            
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
+    #     case 4:
+    #         chain = get_document_chain()
+    #         new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    #         docs = new_db.similarity_search(user_question)
+    #         response = chain.invoke(
+    #         {"question": user_question, "input_documents":docs}
+    #         , return_only_outputs=True
+    #         )
+    #         output = response["output_text"]
 
-            output = response["output_text"]
-
-        case 2:
-            chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-
-            output = response["output_text"]
-
-        case 3:
-            chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-
-            output = response["output_text"]
-
-        case 4:
-            output = "Sorry, your input prompt is outside the scope of my capabilities."
-
-        case _:
-            print("default")
-        
+    #     case 5:
+    #         output = "Sorry, your input prompt is outside the scope of my capabilities."
+    #     case _:
+    #         print("default")
+    chain = get_document_chain()
+    new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    docs = new_db.similarity_search(user_question)
+    response = chain.invoke(
+    {"question": user_question, "input_documents":docs}
+    , return_only_outputs=True
+    )
+    output = response["output_text"]
+    
+    print(docs)      
     print(output)
     # Log the question and answer
     with open("conversation_log.txt", "a") as log_file:
@@ -348,26 +321,18 @@ def main():
                 # Proceed with processing the accumulated text
                 if all_text:
                     text_chunks = get_text_chunks(all_text)
-                    get_vector_store_from_text(text_chunks)
+                    get_pdf_vector_store(text_chunks)
                     st.success("PDF Processing Done")
                 else:
                     st.warning("No PDFs were processed. Please upload PDFs or check the specified directory.")
-        
-        #CSV upload and processing
-        csv_docs = st.file_uploader("Upload your CSV Files and Click on the Submit & Process Button", accept_multiple_files=True, type=["csv"])
-        if st.button("Submit & Process", key=2):
-            with st.spinner("Processing..."):
-                csv_docs = get_csv_docs(csv_docs)
-                get_vector_store_from_docs(csv_docs)
-                st.success("Done") 
 
         # Web URL processing form
         url = st.text_input('URL', 'Enter URL here')
         if st.button("Submit & Process URL"):
             with st.spinner("Processing..."):
-                web_text = get_web_docs(url)
+                web_text = get_web_text(url)
                 documents = get_text_chunks(web_text)  # Assuming this processes the web text into a suitable format
-                get_vector_store_from_docs(documents)
+                get_web_vector_store(documents)
                 st.success("Web Processing Done")
 
 # Be sure to include the user_input function or any other necessary parts before this if statement
