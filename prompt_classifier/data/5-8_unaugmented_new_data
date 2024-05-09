@@ -1,0 +1,249 @@
+{
+	"data" : [
+        {   
+            "id": "116.01.01",
+            "prompt": "what's the last day to drop classes without a W?",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+            {   
+            "id": "117.01.01",
+            "prompt": "when do classes begin in fall 2023?",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "118.01.01",
+            "prompt": "will there be academic holidays in the spring",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "119.01.01",
+            "prompt": "when are final exams?",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "120.01.01",
+            "prompt": "what's the last day for P/N grading?",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "121.01.01",
+            "prompt": "what happens on 12/25?",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "122.01.01",
+            "prompt": "what days of the week is move in weekend?",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "123.01.01",
+            "prompt": "how many administrative holidays are there",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "124.01.01",
+            "prompt": "when will summer break start?",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "125.01.01",
+            "prompt": "how long is spring break?",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "126.01.01",
+            "prompt": "when is last day to remove incompletes",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "127.01.01",
+            "prompt": "what's the date for submitting grades?",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "128.01.01",
+            "prompt": "when is graduation",
+            "category": 3,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "129.01.01",
+            "prompt": "How do I change my major?",
+            "category": 4,
+            "synthetic": false,
+            "noisy": false
+        }, 
+        {   
+            "id": "130.01.01",
+            "prompt": "which study abroad program should I do?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "131.01.01",
+            "prompt": "should I take some classes in the summer?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "132.01.01",
+            "prompt": "can I take classes during winter break?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "133.01.01",
+            "prompt": "when should I do study abroad?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "134.01.01",
+            "prompt": "I want to take accounting classes. What courses to take?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "135.01.01",
+            "prompt": "I want to become a scientist but it's the fourth year. What should I do?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "136.01.01",
+            "prompt": "how do I get a computer science major?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "137.01.01",
+            "prompt": "what are some double dip courses?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "138.01.01",
+            "prompt": "If I want to graduate by a certain date, what's the best plan to get me there?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "139.01.01",
+            "prompt": "If I want to graduate by a certain date, what's the best plan to get me there?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "140.01.01",
+            "prompt": "How many core requirement credits do I need?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "141.01.01",
+            "prompt": "What is the difference between a lower and upper division course?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "142.01.01",
+            "prompt": "I want to switch out of my math class, it's so hard",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "143.01.01",
+            "prompt": "Will I graduate in time?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "144.01.01",
+            "prompt": "Is accounting 11 a good class to take?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "145.01.01",
+            "prompt": "ESCEN 49 be offered in the summer?",
+            "category": 2,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "146.01.01",
+            "prompt": "when can I get a computer science major?",
+            "category": 4,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "147.01.01",
+            "prompt": "should I take COEN11 to learn AI?",
+            "category": 4,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "148.01.01",
+            "prompt": "do I need to take computer science 20 before computer architectures?",
+            "category": 4,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "149.01.01",
+            "prompt": "how is coen 19 different from 21?",
+            "category": 4,
+            "synthetic": false,
+            "noisy": false
+        },
+        {   
+            "id": "150.01.01",
+            "prompt": "what's the difference between coen21 and coen20?",
+            "category": 4,
+            "synthetic": false,
+            "noisy": false
+        }
+    ]
+}
