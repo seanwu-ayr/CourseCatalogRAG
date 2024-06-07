@@ -75,73 +75,74 @@ class Category(BaseModel):
     id: int = Field(description="numerical value of prompt category")
     description: str = Field(description="description of prompt category")
 
-def get_LLM_chain():
+# def get_LLM_chain():
 
-    prompt_template = """
-You are an AI tool that works as an initial module of an AI college advisor LLM that handles questions from students at Santa Clara University.
- Your only job is to categorize a prompt into what type of request they are, so they can be handled separately later with different actions.
-   The possible prompt categories are listed below. If a prompt branch does not fit into any of the first listed categories,
-     place it into the 'other' category (i.e. category 5). Return the structured ouput JSON with the numerical value and description associated with the propper prompt category.
+#     prompt_template = """
+# You are an AI tool that works as an initial module of an AI college advisor LLM that handles questions from students at Santa Clara University.
+#  Your only job is to categorize a prompt into what type of request they are, so they can be handled separately later with different actions.
+#    The possible prompt categories are listed below. If a prompt branch does not fit into any of the first listed categories,
+#      place it into the 'other' category (i.e. category 5). Return the structured ouput JSON with the numerical value and description associated with the propper prompt category.
 
-Prompt category key:
-  category 1: Greetings or other phatic communication
-  category 2: General advice
-  category 3: Dates, deadlines, etc.
-  category 4: Specific course info or course database queries
-  category 5: Other/miscellaneous
+# Prompt category key:
+#   category 1: Greetings or other phatic communication
+#   category 2: General advice
+#   category 3: Dates, deadlines, etc.
+#   category 4: Specific course info or course database queries
+#   category 5: Other/miscellaneous
 
-Example input 1: "How many units should a freshman ECEN major take"
-Example output 1: "2: General advice"
+# Example input 1: "How many units should a freshman ECEN major take"
+# Example output 1: "2: General advice"
 
-Example input 2: "What are some recommendations for course options for a freshman ECEN major"
-Example output 2: "4: Specific course info or course database queries"
+# Example input 2: "What are some recommendations for course options for a freshman ECEN major"
+# Example output 2: "4: Specific course info or course database queries"
 
-Example input 3: "What honors course sections will be available next quarter"
-Example output 3: "4: Specific course info or course database queries"
+# Example input 3: "What honors course sections will be available next quarter"
+# Example output 3: "4: Specific course info or course database queries"
 
-Example input 4: "When can I sign up for next quarter's honors course sections"
-Example output 4: "3: Dates, deadlines, etc."
+# Example input 4: "When can I sign up for next quarter's honors course sections"
+# Example output 4: "3: Dates, deadlines, etc."
 
-Example input 5: "Would you recommend that I sign up for next quarter's honors course sections"
-Example output 5: "4: Specific course info or course database queries"
+# Example input 5: "Would you recommend that I sign up for next quarter's honors course sections"
+# Example output 5: "4: Specific course info or course database queries"
 
-Example input 6: "Hello"
-Example output 6: "1: Greetings or other phatic communication"
+# Example input 6: "Hello"
+# Example output 6: "1: Greetings or other phatic communication"
 
-Example input 7: "How can I balance my school and social life at college"
-Example output 7: "2: General advice"
+# Example input 7: "How can I balance my school and social life at college"
+# Example output 7: "2: General advice"
 
-Example input 8: "What frats are the most social"
-Example output 8: "5: Other/miscellaneous"
+# Example input 8: "What frats are the most social"
+# Example output 8: "5: Other/miscellaneous"
 
-Example input 9: "Thanks!"
-Example output 9: "1: Greetings or other phatic communication"
+# Example input 9: "Thanks!"
+# Example output 9: "1: Greetings or other phatic communication"
 
-Student input prompt: {question}
-Context: {context}
+# Student input prompt: {question}
+# Context: {context}
 
-Output JSON:
-"""
+# Output JSON:
+# """
 
-    model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
-    parser = JsonOutputParser(pydantic_object=Category)
-    prompt = PromptTemplate(
-        template = prompt_template,
-        input_variables = ["context", "question"],
-        partial_variables={"format_instructions": parser.get_format_instructions()}
-    )
-    chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
+#     model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
+#     parser = JsonOutputParser(pydantic_object=Category)
+#     prompt = PromptTemplate(
+#         template = prompt_template,
+#         input_variables = ["context", "question"],
+#         partial_variables={"format_instructions": parser.get_format_instructions()}
+#     )
+#     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
 
-    return chain
+#     return chain
 
 
 def get_document_chain():
 
     prompt_template = """
     Answer the question as detailed as possible from the provided context, make sure to provide all the details, if the answer is not in
-    provided context just say, "answer is not available in the context", don't provide the wrong answer\n\n
+    provided context just say, "answer is not available in the context", don't provide the wrong answer. End each response with the context source.\n\n
     Context:\n {context}?\n
     Question: \n{question}\n
+    Source: \{source}\n
 
     Answer:
     """
@@ -149,35 +150,35 @@ def get_document_chain():
     model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
 
 
-    prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
+    prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question","source"])
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
 
     return chain
 
-def get_conversational_chain():
+# def get_conversational_chain():
 
-    prompt_template = """
-    You are a friendly, supportive AI Advisory bot for students at Santa Clara University. 
-    Respond to students' communication enthusiastically and supportively. Do not provide misinformation
-    or answer questions you are unsure of.\n\n
-    Context:\n {context}?\n
-    Question: \n{question}\n
+#     prompt_template = """
+#     You are a friendly, supportive AI Advisory bot for students at Santa Clara University. 
+#     Respond to students' communication enthusiastically and supportively. Do not provide misinformation
+#     or answer questions you are unsure of.\n\n
+#     Context:\n {context}?\n
+#     Question: \n{question}\n
 
-    Answer:
-    """
+#     Answer:
+#     """
 
-    model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
+#     model = ChatOpenAI(model_name="gpt-4", temperature=0.3)
 
 
-    prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
-    chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
+#     prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
+#     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
 
-    return chain
+#     return chain
 
 
 
 def user_input(user_question):
-    chain0 = get_LLM_chain()
+    # chain0 = get_LLM_chain()
 
     embeddings = OpenAIEmbeddings()
     
@@ -238,7 +239,7 @@ def user_input(user_question):
     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
     response = chain.invoke(
-    {"question": user_question, "input_documents":docs}
+    {"question": user_question, "input_documents":docs, "source":docs[0].metadata['source']}
     , return_only_outputs=True
     )
     output = response["output_text"]
