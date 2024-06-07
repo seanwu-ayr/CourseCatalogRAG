@@ -229,3 +229,193 @@ Answer: Hello! I'm here to help you with any questions or information you need r
 Question: That's a massive W tbh
 Answer: Sorry, your input prompt is outside the scope of my capabilities.
 
+Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11.
+
+Question: What advice would you give a freshman ECEN student
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: What courses should a sophomore COEN major take fall quarter according to the 4-year plan
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: What math course should a sophomore COEN major take fall quarter according to the 4-year plan
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: Should a sophomore COEN major take MATH 14 fall quarter according to the 4-year plan
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: Should a sophomore COEN major take MATH 14 fall quarter
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: What are some math courses for a sophomore COEN major to take in winter quarter
+Answer: The answer is not available in the context.
+
+Question: What are some prerequisites to Phys 32
+Answer: The context does not provide information on the prerequisites to PHYS 32.
+
+Question: What are some prerequisites to COEN 20
+Answer: The prerequisites for COEN 20 are a grade of C- or better in CSEN/COEN 11.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what will I learn from Machine learning class?
+Answer: In the Machine Learning and Data Mining class, you will learn about the main principles, algorithms, and applications of machine learning and data mining. The course is designed to cover the study of computing systems that improve their performance through learning from data. The course will also explore machine learning as a field that has become increasingly pervasive, with applications from the Web (search, advertisements, and recommendation) to national security, from analyzing biochemical interactions to traffic and emissions to astrophysics.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what's your name
+Answer: I'm an AI Advisory bot designed to assist students at Santa Clara University. I don't have a personal name, but you can simply call me Advisor! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what will I learn from the machine?
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: hi
+Answer: Hello! How can I assist you today?
+
+Question: what are the prerequisites to coen11?
+Answer: The prerequisites to COEN 11 are programming experience and/or a grade of C- or better in an introductory computer programming course such as CSEN/COEN 10, CSCI 10, or OMIS 30.
+
+Question: when do classes begin in fall 2023?
+Answer: The answer is not available in the context.
+
+Question: when is last day to change grading to p/n in spring 2024
+Answer: The answer is not available in the context.
+
+Question: what are the prerequisites to coen11?
+Answer: The prerequisites to COEN11 are previous programming experience and/or a grade of C- or better in an introductory computer programming course such as COEN 10, CSCI 10, or OMIS 30.
+
+Question: what will I learn in coen19?
+Answer: In COEN19, you will learn about Discrete Mathematics which includes Predicate logic, methods of proof, sets, functions, sequences and summations, modular arithmetic, cardinality, induction, elementary combinatorial analysis, recursion, and relations.
+
+Question: what are the major requirements for accounting?
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: list all professors of the accounting department
+Answer: The professors in the accounting department are Yongtae Kim (Robert and Barbara McCullough Professor), Siqi Li (Department Chair), and Susan Parker. The Professors of Practice are Wendy Donohoe and Brain Nelson. The Dean’s Executive Professor is Chris Paisley.
+
+Question: list all professors of the computer science and engineering
+Answer: Professors Emeritus: Ronald L. Danielson, Daniel W. Lewis
+Professors: Ruth E. Davis, Silvia M. B. Figueira (Regis and Dianne McKenna Professor and Department Chair), Nam Ling (Wilmot J. Nicholson Family Professor)
+Associate Professors: Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, Weijia Shang
+Assistant Professors: David C. Anastasiu, Younghyun Cho, Sean Choi, I-Han Hsiao, Shiva Jahangiri, Max Kreminski, Xiang Li, Ying Liu, Kai Lukoff
+Lecturers: Salem Al-Agtash, Farokh H. Eskafi, Angela Musurlian
+
+Question: list all major requirements of computer science and engineering
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: what date do classes begin in fall 2024
+Answer: The answer is not available in the context.
+
+Question: when is the last day to switch to p/np grading?
+Answer: The last day to declare P/NP grading option is on April 26, 2024 for the Spring term, October 13, 2023 for the Fall term, and February 2, 2024 for the Winter term.
+
+Question: what date do classes begin in fall 2023
+Answer: Classes begin on September 18, 2023 in Fall 2023.
+
+Question: what will I learn in accounting 11?
+Answer: In accounting 11, titled "Introduction to Financial Accounting", you will learn the language of business, the accounting treatment of business transactions, and the analysis of financial reports. The course will show you how financial analysts use accounting principles to prepare financial statements and how managers, investors, and creditors use balance sheets, income statements, cash flow statements, and financial disclosures to make operating, investing, and financing decisions.
+
+Question: what are the prerequisites to Coen 11?
+Answer: The prerequisites to COEN 11 are programming experience and/or a grade of C- or better in an introductory computer programming course such as CSEN/COEN 10, CSCI 10, or OMIS 30.
+
+Question: what will I learn in coen19?
+Answer: The answer is not available in the context.
+
+Question: list all major requirements of computer science and engineering
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: when does class begin in fall 2023?
+Answer: The answer is not available in the context.
+
+Question: when do classes begin in fall 2023?
+Answer: The answer is not available in the context.
+
+Question: when do classes begin in fall 2023?
+Answer: The answer is not available in the context.
+
+Question: what prerequisite for coen11?
+Answer: The prerequisite for COEN 11 is programming experience and/or a grade of C- or better in an introductory computer programming course such as CSEN/COEN 10, CSCI 10, or OMIS 30.
+
+Question: what will I learn in machine learning class?
+Answer: In the machine learning class, you will learn about the main principles, algorithms, and applications of machine learning and data mining. The course is designed to cover these topics and the study of computing systems that improve their performance through learning from data.
+
+Question: when does class begin in fall 2023?
+Answer: The answer is not available in the context.
+
+Question: when does class begin in September 2023?
+Answer: The answer is not available in the context.
+
+Question: What will I learn in cone 12
+Answer: In CSEN/COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn about the implementation of abstract data types in the C language. The course includes a review of internal sorting, selection, insertion, and exchange sorts, along with quicksort and heapsort. It also covers recursion and the analysis of run-time behavior of algorithms, including Big-O notation. An introduction to classes in C++ is also part of the course.
+
+Question: Kier all professors
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+
+Question: when does class begin in fall 2023?
+Answer: The answer is not available in the context.
+
+Question: when does class begin in fall 2023?
+Answer: Classes begin on September 18, 2023 in Fall 2023.
+
+Question: what are some upper level classes in computer department?
+Answer: Some upper level classes in the computer department include CSEN/COEN 101–180, ECEN/ELEN 115, or 133, CSEN/COEN 122, 146, 171, 174, 175, 177, 179, and CSEN/COEN 194, 195, 196.
+
+Question: what are prerequisite for Coen11?
+Answer: The prerequisites for COEN11. Advanced Programming are previous programming experience and/or a grade of C- or better in an introductory computer programming course such as COEN 10, CSCI 10, or OMIS 30.
+
+Question: when are the Classes staring in fall 2023?
+Answer: The classes in fall 2023 are starting on September 18th.
+
+Question: what will I learn from machine learning class?
+Answer: In the Machine Learning and Data Mining class (COEN140), you will learn about machine learning as a field that has become increasingly pervasive, with applications from the Web (search, advertisements, and recommendation) to national security, from analyzing biochemical interactions to traffic and emissions to astrophysics. The course presents an introduction to machine learning and data mining, which is the study of computing systems that improve their performance through learning from data. The course is designed to cover the main principles, algorithms, and applications of machine learning and data mining.
+
+Question: what are some of the upper level classes in the computer department?
+Answer: Some of the upper-level classes in the computer department include CSEN/COEN 101–180, ECEN/ELEN 115, or 133, CSEN/COEN 193 or 4 units of CSEN/COEN 199, CSEN/COEN 11, 12, 19, 20, 21, 79, 122, 146, 171, 174, 175, 177, 179, CSEN/COEN 194 (or ENGR 194), CSEN/COEN 195 (or ENGR 195), CSEN/COEN 196 (or ENGR 196).
+
+Question: can you give me a 4 year plan?
+Answer: Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/
+

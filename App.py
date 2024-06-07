@@ -25,9 +25,7 @@ from dotenv import load_dotenv
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = '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'
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
-model_path = "prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
-classifier = tr.pipeline(task="text-classification", model=model_path)
+os.environ["BERT_PATH"] = "prompt_classifier/BERT_tuned/content/model_out/checkpoint-348/"
 
 # def read_pdf_from_path(path):
 #     if os.path.isdir(path):  # If the path is a directory
@@ -196,6 +194,7 @@ def user_input(user_question):
 
     embeddings = OpenAIEmbeddings()
 
+    classifier = tr.pipeline(task="text-classification", model=os.environ["BERT_PATH"])
     category = classifier(user_question)
 
     labels = {0: "Phatic Communication",
@@ -233,19 +232,11 @@ def user_input(user_question):
             output = response["output_text"]
 
         case 1:
-            chain = get_document_chain()            
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-            docs = new_db.similarity_search(user_question)
-            response = chain.invoke(
-            {"question": user_question, "input_documents":docs}
-            , return_only_outputs=True
-            )
-
-            output = response["output_text"]
+            output = "Sorry, your question may be out of the scope of my capabilities. Please contact an academic advisor or visit the Drahman Center's website at https://www.scu.edu/drahmann/"
 
         case 2:
             chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+            new_db = FAISS.load_local("faiss_index", embeddings)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
@@ -256,7 +247,7 @@ def user_input(user_question):
 
         case 3:
             chain = get_document_chain()
-            new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+            new_db = FAISS.load_local("faiss_index", embeddings)
             docs = new_db.similarity_search(user_question)
             response = chain.invoke(
             {"question": user_question, "input_documents":docs}
@@ -279,7 +270,7 @@ def user_input(user_question):
 
 def main():
     st.set_page_config("Chat PDF")
-    st.header("Santa Clara Course Catalog LLM")
+    st.header("SCU virtual assistant🐎")
 
     if 'conversation' not in st.session_state:
         st.session_state.conversation = []
@@ -293,11 +284,11 @@ def main():
         st.session_state.user_question = st.session_state.new_user_question
 
     # Input for user questions with an on_change callback
-    st.text_input("Ask your question here:", key="new_user_question", on_change=update_user_question)
+    st.text_input("**Ask your question here:**", key="new_user_question", on_change=update_user_question)
 
     if st.button("Ask"):
         if st.session_state.user_question:  # Now safely using 'user_question' from session_state
-            st.session_state.conversation.append(f"You: {st.session_state.user_question}")
+            st.session_state.conversation.append(f"**You: {st.session_state.user_question}**")  # User prompt bolded
             user_input(st.session_state.user_question)
 
     # Inject custom CSS for conversation history
@@ -328,7 +319,7 @@ def main():
         if st.button("Process PDFs"):
             with st.spinner("Processing PDFs..."):
                 # Variable for the path, which could be either a directory or a single PDF file
-                pdf_path = '/Users/dhruv590/Projects/RAG/SCU.pdf'  # This can be a directory or a single PDF file
+                pdf_path = 'SCU.pdf'  # This can be a directory or a single PDF file
                 
                 all_text = ""
                 
@@ -353,7 +344,7 @@ def main():
                 else:
                     st.warning("No PDFs were processed. Please upload PDFs or check the specified directory.")
         
-        #CSV upload and processing
+        # CSV upload and processing
         csv_docs = st.file_uploader("Upload your CSV Files and Click on the Submit & Process Button", accept_multiple_files=True, type=["csv"])
         if st.button("Submit & Process", key=2):
             with st.spinner("Processing..."):
@@ -370,6 +361,5 @@ def main():
                 get_vector_store_from_docs(documents)
                 st.success("Web Processing Done")
 
-# Be sure to include the user_input function or any other necessary parts before this if statement
 if __name__ == "__main__":
     main()
