@@ -23,6 +23,8 @@ To read more about using these font, please visit the Next.js documentation:
 - App Directory: https://nextjs.org/docs/app/building-your-application/optimizing/fonts
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
+"use client";
+import React, { useEffect, useState, useRef, FormEvent } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
@@ -31,7 +33,122 @@ import Link from "next/link"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
 
+
+// Define types for the response message and WebSocket ref
+interface ResponseMessage {
+  sender: string;
+  message: string;
+  id?: string; // id is optional
+}
+
 export function Chatpage() {
+  // State to store the input from the user
+  const [input, setInput] = useState<string>('');
+  // State to store the responses/messages
+  const [responses, setResponses] = useState<ResponseMessage[]>([]);
+  // Ref to manage the WebSocket connection
+  const ws = useRef<WebSocket | null>(null);
+  // Ref to scroll to the latest message
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  // Maximum number of attempts to reconnect
+  const [reconnectAttempts, setReconnectAttempts] = useState<number>(0);
+  const maxReconnectAttempts = 5;
+
+  // Function to setup the WebSocket connection and define event handlers
+  const setupWebSocket = () => {
+    ws.current = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+    let ongoingStream: { id: string; content: string } | null = null; // To track the ongoing stream's ID
+
+    ws.current.onopen = () => {
+      console.log("WebSocket connected!");
+      setReconnectAttempts(0); // Reset reconnect attempts on successful connection
+    };
+
+    ws.current.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      let sender = data.name;
+
+      // Handle different types of events from the WebSocket
+      if (data.event === 'on_parser_start') {
+        // When a new stream starts
+        ongoingStream = { id: data.run_id, content: '' };
+        setResponses(prevResponses => [...prevResponses, { sender, message: '', id: data.run_id }]);
+      } else if (data.event === 'on_parser_stream' && ongoingStream && data.run_id === ongoingStream.id) {
+        // During a stream, appending new chunks of data
+        setResponses(prevResponses => prevResponses.map(msg =>
+          msg.id === data.run_id ? { ...msg, message: msg.message + data.data.chunk } : msg));
+      }
+    };
+
+    ws.current.onerror = (event) => {
+      console.error("WebSocket error observed:", event);
+    };
+
+    ws.current.onclose = (event) => {
+      console.log(`WebSocket is closed now. Code: ${event.code}, Reason: ${event.reason}`);
+      handleReconnect();
+    };
+  };
+
+  // Function to handle reconnection attempts with exponential backoff
+  const handleReconnect = () => {
+    if (reconnectAttempts < maxReconnectAttempts) {
+      let timeout = Math.pow(2, reconnectAttempts) * 1000; // Exponential backoff
+      setTimeout(() => {
+        setupWebSocket(); // Attempt to reconnect
+      }, timeout);
+    } else {
+      console.log("Max reconnect attempts reached, not attempting further reconnects.");
+    }
+  };
+
+  // Effect hook to setup and cleanup the WebSocket connection
+  useEffect(() => {
+    setupWebSocket(); // Setup WebSocket on component mount
+
+    return () => {
+      if (ws.current?.readyState === WebSocket.OPEN) {
+        ws.current.close(); // Close WebSocket on component unmount
+      }
+    };
+  }, []);
+
+  // Effect hook to auto-scroll to the latest message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [responses]);
+
+  // Function to render each message
+  const renderMessage = (response: ResponseMessage, index: number) => (
+    <div key={index} className="flex items-start gap-4">
+      <Avatar className="w-8 h-8 border">
+        <AvatarImage src={response.sender === 'You' ? '/placeholder-user.jpg' : '/placeholder-bot.jpg'} />
+        <AvatarFallback>{response.sender === 'You' ? 'You' : 'Assistant'}</AvatarFallback>
+      </Avatar>
+      <div className="grid gap-1">
+        <div className="font-bold">{response.sender === 'You' ? 'You' : 'SCU Chatbot'}</div>
+        <div className="prose text-muted-foreground">
+          <p>{response.message}</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Handler for input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(e.target.value);
+  };
+
+  // Handler for form submission
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const userMessage: ResponseMessage = { sender: "You", message: input };
+    setResponses(prevResponses => [...prevResponses, userMessage]);
+    ws.current?.send(JSON.stringify({ message: input })); // Send message through WebSocket
+    setInput(''); // Clear input field
+  };
+
+
   return (
     <div className="flex h-screen w-full flex-row bg-background text-foreground">
       <div className="flex flex-1 overflow-hidden">
@@ -66,75 +183,38 @@ export function Chatpage() {
                     your class standing and other factors. You can find your specific registration window on the
                     Registrar's website.
                   </p>
-                  <p>
-                    As for setting up your Zoom account, you'll need to log into the SCU portal and navigate to the Zoom
-                    integration. There you can activate your account and set up your profile.
-                  </p>
-                  <p>
-                    For scholarships, SCU offers a variety of merit-based and need-based options. I'd recommend checking
-                    the Financial Aid website to see what's available and the application deadlines. Let me know if you
-                    have any other questions!
-                  </p>
                 </div>
               </div>
             </div>
-            <div className="flex items-start gap-4">
-              <Avatar className="w-8 h-8 border">
-                <AvatarImage src="/placeholder-user.jpg" />
-                <AvatarFallback>YO</AvatarFallback>
-              </Avatar>
-              <div className="grid gap-1">
-                <div className="font-bold">You</div>
-                <div className="prose text-muted-foreground">
-                  <p>
-                    That's really helpful, thank you! I'm especially interested in the scholarship information. Can you
-                    give me more details on the types of scholarships available and the application process?
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <Avatar className="w-8 h-8 border">
-                <AvatarImage src="/placeholder-user.jpg" />
-                <AvatarFallback>OA</AvatarFallback>
-              </Avatar>
-              <div className="grid gap-1">
-                <div className="font-bold">SCU Chatbot</div>
-                <div className="prose text-muted-foreground">
-                  <p>
-                    Sure, let me provide more details on the scholarship opportunities at SCU. We offer both merit-based
-                    and need-based scholarships. The merit-based scholarships are awarded based on academic achievement,
-                    leadership, and other accomplishments. These include the Presidential Scholarship, Provost
-                    Scholarship, and various departmental scholarships.
-                  </p>
-                  <p>
-                    The need-based scholarships are awarded based on your family's financial situation. To apply for
-                    these, you'll need to complete the FAFSA (Free Application for Federal Student Aid) and the SCU
-                    Supplemental Scholarship Application. The deadlines for these are typically in early spring, so I'd
-                    recommend starting the process as soon as possible.
-                  </p>
-                  <p>
-                    The application process involves submitting transcripts, letters of recommendation, and a personal
-                    statement. The Financial Aid office is also available to help you throughout the process if you have
-                    any questions. Let me know if you need any clarification or have additional questions!
-                  </p>
-                </div>
-              </div>
+            <div className="flex-1 space-y-4 overflow-y-auto">
+              {responses.map((response, index) => renderMessage(response, index))}
+              <div ref={messagesEndRef} /> {/* Invisible element to help scroll into view */}
             </div>
           </div>
+          
+          
+
+          {/* user text input and submission */}
           <div className="mt-4 flex items-center gap-2">
             <Textarea
-              placeholder="Type your message..."
+              placeholder="Type your message here..."
               className="flex-1 rounded-2xl border border-neutral-400 p-2 shadow-sm resize-none"
               rows={1}
+              value={input}
+              onChange={handleInputChange}
+              onKeyDown={(e) => e.key === 'Enter' && handleSubmit(e)}
             />
-            <Button type="submit" size="icon" className="rounded-full bg-primary text-primary-foreground">
+            <Button onClick={handleSubmit} type="submit" size="icon" className="rounded-full bg-primary text-primary-foreground">
               <SendIcon className="h-5 w-5" />
               <span className="sr-only">Send</span>
             </Button>
           </div>
+          
         </div>
       </div>
+
+
+      
       <div className="flex flex-col border-l bg-muted p-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium">Conversations</h3>
@@ -142,15 +222,22 @@ export function Chatpage() {
             <Input
               type="search"
               placeholder="Search conversations..."
-              className="rounded-lg bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="hidden md:block rounded-lg bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             />
-            <Button variant="ghost" size="sm" className="bg-black text-white flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="hidden md:flex bg-black text-white items-center gap-2">
               <PlusIcon className="h-5 w-5" />
               <span>Start New</span>
             </Button>
+            <Button variant="ghost" size="icon" className="md:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </Button>
           </div>
         </div>
-        <div className="mt-4 flex-1 overflow-y-auto">
+        <div className="mt-4 flex-1 overflow-y-auto md:block hidden">
           <div className="space-y-2">
             <div className="flex items-center justify-between rounded-md px-3 py-2 hover:bg-background">
               <Link href="#" className="truncate font-medium" prefetch={false}>
@@ -211,8 +298,8 @@ export function Chatpage() {
             </div>
           </div>
         </div>
-        <Separator className="my-4" />
-        <div className="mt-4 flex-1 overflow-y-auto">
+        <Separator className="my-4 md:block hidden" />
+        <div className="mt-4 flex-1 overflow-y-auto md:block hidden">
           <div className="space-y-2">
             <div className="flex items-center justify-center rounded-md px-3 py-2 hover:bg-background">
               <div className="font-medium">Resources</div>
@@ -254,7 +341,7 @@ export function Chatpage() {
   )
 }
 
-function GripVerticalIcon(props) {
+function GripVerticalIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -279,7 +366,7 @@ function GripVerticalIcon(props) {
 }
 
 
-function MoveHorizontalIcon(props) {
+function MoveHorizontalIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -301,7 +388,7 @@ function MoveHorizontalIcon(props) {
 }
 
 
-function PlusIcon(props) {
+function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -322,7 +409,7 @@ function PlusIcon(props) {
 }
 
 
-function SendIcon(props) {
+function SendIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -343,7 +430,7 @@ function SendIcon(props) {
 }
 
 
-function XIcon(props) {
+function XIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
