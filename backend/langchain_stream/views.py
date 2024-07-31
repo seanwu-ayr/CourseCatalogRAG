@@ -8,11 +8,11 @@ from dotenv import load_dotenv
 load_dotenv('.env')
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful assistant."),
+    ("system", "You are a helpful assistant for students of Santa Clara University. Answer questions and provide links to resources."),
     ("user", "{input}")
 ])
 
-llm = ChatOpenAI(model="gpt-3.5-turbo-0125")
+llm = ChatOpenAI(model="gpt-4o-mini")
 
 output_parser = StrOutputParser()
 # Chain

@@ -10,3 +10,6 @@ chromadb
 lark
 transformers
 torch
+django
+daphne
+channels
