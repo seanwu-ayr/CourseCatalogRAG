@@ -8,13 +8,13 @@ This repository contains a chatbot application with a Next.js/React frontend and
 - **Frontend: `frontend/`**
   - The main frontend logic is located in `frontend/components/chatpage.tsx`.
 - **Backend: `backend/`**
-  - The backend logic, including LangChain chatbot integration and streaming, is in `backend/langchain_stream_views.py`.
+  - The main backend logic, including LangChain chatbot integration and streaming, is in `backend/langchain_stream_views.py`.
 
 ## Installation
 
 ### Prerequisites
 
-- Conda (recommended)
+- Conda (recommended) or other virtual environments
 - Node.js and npm
 
 ### Clone the Repository
@@ -85,4 +85,4 @@ npm run dev
 
 ## General Architecture
 
-The application uses ASGI for the backend and WebSocket for the frontend to enable real-time communication, asynchronous task execution, and chat response streaming capabilities.
+The application uses ASGI for the backend and WebSocket for the frontend to enable real-time communication, asynchronous task execution, and chat response streaming capabilities. 
