@@ -1,0 +1,89 @@
+
+# Chatbot Application
+
+This repository contains a chatbot application with a Next.js/React frontend and a Django backend. The frontend and backend communicate using ASGI and WebSocket for asynchronous streaming.
+
+## Repository Structure
+
+- **Frontend: `frontend/`**
+  - The main frontend logic is located in `frontend/components/chatpage.tsx`.
+- **Backend: `backend/`**
+  - The backend logic, including LangChain chatbot integration and streaming, is in `backend/langchain_stream_views.py`.
+
+## Installation
+
+### Prerequisites
+
+- Conda (recommended)
+- Node.js and npm
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/seogenis/CourseCatalogRAG.git
+cd CourseCatalogRAG
+git checkout redesign
+```
+
+### Backend Setup
+
+#### Create and Activate Conda Environment:
+
+```bash
+conda create -n chatbot-env python=3.12
+conda activate chatbot-env
+```
+
+#### Install Backend Dependencies:
+
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+#### Set Up Environment Variables:
+
+Create a `.env` file in the backend directory with the following content:
+
+```makefile
+OPENAI_API_KEY="your_api_key_here"
+```
+
+#### Run the Backend Server:
+
+```bash
+python manage.py runserver
+```
+
+### Frontend Setup
+
+#### Install Frontend Dependencies:
+
+```bash
+cd ../frontend
+npm install
+```
+
+#### Run the Frontend Server:
+
+```bash
+npm run dev
+```
+
+## Features
+
+### Current Features
+
+- Real-time chatbot interaction using WebSocket and ASGI.
+- Basic frontend UI.
+
+### Awaiting Features
+
+- Conversation history (user-specific).
+- Conversation history (data analysis).
+- Login UI and authentication.
+- Add/Delete/Search conversations.
+
+## General Architecture
+
+The application uses ASGI for the backend and WebSocket for the frontend to enable real-time communication and streaming capabilities.
