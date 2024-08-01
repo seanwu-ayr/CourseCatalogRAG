@@ -1,7 +1,7 @@
 
 # Chatbot Application
 
-This repository contains a chatbot application with a Next.js/React frontend and a Django backend. The frontend and backend communicate using ASGI and WebSocket for asynchronous streaming.
+This repository contains a chatbot application with a Next.js/React frontend and a Django backend.
 
 ## Repository Structure
 
@@ -34,16 +34,15 @@ conda create -n chatbot-env python=3.12
 conda activate chatbot-env
 ```
 
-#### Install Backend Dependencies:
+#### Install Backend's Python Dependencies:
 
 ```bash
-cd backend
 pip install -r requirements.txt
 ```
 
 #### Set Up Environment Variables:
 
-Create a `.env` file in the backend directory with the following content:
+Create a `.env` file in the root directory with the following content:
 
 ```makefile
 OPENAI_API_KEY="your_api_key_here"
@@ -86,4 +85,4 @@ npm run dev
 
 ## General Architecture
 
-The application uses ASGI for the backend and WebSocket for the frontend to enable real-time communication and streaming capabilities.
+The application uses ASGI for the backend and WebSocket for the frontend to enable real-time communication, asynchronous task execution, and chat response streaming capabilities.
