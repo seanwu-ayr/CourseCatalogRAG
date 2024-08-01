@@ -1,14 +1,14 @@
 
 # Chatbot Application
 
-This repository contains a chatbot application with a Next.js/React frontend and a Django backend.
+This repository contains a chatbot application with a Next.js/React frontend and a Python Django backend.
 
 ## Repository Structure
 
 - **Frontend: `frontend/`**
   - The main frontend logic is located in `frontend/components/chatpage.tsx`.
 - **Backend: `backend/`**
-  - The main backend logic, including LangChain chatbot integration and streaming, is in `backend/langchain_stream_views.py`.
+  - The main backend logic is located in `backend/langchain_stream_views.py`.
 
 ## Installation
 
@@ -85,4 +85,5 @@ npm run dev
 
 ## General Architecture
 
-The application uses ASGI for the backend and WebSocket for the frontend to enable real-time communication, asynchronous task execution, and chat response streaming capabilities. 
+- The application uses ASGI in the backend and WebSockets in the frontend to enable real-time communication, asynchronous task execution, and chat response streaming capabilities. 
+- Langchain chatbot is integrated and streamed from `backend/langchain_stream_views.py`
