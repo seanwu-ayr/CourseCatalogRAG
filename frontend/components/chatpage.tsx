@@ -66,6 +66,7 @@ export function Chatpage() {
 
     ws.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      console.log(data)
       let sender = data.name;
 
       // Handle different types of events from the WebSocket

@@ -4,8 +4,10 @@ from langchain_core.output_parsers import StrOutputParser
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 from dotenv import load_dotenv
+import os
 
-load_dotenv('.env')
+load_dotenv()
+print("KEYS:", os.getenv("OPENAI_API_KEY"))
 
 prompt = ChatPromptTemplate.from_messages([
     ("system", "You are a helpful assistant for students of Santa Clara University. Answer questions and provide links to resources."),
