@@ -1,8 +1,9 @@
+"use client";
+ 
 import { Chatpage } from "@/components/chatpage"
 import { FormEvent } from 'react'
 import LoginForm from '@/components/ui/login-form';
 
- 
 export default function LoginPage() {
   //const router = useRouter()
  
