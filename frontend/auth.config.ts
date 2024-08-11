@@ -5,12 +5,7 @@ import google from 'next-auth/providers/google';
 import linkedin from 'next-auth/providers/linkedin';
  
 export const authConfig = {
-    providers:[
-        github,
-        google,
-        facebook,
-        linkedin
-    ],
+    providers: [],
     pages: {
         signIn: '/auth/login',
         signOut: '/auth/signout',

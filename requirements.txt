@@ -11,5 +11,7 @@ lark
 transformers
 torch
 django
+djoser
+djangorestframework
 daphne
 channels

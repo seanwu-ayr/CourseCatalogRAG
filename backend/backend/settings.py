@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
+    #"django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "daphne",
     "django.contrib.staticfiles",
     "langchain_stream",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -101,6 +102,9 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# Define Custom User Model
+AUTH_USER_MODEL = 'users.MyUser'
 
 
 # Internationalization
