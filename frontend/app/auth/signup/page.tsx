@@ -2,30 +2,11 @@
  
 import { Chatpage } from "@/components/chatpage"
 import { FormEvent } from 'react'
-import LoginForm from '@/components/ui/login-form';
+import RegisterForm from "@/components/ui/register-form";
 
 export default function SignupPage() {
   //const router = useRouter()
- 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
- 
-    const formData = new FormData(event.currentTarget)
-    const email = formData.get('email')
-    const password = formData.get('password')
- 
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    })
- 
-    if (response.ok) {
-      //router.push('/profile')
-    } else {
-      // Handle errors
-    }
-  }
+
  
   return (
     <main className="flex items-center justify-center md:h-screen">
@@ -35,7 +16,7 @@ export default function SignupPage() {
             
           </div>
         </div>
-        <LoginForm />
+        <RegisterForm />
       </div>
     </main>
   );

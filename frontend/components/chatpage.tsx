@@ -32,6 +32,10 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
+import SignOutForm from './ui/signout-button'; 
+import { NextResponse } from "next/server"
+import { auth } from "@/auth"
+import NotAuthorized from './ui/error';
 
 
 // Define types for the response message and WebSocket ref
@@ -41,8 +45,8 @@ interface ResponseMessage {
   id?: string; // id is optional
 }
 
-export function Chatpage() {
-  // State to store the input from the user
+export async function Chatpage() {
+
   const [input, setInput] = useState<string>('');
   // State to store the responses/messages
   const [responses, setResponses] = useState<ResponseMessage[]>([]);
@@ -331,7 +335,9 @@ export function Chatpage() {
             <div className="font-medium">John Doe</div>
             <div className="text-xs text-muted-foreground">john@example.com</div>
           </div>
+          <SignOutForm/>
         </div>
+        
       </div>
       <div className="relative h-4 cursor-col-resize border-l border-r border-muted-foreground/10">
         <div className="absolute inset-0 flex items-center justify-center">

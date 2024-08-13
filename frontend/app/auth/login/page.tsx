@@ -3,7 +3,6 @@
 import { Chatpage } from "@/components/chatpage"
 import { FormEvent } from 'react'
 import LoginForm from '@/components/ui/login-form';
-import { signIn, auth, providerMap } from "@/auth"
 
 export default function LoginPage() {
   //const router = useRouter()

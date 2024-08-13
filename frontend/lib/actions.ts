@@ -6,6 +6,7 @@ import { AuthError } from 'next-auth';
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { signOut } from '@/auth';
 
 
 //schema for invoice --- omits date and id on form submission which will be provided later
@@ -52,3 +53,10 @@ export async function authenticate(
       throw error;
     }
   }
+
+export async function User_Logout(){
+  
+    'use server';
+    await signOut();
+  
+}

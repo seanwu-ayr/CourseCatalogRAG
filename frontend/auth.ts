@@ -22,13 +22,18 @@ const providers: Provider[] = [
               .safeParse(credentials);
 
               if (parsedCredentials.success) {
+                  console.log('Parsed credentials');
                   const { email, password } = parsedCredentials.data;
-                  const user = await getUser(email);
-                  if (!user) return null;
+                  const user = await getUser(email, password);
+                  if (!user){
+                    console.log("user not found ...")
+                    return null;
+                  }
+                    
+                  return user
+                  //const passwordsMatch = await bcrypt.compare(password, user.password);
 
-                  const passwordsMatch = await bcrypt.compare(password, user.password);
-
-                  if (passwordsMatch) return user;
+                  //if (passwordsMatch) return user;
               }
               
               console.log('Invalid credentials');
@@ -37,19 +42,22 @@ const providers: Provider[] = [
   }),
 ]
 // fetch user from Django Backend 
-async function getUser(email: string): Promise<User | undefined> {
+async function getUser(email: string, password: string): Promise<User | undefined> {
     try {
-      const user = await fetch('http://localhost:8000/api/users/login/',{
+      const user = await fetch('http://localhost:8000/api/login/',{
         method: "POST",
         headers: {
           'Content-Type' : 'application/json',
         },
         body: JSON.stringify({
-          username: email
+          username: email,
+          password: password,
         })
       })
-      const data = user.json()
+      const data = await user.json()
+      console.log("data:")
       console.log(data)
+      //console.log(data)
       return data
     } catch (error) {
       console.error('Failed to fetch user:', error);
