@@ -40,6 +40,7 @@ export async function authenticate(
     formData: FormData,
   ) {
     try {
+      formData.append("redirectTo", "/")
       await signIn('credentials', formData);
     } catch (error) {
       if (error instanceof AuthError) {
@@ -57,6 +58,6 @@ export async function authenticate(
 export async function User_Logout(){
   
     'use server';
-    await signOut();
+    await signOut({redirectTo: "/auth/login"});
   
 }

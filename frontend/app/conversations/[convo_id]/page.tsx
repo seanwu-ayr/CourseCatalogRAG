@@ -32,12 +32,20 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import SignOutForm from './ui/signout-button';
-import { fetchConversationsByUser, fetchMessagesByConversation } from '@/lib/utils'; 
+import SignOutForm from '@/components/ui/signout-button'; 
+import { fetchConversationsByUser, fetchMessagesByConversation } from '@/lib/utils';
 import { GetServerSideProps } from 'next';
-import { auth } from '@/auth';
 import { Conversation } from '@/lib/definitions';
+import { auth } from '@/auth';
 
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const session = await auth()
+  const userId = session?.user?.id!
+  const conversationId = Number(params?.convo_id);
+  const conversations = await fetchConversationsByUser(userId);
+  const messages = await fetchMessagesByConversation(conversationId);
+  return { props: { conversations, userId, messages } };
+};
 
 // Define types for the response message and WebSocket ref
 interface ResponseMessage {
@@ -52,24 +60,8 @@ interface UserConversationsPageProps {
   messages: ResponseMessage[]
 }
 
-export const getUserInfo = async () => {
-  const session = await auth()
-  console.log(session)
-  
-  const userId = session?.user?.id!
-  const conversations = await fetchConversationsByUser(userId);
-  console.log("user Id:")
-  console.log(userId)
-  const conversationId = conversations[0].id;
-  console.log("conv Id:")
-  console.log(conversationId)
-  const messages = await fetchMessagesByConversation(conversationId);
-  console.log("messages:")
-  console.log(messages)
-  
-};
 
-export function Chatpage(){
+const UserChatPage:React.FC<UserConversationsPageProps> = async ({conversations, userId, messages}) => {
 
   const [input, setInput] = useState<string>('');
   // State to store the responses/messages
@@ -81,8 +73,11 @@ export function Chatpage(){
   // Maximum number of attempts to reconnect
   const [reconnectAttempts, setReconnectAttempts] = useState<number>(0);
   const maxReconnectAttempts = 5;
-  
-  getUserInfo();
+
+  useEffect(()=>{
+    setResponses(messages)
+  }, [])
+
   // Function to setup the WebSocket connection and define event handlers
   const setupWebSocket = () => {
     ws.current = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
@@ -152,11 +147,11 @@ export function Chatpage(){
   const renderMessage = (response: ResponseMessage, index: number) => (
     <div key={index} className="flex items-start gap-4">
       <Avatar className="w-8 h-8 border">
-        <AvatarImage src={response.sender === 'user' ? '/placeholder-user.jpg' : '/placeholder-bot.jpg'} />
-        <AvatarFallback>{response.sender === 'user' ? 'You' : 'Assistant'}</AvatarFallback>
+        <AvatarImage src={response.sender === 'You' ? '/placeholder-user.jpg' : '/placeholder-bot.jpg'} />
+        <AvatarFallback>{response.sender === 'You' ? 'You' : 'Assistant'}</AvatarFallback>
       </Avatar>
       <div className="grid gap-1">
-        <div className="font-bold">{response.sender === 'user' ? 'You' : 'SCU Chatbot'}</div>
+        <div className="font-bold">{response.sender === 'You' ? 'You' : 'SCU Chatbot'}</div>
         <div className="prose text-muted-foreground">
           <p>{response.message}</p>
         </div>
@@ -172,7 +167,7 @@ export function Chatpage(){
   // Handler for form submission
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const userMessage: ResponseMessage = { sender: "user", message: input };
+    const userMessage: ResponseMessage = { sender: "You", message: input };
     setResponses(prevResponses => [...prevResponses, userMessage]);
     ws.current?.send(JSON.stringify({ message: input })); // Send message through WebSocket
     setInput(''); // Clear input field
@@ -221,8 +216,6 @@ export function Chatpage(){
               <div ref={messagesEndRef} /> {/* Invisible element to help scroll into view */}
             </div>
           </div>
-          
-          
 
           {/* user text input and submission */}
           <div className="mt-4 flex items-center gap-2">
@@ -246,9 +239,8 @@ export function Chatpage(){
 
       
       <div className="flex flex-col border-l bg-muted p-4">
-        <h3 className="text-lg font-medium px-3">Conversations</h3>
         <div className="flex items-center justify-between">
-          
+          <h3 className="text-lg font-medium">Conversations</h3>
           <div className="flex items-center gap-2">
             <Input
               type="search"
@@ -482,3 +474,5 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export default UserChatPage;

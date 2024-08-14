@@ -29,5 +29,17 @@ export const authConfig = {
             }
             return true;
         },
+        async jwt({ token, user }) {
+            if (user) { // User is available during sign-in
+                token.id = user.id
+            }
+            return token
+        },
+        async session({ session, token }) {
+            if(token){
+                session.user.id = token.sub!
+            }
+            return session
+        },
     },
 } satisfies NextAuthConfig;

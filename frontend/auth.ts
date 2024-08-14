@@ -25,6 +25,7 @@ const providers: Provider[] = [
                   console.log('Parsed credentials');
                   const { email, password } = parsedCredentials.data;
                   const user = await getUser(email, password);
+                  //console.log(user)
                   if (!user){
                     console.log("user not found ...")
                     return null;

@@ -1,0 +1,90 @@
+[
+  {
+    "model": "users.conversation",
+    "pk": 1,
+    "fields": {
+      "user": 6,
+      "started_at": "2024-08-13T10:00:00Z",
+      "ended_at": null
+    }
+  },
+  {
+    "model": "users.conversation",
+    "pk": 2,
+    "fields": {
+      "user": 7,
+      "started_at": "2024-08-13T11:00:00Z",
+      "ended_at": null
+    }
+  },
+  {
+    "model": "users.message",
+    "pk": 1,
+    "fields": {
+      "conversation": 1,
+      "sender": "user",
+      "content": "Hi there! How are you today?",
+      "timestamp": "2024-08-13T10:01:00Z"
+    }
+  },
+  {
+    "model": "users.message",
+    "pk": 2,
+    "fields": {
+      "conversation": 1,
+      "sender": "bot",
+      "content": "Hello! I am doing well, thank you. How can I assist you today?",
+      "timestamp": "2024-08-13T10:02:00Z"
+    }
+  },
+  {
+    "model": "users.message",
+    "pk": 3,
+    "fields": {
+      "conversation": 1,
+      "sender": "user",
+      "content": "I am looking for some information on your products.",
+      "timestamp": "2024-08-13T10:03:00Z"
+    }
+  },
+  {
+    "model": "users.message",
+    "pk": 4,
+    "fields": {
+      "conversation": 1,
+      "sender": "bot",
+      "content": "Sure! We have a variety of products. What specifically are you interested in?",
+      "timestamp": "2024-08-13T10:04:00Z"
+    }
+  },
+  {
+    "model": "users.message",
+    "pk": 5,
+    "fields": {
+      "conversation": 2,
+      "sender": "user",
+      "content": "Hey Bob, did you check the report?",
+      "timestamp": "2024-08-13T11:01:00Z"
+    }
+  },
+  {
+    "model": "users.message",
+    "pk": 6,
+    "fields": {
+      "conversation": 2,
+      "sender": "bot",
+      "content": "Hi! Yes, I went through it yesterday. It looks good.",
+      "timestamp": "2024-08-13T11:02:00Z"
+    }
+  },
+  {
+    "model": "users.message",
+    "pk": 7,
+    "fields": {
+      "conversation": 2,
+      "sender": "user",
+      "content": "Great! Let me know if you have any suggestions.",
+      "timestamp": "2024-08-13T11:03:00Z"
+    }
+  }
+]

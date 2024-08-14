@@ -57,3 +57,20 @@ class MyUser(AbstractBaseUser):
 
     def get_absolute_url(self):
         return "/users/%i/" % (self.pk)
+    
+class Conversation(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='conversations')
+    started_at = models.DateTimeField(auto_now_add=True)
+    ended_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Conversation {self.id} with {self.user.email}"
+    
+class Message(models.Model):
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='messages')
+    sender = models.CharField(max_length=10, choices=(('user', 'User'), ('bot', 'Bot')))
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message {self.id} in {self.conversation.id} by {self.sender}"

@@ -1,12 +1,9 @@
-"use client";
- 
+'user server'
 import { Chatpage } from "@/components/chatpage"
 import { FormEvent } from 'react'
-import RegisterForm from "@/components/ui/register-form";
-
-export default function SignupPage() {
+import { signOut } from "@/auth"
+export default async function SignOutPage() {
   //const router = useRouter()
-
  
   return (
     <main className="flex items-center justify-center md:h-screen">
@@ -16,7 +13,6 @@ export default function SignupPage() {
             
           </div>
         </div>
-        <RegisterForm />
       </div>
     </main>
   );

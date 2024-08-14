@@ -8,3 +8,18 @@ export type User = {
     email: string;
     password: string;
   };
+
+export interface Conversation {
+  id: number;
+  user: number; // user ID
+  started_at: string; // ISO date string
+  ended_at?: string;  // ISO date string, optional
+}
+
+export interface Message {
+  id: number;
+  conversation: number; // conversation ID
+  sender: 'user' | 'bot';
+  content: string;
+  timestamp: string; // ISO date string
+}
