@@ -3,7 +3,7 @@
     "model": "users.conversation",
     "pk": 1,
     "fields": {
-      "user": 6,
+      "user": 1,
       "started_at": "2024-08-13T10:00:00Z",
       "ended_at": null
     }
@@ -12,7 +12,7 @@
     "model": "users.conversation",
     "pk": 2,
     "fields": {
-      "user": 7,
+      "user": 2,
       "started_at": "2024-08-13T11:00:00Z",
       "ended_at": null
     }

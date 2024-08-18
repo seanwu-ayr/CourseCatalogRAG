@@ -54,18 +54,18 @@ interface UserConversationsPageProps {
 
 export const getUserInfo = async () => {
   const session = await auth()
-  console.log(session)
+  //console.log(session)
   
   const userId = session?.user?.id!
   const conversations = await fetchConversationsByUser(userId);
   console.log("user Id:")
   console.log(userId)
-  const conversationId = conversations[0].id;
+  //const conversationId = conversations[0].id;
   console.log("conv Id:")
-  console.log(conversationId)
-  const messages = await fetchMessagesByConversation(conversationId);
+  console.log(conversations)
+  //const messages = await fetchMessagesByConversation(conversationId);
   console.log("messages:")
-  console.log(messages)
+  //console.log(messages)
   
 };
 
