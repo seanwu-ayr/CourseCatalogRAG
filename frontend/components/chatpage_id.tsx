@@ -81,7 +81,7 @@ export const getUserInfo = async (user:any) => {
   
 };
 
-export function Chatpage({user}:Session){
+export function ChatpageID({user}:Session){
   console.log("user in chat: \n", user)
   const [input, setInput] = useState<string>('');
   // State to store the responses/messages
@@ -160,6 +160,26 @@ export function Chatpage({user}:Session){
       console.log(userId)
       console.log("conversation:")
       console.log(convos)
+      const conversationId = convos[0]?.id;
+      console.log("conv Id:")
+      console.log(conversationId)
+      const messages = await fetchMessagesByConversation(conversationId);
+      console.log("messages:")
+      console.log(messages)
+
+      let msgs: ResponseMessage[] = []
+      messages.forEach((msg)=>{
+        let emptymsg = emptyMessage()
+        emptymsg.id = '' + (msg.id)
+        emptymsg.message = msg.content
+        emptymsg.sender = msg.sender
+        msgs = [...msgs, emptymsg]
+
+      })
+
+      console.log("messages: ", msgs)
+
+      setResponses(msgs)
     }
 
     getUserMsgs().catch(console.error)

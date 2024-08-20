@@ -1,21 +1,20 @@
 import Link from "next/link"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import { Conversation } from "@/lib/definitions";
 
-type Props = {
-    userId: string;
-    conversationId: string
-};
 
-export default function ChatTab({userId, conversationId} : Props){
-    const redirect_url = "conversations/" + conversationId
+export default function ChatTab({user, id, started_at, ended_at} : Conversation){
+    console.log("user: ", user)
+    console.log("id: ", id)
+    const redirect_url = "conversations/" + id
     return(
         <div className="flex items-center justify-between rounded-md px-3 py-2 hover:bg-background">
               <Link href={redirect_url} className="truncate font-medium" prefetch={false}>
-                Class Registration
+                {"Conversation " + id + " from user " + user}
               </Link>
               <div className="flex items-center gap-2">
-                <div className="text-xs text-muted-foreground">2h ago</div>
+                <div className="text-xs text-muted-foreground">{started_at}</div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="icon" className="rounded-full">

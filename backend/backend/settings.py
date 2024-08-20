@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "daphne",
     "django.contrib.staticfiles",
     "langchain_stream",
+    "rest_framework",
     "users",
     'corsheaders',
 ]
@@ -111,6 +112,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Define Custom User Model
 AUTH_USER_MODEL = 'users.MyUser'
+
+# Deifine Custom Authentication Methods
+AUTHENTICATION_BACKENDS = [
+    'users.authentication.CustomUserBackend',
+    'django.contrib.auth.backends.ModelBackend', # This is the default that allows us to log in via username
+]
 
 
 # Internationalization

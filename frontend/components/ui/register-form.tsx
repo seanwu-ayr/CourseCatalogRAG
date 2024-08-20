@@ -41,9 +41,12 @@ export default function RegisterForm() {
 
     if (res.ok) {
       setMessage(data.message);
-      router.push('/auth/login')
+      localStorage.setItem("justRegistered", "true")
+      router.push('/auth/login');
+      
     } else {
       setMessage(data.error);
+      localStorage.setItem("justRegistered", "false")
     }
   };
 
@@ -132,6 +135,11 @@ export default function RegisterForm() {
                 <p className="text-sm text-red-500">{errorMessage}</p>
               </>
             )}
+          </div>
+          <div className="flex justify-between mt-2">
+            <a href="/auth/login" className="text-sm text-blue-600 hover:underline">
+              Have An Account? Log in!
+            </a>
           </div>
         </div>
       </form>

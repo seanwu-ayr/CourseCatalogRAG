@@ -25,13 +25,13 @@ const providers: Provider[] = [
                   console.log('Parsed credentials');
                   const { email, password } = parsedCredentials.data;
                   const user = await getUser(email, password);
-                  //console.log(user)
-                  if (!user){
+                  console.log(user)
+                  if (user?.error){
                     console.log("user not found ...")
                     return null;
                   }
                     
-                  return user
+                  return user!
                   //const passwordsMatch = await bcrypt.compare(password, user.password);
 
                   //if (passwordsMatch) return user;
