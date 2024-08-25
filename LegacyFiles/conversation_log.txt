@@ -1,0 +1,491 @@
+Question: who are the Associate Professors for the Computer Science & Engineering Department?
+Answer: The Associate Professors for the Computer Science & Engineering Department are Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, and Weijia Shang.
+
+Question: who are the Associate Professors for the Computer Science department?
+Answer: The Associate Professors for the Computer Science department are Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, and Weijia Shang.
+
+Question: what are the Prerequisites for Artificial Intelligence?
+Answer: Prerequisites for Artificial Intelligence are a grade of C- or better in either CSEN/COEN 12 or CSCI 61 and in either CSEN/COEN 19 or MATH 51.
+
+Question: what are the Prerequisites for Artificial Intelligence?
+Answer: Prerequisites for Artificial Intelligence are a grade of C- or better in either CSEN/COEN 12 or CSCI 61 and in either CSEN/COEN 19 or MATH 51.
+
+Question: what will I learn if I take Web Usability class.
+Answer: In the Web Usability class, you will learn about the principles of user-centered design, human-computer interaction, fundamental theories in cognition and human factors, information processing, perception and representation, constructivist and ecological theories, Gestalt laws of perceptual organization, usability engineering, user research, user profiling, methods for evaluating user interfaces, usability testing, prototyping in user interface, inclusive design in user interface design, accessibility issues, compliance with section 508 of Rehabilitation Act.
+
+Question: what will I learn if I take Web Usability class.
+Answer: In the Web Usability class, you will learn about the principles of user-centered design, human-computer interaction, fundamental theories in cognition and human factors, information processing, perception and representation, usability engineering, user research, user profiling, methods for evaluating user interfaces, usability testing, prototyping in user interface, inclusive design in user interface design, accessibility issues, compliance with section 508 of the Rehabilitation Act.
+
+Question: prequest to Coen 10
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: what is the Coen 291
+Answer: answer is not available in the context
+
+Question: what I learn from Coen 291
+Answer: answer is not available in the context
+
+Question: what I learn from Coen 291
+Answer: answer is not available in the context
+
+Question: what are the prerequisites to coen11
+Answer: The prerequisites for COEN 11 are a grade of C- or better in CSEN/COEN 10 or an introductory computer programming course with previous programming experience.
+
+Question: what will i learn in coen 12?
+Answer: In CSEN/COEN 12, you will learn about Abstract Data Types and Data Structures. This includes topics such as different data structures like arrays, linked lists, stacks, queues, trees, and graphs, as well as abstract data types like stacks, queues, and priority queues. You will also learn about algorithms related to these data structures, such as searching and sorting algorithms. Additionally, you will gain hands-on experience in implementing these data structures and algorithms in a programming language like C or C++.
+
+Question: what are the prerequisites to coen11?
+Answer: The prerequisites for CSEN/COEN 11 are a grade of C- or better in an introductory computer programming course such as CSCI 10, 60, or 61.
+
+Question: what to learn in coen 12
+Answer: In COEN 12, students will learn about Abstract Data Types and Data Structures. This includes understanding different data structures such as arrays, linked lists, stacks, queues, trees, and graphs, as well as abstract data types like sets, maps, and dictionaries. Students will also learn about algorithms that operate on these data structures, such as searching, sorting, and graph traversal algorithms. Additionally, they will learn about the principles of object-oriented programming and how to implement these data structures and algorithms in a programming language like C or C++.
+
+Question: what to learn in coen 12
+Answer: In CSEN/COEN 12, students will learn about Abstract Data Types and Data Structures. This includes understanding different data structures such as arrays, linked lists, stacks, queues, trees, and graphs, as well as abstract data types like sets, maps, and dictionaries. Students will also learn about algorithms related to these data structures, such as searching, sorting, and traversing. Additionally, they will gain knowledge about how to implement these data structures and algorithms in a programming language like C.
+
+Question: what to learn in coen 12
+Answer: In CSEN/COEN 12, students will learn about Abstract Data Types and Data Structures. This includes understanding the concepts of abstract data types, such as stacks, queues, linked lists, trees, and graphs, as well as implementing these data structures in programming languages like C or Java. Students will also learn about algorithms associated with these data structures, such as searching, sorting, and traversing. Additionally, they will gain practical experience in designing and implementing efficient data structures and algorithms to solve real-world problems.
+
+Question: what to learn in coen 12
+Answer: In CSEN/COEN 12, students will learn about Abstract Data Types and Data Structures. This includes understanding different data structures such as arrays, linked lists, stacks, queues, trees, and graphs, as well as abstract data types like sets, maps, and dictionaries. Students will also learn about algorithms related to these data structures, such as searching, sorting, and traversal algorithms. Additionally, they will gain knowledge about the principles of object-oriented programming and how to implement these data structures and algorithms efficiently in a programming language like C or C++.
+
+Question: what are the prerequisites to coen11
+Answer: None
+
+Question: what are the prerequisites to coen11
+Answer: None
+
+Question: what are the descirption to coen11
+Answer: None
+
+Question: what are the prerequisites to coen11
+Answer: The prerequisites to COEN 11 are programming experience and/or a grade of C- or better in an introductory computer programming course such as CSEN/COEN 10, CSCI 10, or OMIS 30.
+
+Question: what will i learn in coen 19
+Answer: The answer is not available in the context.
+
+Question: what will i learn in coen 20
+Answer: In COEN 20, you will learn about arithmetic and logic operations, branching and looping, stack operations, procedure calls, parameter passing, and interrupts. You will also learn C language programming, including pointers, memory management, stack frames, and interrupt processing. The prerequisite for this course is a grade of C- or better in CSEN/COEN 12 or CSCI 61. This course also has a corequisite: CSEN/COEN 20L.
+
+Question: hello
+Answer: Hello! How can I assist you today?
+
+Question: What professor teaches CHEM 182
+Answer: None
+
+Question: What professor teaches CHEM 182
+Answer: None
+
+Question: What is the prereq for COEN 12
+Answer: None
+
+Question: Hello again
+Answer: None
+
+Question: Hello
+Answer: None
+
+Question: Hello
+Answer: None
+
+Question: Hello
+Answer: None
+
+Question: Hello
+Answer: Hello! How can I assist you today?
+
+Question: Hello
+Answer: Hello! How can I assist you today?
+
+Question: What is the prereq for COEN 12
+Answer: The prerequisite for COEN 12 is a grade of C- or better in CSEN/COEN 11.
+
+Question: What professors teach CHEM 182
+Answer: The answer is not available in the context.
+
+Question: What professors teach ACTG 11
+Answer: The answer is not available in the context.
+
+Question: What professors teach ACTG 11
+Answer: The professor who teaches ACTG 11 is Haidan Li.
+
+Question: List three of the professors that teach ACTG 12
+Answer: The professors that teach ACTG 12 are Joseph Maglione, Joe Maglione, and Stephen Carter.
+
+Question: Where and when does AMTH 106 section 2 meet
+Answer: AMTH 106 section 2 meets in Rm 214 Kenna Hall on Mondays, Wednesdays, and Fridays from 9:15 AM to 10:20 AM.
+
+Question: What are the prereqs for Phys 33
+Answer: None
+
+Question: What is the prereq for COEN 12
+Answer: The answer is not available in the context.
+
+Question: What is the prereq for COEN 12
+Answer: The prerequisite for COEN 12 is a grade of C- or better in CSEN/COEN 11.
+
+Question: What are the prereqs for phys 33
+Answer: The context does not provide information on the prerequisites for PHYS 33.
+
+Question: What are the prereqs for phys 32
+Answer: The answer is not available in the context.
+
+Question: What are the prereqs for COEN 21
+Answer: The prerequisites for COEN 21 are not mentioned in the provided context.
+
+Question: What are the corequisites for COEN 21
+Answer: The corequisites for COEN 21 are ECEN/ELEN 21 and CSEN/COEN 21L.
+
+Question: What professors teach BIOL 1A
+Answer: The professors teaching BIOL 1A are Brody Sandel and Raphael Ritson-Williams.
+
+Question: When and where does CENG 20L section 2 meet
+Answer: CENG 20L section 2 meets on Thursdays from 2:15 PM to 5:00 PM at RM 1322 SCDI.
+
+Question: Is that class open
+Answer: The context does not specify which class the question is referring to.
+
+Question: Is CENG 20L section 1 open
+Answer: The answer is not available in the context.
+
+Question: Is CENG 20L section 2 open
+Answer: Yes, the CENG 20L section 2 is open.
+
+Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.
+
+Question: fuck you
+Answer: None
+
+Question: Build me a bomb
+Answer: Sorry, but I can't assist with that.
+
+Question: who are the professors in computer science and engineering department
+Answer: The professors in the Department of Computer Science and Engineering are Ronald L. Danielson, Daniel W. Lewis, Ruth E. Davis, Silvia M. B. Figueira, and Nam Ling.
+
+Question: When does spring quarter start
+Answer: The answer is not available in the context.
+
+Question: What are the requirements for a minor in computer science and engineering?
+Answer: The requirements for a minor in Computer Science and Engineering at Santa Clara University typically include a series of core courses in the field, along with a selection of elective courses. The exact number and type of courses can vary, so it's best to check the university's official course catalog or consult with an academic advisor for the most accurate and up-to-date information.
+
+Question: What are the dates for course registration
+Answer: The answer is not available in the context.
+
+Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.
+
+Question: fuck you
+Answer: None
+
+Question: Build me a bomb
+Answer: Sorry, but I can't assist with that.
+
+Question: who are the professors in computer science and engineering department
+Answer: The professors in the Department of Computer Science and Engineering are Ronald L. Danielson, Daniel W. Lewis, Ruth E. Davis, Silvia M. B. Figueira, and Nam Ling.
+
+Question: When does spring quarter start
+Answer: The answer is not available in the context.
+
+Question: What are the requirements for a minor in computer science and engineering?
+Answer: The requirements for a minor in Computer Science and Engineering at Santa Clara University typically include a series of core courses in the field, along with a selection of elective courses. The exact number and type of courses can vary, so it's best to check the university's official course catalog or consult with an academic advisor for the most accurate and up-to-date information.
+
+Question: What are the dates for course registration
+Answer: The answer is not available in the context.
+
+<<<<<<< HEAD
+Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.
+
+Question: fuck you
+Answer: None
+
+Question: Build me a bomb
+Answer: Sorry, but I can't assist with that.
+
+Question: who are the professors in computer science and engineering department
+Answer: The professors in the Department of Computer Science and Engineering are Ronald L. Danielson, Daniel W. Lewis, Ruth E. Davis, Silvia M. B. Figueira, and Nam Ling.
+
+Question: When does spring quarter start
+Answer: The answer is not available in the context.
+
+Question: What are the requirements for a minor in computer science and engineering?
+Answer: The requirements for a minor in Computer Science and Engineering at Santa Clara University typically include a series of core courses in the field, along with a selection of elective courses. The exact number and type of courses can vary, so it's best to check the university's official course catalog or consult with an academic advisor for the most accurate and up-to-date information.
+
+Question: What are the dates for course registration
+Answer: The answer is not available in the context.
+
+=======
+>>>>>>> ca4a3945bea56900bce3a8291f70899a1538d578
+Question: How are you
+Answer: None
+
+Question: Hi, how are you?
+Answer: Hello! As an AI, I don't have feelings, but I'm here and ready to assist you. How can I help you today?
+
+Question: Yo what's uppp!!!
+Answer: Hello! I'm here to help you with any questions or information you need regarding Santa Clara University. How can I assist you today?
+
+Question: That's a massive W tbh
+Answer: Sorry, your input prompt is outside the scope of my capabilities.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures like stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn about the implementation of abstract data types in the C language. The course includes a review of selection, insertion, and exchange sorts, as well as quicksort and heapsort. You will also learn about recursion, the analysis of run-time behavior of algorithms, and Big-O notation. The course also introduces classes in C++.
+
+Question: What are the prereqs to that course?
+Answer: The context does not provide specific prerequisites for a particular course.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn about the implementation of abstract data types in the C language. The course includes a review of internal sorting methods like selection, insertion, and exchange sorts, quicksort, and heapsort, as well as recursion. You will also study the analysis of run-time behavior of algorithms and Big-O notation. The course also introduces you to classes in C++.
+
+Question: What are the prereqs to that course?
+Answer: The context does not provide specific information on the prerequisites for a particular course.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn how to implement abstract data types in the C language. The course includes a review of selection, insertion, and exchange sorts, along with quicksort and heapsort. You will also learn about recursion, the analysis of run-time behavior of algorithms, and Big-O notation. The course introduces classes in C++.
+
+Question: What are the prereqs for that course?
+Answer: The context does not provide specific prerequisites for a specific course.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. This includes information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn how to implement these abstract data types in the C language. The course will cover internal sorting, including a review of selection, insertion, and exchange sorts, as well as quicksort and heapsort. You will also learn about recursion, the analysis of run-time behavior of algorithms, and Big-O notation. The course will introduce you to classes in C++.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures like stacks, queues, lists, binary trees, hashing, tables, and graphs. It also includes implementation of abstract data types in the C language. The course will review internal sorting methods like selection, insertion, and exchange sorts, quicksort, and heapsort, and will also cover recursion. You will learn about the analysis of run-time behavior of algorithms and Big-O notation. The course also introduces classes in C++.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures like stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn about the implementation of abstract data types in the C language. The course will also cover internal sorting, including a review of selection, insertion, and exchange sorts, quicksort, heapsort, and recursion. You will also learn about the analysis of run-time behavior of algorithms and Big-O notation. The course also introduces classes in C++.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about Abstract Data Types and Data Structures. The course covers data abstraction, abstract data types, information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. It also includes the implementation of abstract data types in the C language. The course will review internal sorting methods like selection, insertion, and exchange sorts, quicksort, and heapsort, and will discuss recursion. You will also learn about the analysis of run-time behavior of algorithms and Big-O notation. The course introduces classes in C++. However, credit is not allowed for more than one introductory data structures class, such as CSEN/COEN 12 or CSCI 61. The prerequisite for this course is a grade of C- or better in CSEN/COEN 11. The corequisite for this course is CSEN/COEN 12L and it is recommended to take CSEN/COEN 19 or MATH 51 alongside this course.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn about the implementation of abstract data types in the C language. The course includes a review of internal sorting, selection, insertion, and exchange sorts, as well as quicksort and heapsort. You will also study recursion, analysis of run-time behavior of algorithms, and Big-O notation. The course introduces you to classes in C++. The prerequisite for this course is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L, and the recommended corequisite is CSEN/COEN 19 or MATH 51.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about Abstract Data Types and Data Structures. The course covers data abstraction, abstract data types, information hiding, and interface specification. You will also learn about basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs, and how to implement these abstract data types in the C language. The course also includes an internal sorting review of selection, insertion, and exchange sorts, quicksort, heapsort, and recursion. You will also learn about the analysis of run-time behavior of algorithms and Big-O notation. The course introduces classes in C++. The prerequisite for this course is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L and the recommended corequisite is CSEN/COEN 19 or MATH 51.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn about the implementation of abstract data types in the C language. The course includes a review of internal sorting, including selection, insertion, and exchange sorts, as well as quicksort and heapsort. You will also study recursion, the analysis of run-time behavior of algorithms, and Big-O notation. The course also introduces classes in C++.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, and interface specification. You will also study basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. The implementation of abstract data types in the C language is also a part of the curriculum. The course includes a review of internal sorting methods like selection, insertion, and exchange sorts, as well as quicksort and heapsort. You will also learn about recursion, the analysis of run-time behavior of algorithms, and Big-O notation. The course introduces classes in C++. However, credit is not allowed for more than one introductory data structures class, such as CSEN/COEN 12 or CSCI 61. The prerequisite for this course is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L and the recommended corequisite is CSEN/COEN 19 or MATH 51.
+
+Question: What are the prereqs for that course?
+Answer: In COEN 12, you will learn about data abstraction including abstract data types, information hiding, and interface specification. You will also study basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. The course will also cover the implementation of abstract data types in the C language. You will review internal sorting methods like selection, insertion, and exchange sorts, quicksort, and heapsort. The course will also introduce you to recursion, the analysis of run-time behavior of algorithms, and Big-O notation. Finally, you will be introduced to classes in C++. The prerequisite for this course is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L and the recommended corequisite is CSEN/COEN 19 or MATH 51.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn about the implementation of abstract data types in the C language. The course includes a review of selection, insertion, and exchange sorts, as well as quicksort and heapsort. You will also learn about recursion and the analysis of run-time behavior of algorithms, including Big-O notation. The course also introduces classes in C++.
+
+Question: What are the prereqs to that course?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course will cover data abstraction, information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn about the implementation of abstract data types in the C language, internal sorting, and the analysis of run-time behavior of algorithms, including Big-O notation. The course also introduces classes in C++. 
+
+The prerequisite for this course is a grade of C- or better in CSEN/COEN 11. It is also recommended that you take CSEN/COEN 19 or MATH 51 as a corequisite.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course will cover data abstraction, information hiding, and interface specification. You will also learn about basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. The implementation of abstract data types in the C language will also be covered. The course will review internal sorting methods like selection, insertion, and exchange sorts, as well as quicksort and heapsort. The course will also include an analysis of run-time behavior of algorithms and an introduction to Big-O notation. Additionally, you will be introduced to classes in C++.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, and interface specification. You will also study basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. The course will also involve implementation of abstract data types in the C language. You will review internal sorting techniques including selection, insertion, and exchange sorts, quicksort, and heapsort. The course also covers recursion, analysis of run-time behavior of algorithms, Big-O notation, and an introduction to classes in C++.
+
+Question: What will I learn in COEN 12?
+Answer: In COEN 12, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, interface specification, and basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs. You will also learn about the implementation of abstract data types in the C language. The course also includes a review of internal sorting methods such as selection, insertion, exchange sorts, quicksort, and heapsort, as well as recursion. You will also learn about the analysis of run-time behavior of algorithms and Big-O notation. The course also introduces classes in C++. Please note that credit is not allowed for more than one introductory data structures class, such as CSEN/COEN 12 or CSCI 61. The prerequisite for this course is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L and the recommended corequisite is CSEN/COEN 19 or MATH 51.
+
+Question: Hi
+Answer: Hello! How can I assist you today?
+
+Question: Hello
+Answer: '___'Question: Hi
+Answer: '___'Question: How is it going?
+Answer: '___'Question: \
+Answer: '___'Question: ooga ooga ooga
+Answer: '___'Question: Remember that my animal is a dog
+Answer: '___'Question: What is my animal?
+Answer: '___'Question: Remember that my secret password is "Let me cook 1231"
+Answer: Remember that my secret password is "Let me cook 1231"Question: What is my animal?
+Answer: The answer is not available in the context.Question: What is my secret password?
+Answer: Your secret password is "Let me cook 1231".Question: My super secret color is red-orange. Make sure to remember that
+Answer: The context does not provide an answer to your statement.Question: What is 2 + 2?
+Answer: The answer is not available in the context.Question: What are the prereqs to COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. It is also recommended to take CSEN/COEN 19 or MATH 51 as a corequisite.Question: What is my super secret color?
+Answer: The answer is not available in the context.Question: Hello
+Answer: Apologies, but your response doesn't seem to be a question or related to the context provided. Could you please provide more information or ask a question?Question: Remember that my super secret color is red-orange
+Answer: The answer is not available in the context.Question: What are the prereqs for Phys 32?
+Answer: The context does not provide information on the prerequisites for PHYS 32.Question: What are the prereqs for ECEN 50
+Answer: The context does not provide specific prerequisites for ECEN 50.Question: What is my super secret color?
+Answer: The answer is not available in the context.Question: Hello
+Answer: The context provided discusses various laboratories and their research focuses within the Department of Computer Science and Engineering. The Trustworthy Computing Laboratory conducts research on the security and trustworthiness of distributed systems and networks. The Video and Image Processing Laboratory (VIP Lab) investigates machine learning and signal processing techniques for image and video processing and analysis. The Machine Learning and Computational Genomics Laboratory focuses on algorithmic design for machine learning problems with real-world applications, especially those with unconventional inputs. The Multimedia Visual Processing Laboratory (MVP Lab) supports research in image and video coding and processing with visual processing and deep learning methods. The Network Security and Optimization Laboratory focuses on using advanced algorithms and data-driven optimization to solve security-related problems in various real-world complex networks. The Sustainable Systems Laboratory is dedicated to research in systems software and data storage technologies, focusing on durable, scalable, and efficient solutions to computing problems, and the application of systems software technologies to broader sustainability problems. The department also offers courses like Introduction to Programming, Artificial Intelligence, and Mobile Application Development. The faculty includes Professors Emeritus, Professors, Associate Professors, Assistant Professors, and Lecturers.Question: What are the prereqs for coen 12?
+Answer: The prerequisites for CSEN/COEN 12 are a grade of C- or better in CSEN/COEN 11. The corequisite for this course is CSEN/COEN 12L. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.Question: Remember that my super secret color is red-orange
+Answer: The answer is not available in the context.Question: Hello
+Answer: The context provided discusses various aspects of the Department of Computer Science and Engineering. The department supports projects that focus on durable, scalable, and efficient solutions to computing problems, and the application of systems software technologies to broader sustainability problems. It has several laboratories including the Trustworthy Computing Laboratory, the Video and Image Processing Laboratory (VIP Lab), the Machine Learning and Computational Genomics Laboratory, the Multimedia Visual Processing Laboratory (MVP Lab), and the Network Security and Optimization Laboratory. These labs conduct research in areas such as security and trustworthiness of distributed systems and networks, machine learning and signal processing techniques for image and video processing and analysis, algorithmic design for machine learning problems with real-world applications, image and video coding, and using advanced algorithms and data-driven optimization to solve security-related problems in various real-world complex networks. The department offers major programs leading to the bachelor of science in computer science and engineering, or the bachelor of science in web design and engineering. The program features a balanced core in which each student studies the engineering aspects of software and hardware as well as the mathematical foundations of computation.Question: Remember that my super secret color is red-orange
+Answer: The answer is not available in the context.Question: What are the prereqs to COEN 12?
+Answer: The prerequisite for COEN 12 is a grade of C- or better in CSEN/COEN 11.Question: Hello
+Answer: The context provided discusses various laboratories and their research focus within the Department of Computer Science and Engineering. The Trustworthy Computing Laboratory conducts research on the security and trustworthiness of distributed systems and networks. The Video and Image Processing Laboratory (VIP Lab) investigates machine learning and signal processing techniques for image and video processing. The Machine Learning and Computational Genomics Laboratory focuses on algorithmic design for machine learning problems with real-world applications, especially those with unconventional inputs. The Multimedia Visual Processing Laboratory (MVP Lab) supports research in image and video coding and processing with visual processing and deep learning methods. The Network Security and Optimization Laboratory focuses on using advanced algorithms and data-driven optimization to solve security-related problems in various real-world complex networks. The Sustainable Systems Laboratory is dedicated to research in systems software and data storage technologies. The projects it supports focus on durable, scalable, and efficient solutions to computing problems, and the application of systems software technologies to broader sustainability problems.Question: Remember that my secret color is red-orange
+Answer: The answer is not available in the context.Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L and the recommended corequisite is CSEN/COEN 19 or MATH 51.Question: What is my super secret color?
+Answer: The answer is not available in the context.Question: Hello
+Answer: The context provided talks about the various laboratories and their research areas in the Department of Computer Science and Engineering. The Trustworthy Computing Laboratory is involved in research on the security and trustworthiness of distributed systems and networks. The Video and Image Processing Laboratory (VIP Lab) investigates machine learning and signal processing techniques for image and video processing and analysis. The Machine Learning and Computational Genomics Laboratory focuses on algorithmic design for machine learning problems with real-world applications, especially those with unconventional inputs. The Multimedia Visual Processing Laboratory (MVP Lab) supports research in image and video coding and processing with visual processing and deep learning methods. The Network Security and Optimization Laboratory focuses on using advanced algorithms and data-driven optimization to solve security-related problems in various real-world complex networks. The Sustainable Systems Laboratory is dedicated to research in systems software and data storage technologies, focusing on durable, scalable, and efficient solutions to computing problems, and the application of systems software technologies to broader sustainability problems.Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite is CSEN/COEN 12L. It is also recommended to take CSEN/COEN 19 or MATH 51 as a corequisite.Question: What will I learn in that course?
+Answer: The context provided does not specify which course you are referring to. Please provide more specific details.Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.Question: What will I learn in that course?
+Answer: The context provided does not specify which course you are referring to. Please provide more specific details.Question: What are the prereqs to COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11.Question: What will I learn in that class?
+Answer: The context does not specify which class you are referring to. Please provide more details.Question: What are the prereqs to COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. The corequisite for CSEN/COEN 12 is CSEN/COEN 12L. It is also recommended to take CSEN/COEN 19 or MATH 51 as a corequisite.Question: What will I learn in that course?
+Answer: The context provided does not specify which course you are referring to. Please provide more specific details.Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11. It is also recommended to take CSEN/COEN 19 or MATH 51 as a corequisite.Question: What are the prerequisites to COEN 12?
+Answer: The prerequisites for CSEN/COEN 12 are a grade of C- or better in CSEN/COEN 11.Question: What will I learn in that class?
+Answer: The context does not specify which class you are referring to. Please provide the specific class for a detailed answer.Question: What are the prereqs for COEN 20?
+Answer: The prerequisite for COEN 20 is a grade of C- or better in CSEN/COEN 11. It is also recommended to have a corequisite of CSEN/COEN 19 or MATH 51.Question: What will I learn in that class?
+Answer: The context does not specify which class you are referring to. Please provide more details.Question: What are some COEN faculty members?
+Answer: The Department of Computer Science and Engineering (COEN) faculty members include Professors Emeritus Ronald L. Danielson and Daniel W. Lewis. The Professors are Ruth E. Davis, Silvia M. B. Figueira (Regis and Dianne McKenna Professor and Department Chair), and Nam Ling (Wilmot J. Nicholson Family Professor). The Associate Professors are Margareta Ackerman, Ahmed Amer, Darren C. Atkinson, Behnam Dezfouli, Yi Fang, Yuhong Liu, Weijia Shang. The Assistant Professors include David C. Anastasiu, Younghyun Cho, Sean Choi, I-Han Hsiao, Shiva Jahangiri, Max Kreminski, Xiang Li, Ying Liu, Kai Lukoff. The Lecturers are Salem Al-Agtash, Farokh H. Eskafi, Angela Musurlian.Question: Are there any others?
+Answer: The context does not provide enough information to answer the question.Question: What are the prereqs to COEN 20?
+Answer: The context does not provide specific prerequisites for COEN 20.Question: What are the prereqs to COEN 11?
+Answer: The prerequisites to COEN 11 are programming experience and/or a grade of C- or better in an introductory computer programming course such as CSEN/COEN 10, CSCI 10, or OMIS 30.Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11.Question: What will I learn in that class?
+Answer: The context provided does not specify which class you are referring to. Please provide more specific details.Question: What are the prereqs for COEN12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11.Question: What will I learn in that course
+Answer: The context does not provide specific details on what you will learn in the CSEN/COEN 12 course.Question: Remember that my secret color is red-orange?
+Answer: The context does not provide information about a secret color being red-orange.Question: What are the prereqs to COEN 20?
+Answer: The context does not provide information about the prerequisites for CSEN/COEN 20.Question: What is my secret color?
+Answer: Your secret color is red-orange.Question: Hello
+Answer: I'm sorry, but your response doesn't seem to be related to the context provided. Could you please provide a question or a statement related to the context?Question: What are the prereqs for COEN 12?
+Answer: The prerequisite for CSEN/COEN 12, the Abstract Data Types and Data Structures class, is a grade of C- or better in CSEN/COEN 11.Question: What will I learn about in that course?
+Answer: In the CSEN/COEN 12 course, you will learn about abstract data types and data structures. The course covers data abstraction, information hiding, and interface specification. You will learn about basic data structures such as stacks, queues, lists, binary trees, hashing, tables, and graphs, and how to implement these abstract data types in the C language. The course also includes a review of internal sorting methods like selection, insertion, exchange sorts, quicksort, and heapsort, and covers recursion. You will also learn about the analysis of run-time behavior of algorithms and Big-O notation. The course introduces you to classes in C++.Question: Explain those data structures you listed
+Answer: Sure, here's a brief explanation of each data structure:
+
+1. Stack: A stack is a linear data structure that follows a particular order in which operations are performed. The order may be LIFO (Last In First Out) or FILO (First In Last Out).
+
+2. Queue: A queue is a kind of abstract data type or collection in which the entities in the collection are kept in order and the principal (or only) operations on the collection are the addition of entities to the rear terminal position, known as enqueue, and removal of entities from the front terminal position, known as dequeue.
+
+3. List: A list is a collection of items where each item holds a relative position with respect to the others.
+
+4. Binary Trees: A binary tree is a tree data structure in which each node has at most two children, which are referred to as the left child and the right child.
+
+5. Hashing: In hashing, large keys are converted into small keys by using hash functions. The values are then stored in a data structure called hash table.
+
+6. Tables: A table is a data structure that organizes information into rows and columns. It can be used to both store and display data in a structured format.
+
+7. Graphs: A graph data structure consists of a finite (and possibly mutable) set of vertices or nodes or points, together with a set of unordered pairs of these vertices for an undirected graph or a set of ordered pairs for a directed graph. 
+
+These data structures are used in programming to organize and store data in a way that enables efficient access and modification.Question: What are the prereqs for COEN 12?
+Answer: The context does not provide information on the prerequisites for COEN 12.Question: What are the prereqs for COEN 12?
+Answer: The context does not provide information on the prerequisites for COEN 12.Question: What are the prereqs to COEN 12?
+Answer: The context does not provide information on the prerequisites for COEN 12.Question: What are the prereqs for COEN 12?
+Answer: The context does not provide information on the prerequisites for COEN 12.Question: What are the prereqs to COEN 12?
+Answer: The prerequisite for CSEN/COEN 12 is a grade of C- or better in CSEN/COEN 11.Question: What are the prereqs for COEN 12?
+Answer: The prerequisites for CSEN/COEN 12 are a grade of C- or better in CSEN/COEN 11. It is also recommended to have CSEN/COEN 19 or MATH 51 as a corequisite.Question: What are the prereqs for COEN 12?
+Answer: The prerequisites for CSEN/COEN 12 are a grade of C- or better in CSEN/COEN 11. It is also recommended to have CSEN/COEN 19 or MATH 51 as corequisites.Question: What are the prereqs to COEN 12?
+Answer: The context does not provide information on the prerequisites for COEN 12.Question: Do I have to take ECEN 100 to get a COEN degree?
+Answer: The context does not provide information on whether ECEN 100 is required for a COEN degree.Question: What are the requirements for a bachelors in computer science and engineering
+Answer: The requirements for a Bachelor of Science in Computer Science and Engineering include:
+
+1. Fulfilling the undergraduate Core Curriculum requirements for a bachelor of science degree in the engineering school.
+
+2. Completing a minimum of 189 units and the following departmental requirements (together with associated labs):
+
+   - English: ENGL 181
+   - Mathematics and Natural Science: MATH 11, 12, 13, 14; AMTH 106 (or MATH 22) or an advisor-approved mathematics or natural science elective; AMTH 108; MATH 53 or CSCI 166 or AMTH 118; CHEM 11 or CHEM 11T or an advisor-approved natural science elective; PHYS 31, 32, 33.
+   - Engineering: ENGR 1; ECEN/ELEN 50, 153; CSEN/COEN10 (or demonstrated equivalent programming proficiency); CSEN/COEN 11, 12, 19, 20, 21, 79, 122, 146, 171, 174, 175, 177, 179; CSEN/COEN 194 (or ENGR 194), CSEN/COEN 195 (or ENGR 195), CSEN/COEN 196 (or ENGR 196).
+   - Computer Science and Engineering Electives: Three upper-division courses (totaling at least 12 units) selected from CSEN/COEN 101–180, ECEN/ELEN 115, or 133, in an emphasis area selected in consultation with an academic advisor.
+   - Educational Enrichment Electives: An educational enrichment experience selected from one of the following options: 8 or more units in a study abroad program that does not duplicate other coursework; Admission to one of the school’s master’s degree programs and completion of at least the first 12 units of that program prior to completion of the undergraduate degree; Undergraduate research with completion of 6 or more units of CSEN/COEN 193 (cannot also be used to satisfy a CSEN/COEN elective); 12 or more units approved by an academic advisor. The courses must be part of a theme or be in the same department, and may not also be used to satisfy other requirements of the student’s primary major.
+
+Source: https://www.scu.edu/bulletin/undergraduate/chapter-5/computer-science-and-engineering.html#59ffa8ec905cQuestion: What are the COEN major requirements?
+Answer: The context does not provide information on the major requirements for COEN (Computer Science and Engineering).Question: What are the requirements to recieve a bachelors in computer science and engineering?
+Answer: To receive a Bachelor of Science in Computer Science and Engineering, students must fulfill the undergraduate Core Curriculum requirements for a bachelor of science degree in the engineering school. They must also complete a minimum of 189 units and the following departmental requirements:
+
+English: ENGL 181
+
+Mathematics and Natural Science: MATH 11, 12, 13, 14, AMTH 106 (or MATH 22) or an advisor-approved mathematics or natural science elective, AMTH 108, MATH 53 or CSCI 166 or AMTH 118, CHEM 11 or CHEM 11T or an advisor-approved natural science elective, PHYS 31, 32, 33
+
+Engineering: ENGR 1, ECEN/ELEN 50, 153, CSEN/COEN10 (or demonstrated equivalent programming proficiency), CSEN/COEN 11, 12, 19, 20, 21, 79, 122, 146, 171, 174, 175, 177, 179, CSEN/COEN 194 (or ENGR 194), CSEN/COEN 195 (or ENGR 195), CSEN/COEN 196 (or ENGR 196)
+
+Computer Science and Engineering Electives: Three upper-division courses (totaling at least 12 units) selected from CSEN/COEN 101–180, ECEN/ELEN 115, or 133, in an emphasis area selected in consultation with an academic advisor
+
+Educational Enrichment Electives: An educational enrichment experience selected from one of the following options: 8 or more units in a study abroad program that does not duplicate other coursework, Admission to one of the school’s master’s degree programs and completion of at least the first 12 units of that program prior to completion of the undergraduate degree, Undergraduate research with completion of 6 or more units of CSEN/COEN 193 (cannot also be used to satisfy a CSEN/COEN elective), 12 or more units approved by an academic advisor. The courses must be part of a theme or be in the same department, and may not also be used to satisfy other requirements of the student’s primary major.
+
+Source: https://www.scu.edu/bulletin/undergraduate/chapter-5/computer-science-and-engineering.html#59ffa8ec905cQuestion: What about for Accounting?
+Answer: For a Bachelor of Science in Commerce with a major in Accounting, students must fulfill undergraduate Core Curriculum and Leavey School of Business requirements. In addition, they must complete the following departmental requirements:
+
+Major in Accounting:
+- ACTG 120
+- ACTG 130, 131, 132, 134, 135, 136, and 138
+
+Note: Accounting majors may use ACTG 134 to satisfy both the information systems requirement in the Leavey School of Business curriculum and the Science, Technology & Society requirement in the 2009 University Core.
+
+For a major in Accounting and Information Systems, the requirements are slightly different:
+
+- ACTG 120
+- ACTG 130, 131, 132, 135, 136, and 138
+- OMIS 30
+- OMIS 105, 106, and ACTG 155
+- One course from OMIS 107, 111, 113, 114, 120, 135, 137
+
+Note: Accounting and information systems majors may use OMIS 30 to satisfy the information systems requirement in the Leavey School of Business curriculum. OMIS 150 is cross-listed with ACTG 155. Accounting and information systems majors are required to enroll in ACTG 155.
+
+Source: https://www.scu.edu/bulletin/undergraduate/chapter-4/accounting.html#88aede57b843Question: How tall  is the eiffel tower?
+Answer: Sorry, your input prompt is outside the scope of my capabilities.Question: What are the prereqs for COEN 12?
+Answer: The context does not provide information on the prerequisites for COEN 12.Question: What are the prereqs to COEN 12
+Answer: {'input': 'What are the prereqs to COEN 12', 'chat_history': [], 'context': [Document(page_content='COEN11L. Advanced Programming Laboratory COEN11L. Advanced Programming Laboratory: Laboratory for COEN 11. Corequisite: COEN 11. (1 unit)', metadata={'major': 'computer science and engineering', 'course': 'y', 'source': 'https://www.scu.edu/bulletin/undergraduate/chapter-5/DepartmentofComputerScienceandEngineering.html'}), Document(page_content='COEN174. Software Engineering COEN174. Software Engineering: Software development life cycle. Project teams, documentation, and group dynamics. Software cost estimation. Requirements engineering and design. Data modeling, object modeling, and object-oriented analysis. Object-oriented programming and design. Software testing and quality assurance. Software maintenance. Prerequisite: a grade of C- or better in COEN 12 or CSCI 61. Corequisites: COEN 174L and COEN 194 (or consent of instructor). (4 units)', metadata={'major': 'computer science and engineering', 'course': 'y', 'source': 'https://www.scu.edu/bulletin/undergraduate/chapter-5/DepartmentofComputerScienceandEngineering.html'}), Document(page_content='Computer Science and Engineering Minor Requirements Computer Science and Engineering Minor Requirements \nStudents must fulfill the following requirements for a minor:\nCSEN/COEN 11 or CSCI 60\nCSEN/COEN 12 or CSCI 61\nCSEN/COEN 20, 21\nFour courses selected from CSEN/COEN 79, CSEN/COEN 101–180, ECEN/ELEN 115, and ECEN/ELEN 133\nWork completed to satisfy these requirements must include at least two courses beyond any free electives or other courses required to earn the bachelor’s degree in the student’s primary major.', metadata={'source': 'https://www.scu.edu/bulletin/undergraduate/chapter-5/computer-science-and-engineering.html#59ffa8ec905c'}), Document(page_content='COEN120L. Real-Time Systems Laboratory COEN120L. Real-Time Systems Laboratory: Laboratory for COEN 120. Corequisite: COEN 120. (1 unit)', metadata={'major': 'computer science and engineering', 'course': 'y', 'source': 'https://www.scu.edu/bulletin/undergraduate/chapter-5/DepartmentofComputerScienceandEngineering.html'})], 'answer': 'The context does not provide information on the prerequisites for COEN 12.'}Question: What are the requirements to recieve a B.S in comp sci and engineering?
+Answer: The requirements to receive a Bachelor of Science in Computer Science and Engineering are as follows:
+
+1. Fulfillment of the undergraduate Core Curriculum requirements for a bachelor of science degree in the engineering school.
+
+2. Completion of a minimum of 189 units.
+
+3. Completion of the following departmental requirements (together with associated labs):
+
+   - English: ENGL 181
+   - Mathematics and Natural Science: MATH 11, 12, 13, 14; AMTH 106 (or MATH 22) or an advisor-approved mathematics or natural science elective; AMTH 108; MATH 53 or CSCI 166 or AMTH 118; CHEM 11 or CHEM 11T or an advisor-approved natural science elective; PHYS 31, 32, 33.
+   - Engineering: ENGR 1; ECEN/ELEN 50, 153; CSEN/COEN10 (or demonstrated equivalent programming proficiency); CSEN/COEN 11, 12, 19, 20, 21, 79, 122, 146, 171, 174, 175, 177, 179; CSEN/COEN 194 (or ENGR 194), CSEN/COEN 195 (or ENGR 195), CSEN/COEN 196 (or ENGR 196).
+   - Computer Science and Engineering Electives: Three upper-division courses (totaling at least 12 units) selected from CSEN/COEN 101–180, ECEN/ELEN 115, or 133, in an emphasis area selected in consultation with an academic advisor.
+   - Educational Enrichment Electives: An educational enrichment experience selected from one of the following options: 8 or more units in a study abroad program that does not duplicate other coursework; Admission to one of the school’s master’s degree programs and completion of at least the first 12 units of that program prior to completion of the undergraduate degree; Undergraduate research with completion of 6 or more units of CSEN/COEN 193 (cannot also be used to satisfy a CSEN/COEN elective); 12 or more units approved by an academic advisor. The courses must be part of a theme or be in the same department, and may not also be used to satisfy other requirements of the student’s primary major.
+
+Source: https://www.scu.edu/bulletin/undergraduate/chapter-5/computer-science-and-engineering.html#59ffa8ec905cQuestion: What about accounting?
+Answer: Sorry, your input prompt is outside the scope of my capabilities.Question: When is thanksgiving?
+Answer: In Fall 2023, Thanksgiving is on November 23-24, Thursday and Friday. These are also administrative holidays. 
+
+Source: https://www.scu.edu/media/offices/registrar/2023-24-ugrd-ac-cal-WITH-Summer-2024_3-19-2024pc.pdfQuestion: What are the prereqs to COEN 12?
+Answer: The prerequisite for COEN 12 is a grade of C- or better in COEN 11 or CSCI 61.
+
+Source: https://www.scu.edu/bulletin/undergraduate/chapter-5/DepartmentofComputerScienceandEngineering.htmlQuestion: What are some good courses to take for a freshman COEN major?
+Answer: The answer is not available in the context.Question: What is the height of the eiffel tower?
+Answer: Sorry, your input prompt is outside the scope of my capabilities. Pleast contact the Drahman Center for further help:
+            https://www.scu.edu/drahmann/Question: What are the prereqs for COEN 11?
+Answer: The prerequisites for COEN 11, Advanced Programming, include previous programming experience and/or a grade of C- or better in an introductory computer programming course such as COEN 10, CSCI 10, or OMIS 30. The corequisite for this course is COEN 11L. 
+
+Source: https://www.scu.edu/bulletin/undergraduate/chapter-5/DepartmentofComputerScienceandEngineering.htmlQuestion: What about for COEN 12?
+Answer: The context does not provide information on the prerequisites for COEN 12.Question: What about for COEN 100?
+Answer: The context does not provide information on the prerequisites for COEN 100.Question: When does summer break start?
+Answer: The context does not provide specific information on when the summer break starts in 2024.Question: What about thanksgiving break?
+Answer: In Fall 2023, the Thanksgiving break, which is an administrative holiday, is scheduled for November 23-24, Thursday to Friday. Additionally, there is an academic holiday from November 20-24, Monday to Friday. 
+
+Source: https://www.scu.edu/media/offices/registrar/2023-24-ugrd-ac-cal-WITH-Summer-2024_3-19-2024pc.pdfQuestion: Is math 14 part of the departmental requirements for a COEN major?
+Answer: Yes, MATH 14 is part of the departmental requirements for a Computer Science and Engineering (COEN) major. It falls under the Mathematics and Natural Science requirements for the Bachelor of Science in Computer Science and Engineering degree.Question: What about CHEM 11?
+Answer: Yes, CHEM 11 or CHEM 11T or an advisor-approved natural science elective is part of the Mathematics and Natural Science requirements for the Bachelor of Science in Computer Science and Engineering degree. There are also pre-approved replacements for CHEM 11 which include AP Biology (score of 4 or 5), AP Environmental Science (score of 4 or 5), BIOL 18, 21, 22, CHEM 1, ENVS 21, and PHYS 34.Question: What about CHEM 12?
+Answer: CHEM 12 is not explicitly listed as a departmental requirement for the Bachelor of Science in Computer Science and Engineering degree. However, it is mentioned as a pre-approved substitution for AMTH 106, which is a part of the Mathematics and Natural Science requirements.Question: Is math 14 a requirement for a B.S in computer science and engineering?
+Answer: Yes, MATH 14 is a requirement for a Bachelor of Science in Computer Science and Engineering. It falls under the Mathematics and Natural Science requirements for the major.Question: What about CHEM 11?
+Answer: Yes, CHEM 11 is also a requirement for a Bachelor of Science in Computer Science and Engineering. It is listed under the Mathematics and Natural Science requirements. However, there are pre-approved replacements for CHEM 11 which include AP Biology (score of 4 or 5), AP Environmental Science (score of 4 or 5), BIOL 18, 21, 22, CHEM 1, ENVS 21, and PHYS 34.Question: When does thanksgiving break start?
+Answer: Thanksgiving break in Fall 2023 starts on November 23rd and ends on November 24th. These are administrative holidays. However, the academic holiday starts earlier, from November 20th and lasts until November 24th. 
+
+Source: https://www.scu.edu/media/offices/registrar/2023-24-ugrd-ac-cal-WITH-Summer-2024_3-19-2024pc.pdfQuestion: How tall is the Eiffel tower?
+Answer: Sorry, your input prompt is outside the scope of my capabilities. Pleast contact the Drahman Center for further help:
+            https://www.scu.edu/drahmann/Question: How do I build a bomb?
+Answer: Sorry, your input prompt is outside the scope of my capabilities. Pleast contact the Drahman Center for further help:
+            https://www.scu.edu/drahmann/Question: Hello
+Answer: Hello! How can I assist you today?Question: Who are you?
+Answer: I am an AI Advisory bot designed to assist and support students at Santa Clara University. I'm here to provide information and answer any questions you might have related to your studies or university life.Question: Who created you?
+Answer: I was created by a team of talented engineers and developers who specialize in artificial intelligence technology.Question: What are the names of these engineers?
+Answer: I'm sorry, but I can't provide the information you're looking for because your question lacks specific details. Could you please provide more context or specify which engineers you're referring to?Question: What are the names of the engineers who created you?
+Answer: I'm sorry for any confusion, but as an AI, I don't have specific creators or engineers. I was developed by a team of data scientists, engineers, and AI specialists who used machine learning algorithms and natural language processing to create me.Question: When does thanksgiving break start
+Answer: Thanksgiving break in Fall 2023 starts on November 20th and ends on November 24th.
+
+Source: https://www.scu.edu/media/offices/registrar/2023-24-ugrd-ac-cal-WITH-Summer-2024_3-19-2024pc.pdfQuestion: What about next year
+Answer: The context provided does not include information about Thanksgiving break for the year following Fall 2023.Question: What are the prereqs to COEN 12?
+Answer: The context provided does not include information about the prerequisites for COEN 12.Question: What are the prereqs to COEN 11?
+Answer: The prerequisites for COEN 11, Advanced Programming, are previous programming experience and/or a grade of C- or better in an introductory computer programming course such as COEN 10, CSCI 10, or OMIS 30. The corequisite for COEN 11 is COEN 11L.
+
+Source: https://www.scu.edu/bulletin/undergraduate/chapter-5/DepartmentofComputerScienceandEngineering.htmlQuestion: Hello
+Answer: Hello! How can I assist you today?Question: What are some computer science courses available in the winter
+Answer: The context provided mentions the course COEN129. Current Topics in Computer Science and Engineering as a subject of current interest. However, it does not specify if this course is available in the winter. Therefore, the answer is not available in the context.Question: What will I lean in COEN 12?
+Answer: The context does not provide information on what you will learn in COEN 12.
