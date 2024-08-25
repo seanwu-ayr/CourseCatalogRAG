@@ -1,0 +1,15 @@
+streamlit
+python-dotenv
+langchain
+langchain_openai
+langchain_community
+PyPDF2
+faiss-cpu
+bs4
+chromadb
+lark
+transformers
+torch
+django
+daphne
+channels
