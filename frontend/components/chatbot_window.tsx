@@ -7,17 +7,15 @@ import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { MessageCircle, X, Send, User, Bot } from "lucide-react"
 
-// Define types for the response message and WebSocket ref
-
 type message_type = 'human' | 'ai' | 'system' | 'function' | 'tool'
 
 interface ResponseMessage {
   content: string;
   type: message_type;
-  id?: string; // id is optional
-  name?: string; // name is optional
-  response_metadata?: object; // response metadata is optional
-  additional_kwargs?: object; //additional kwargs is optional
+  id?: string;
+  name?: string;
+  response_metadata?: object;
+  additional_kwargs?: object;
 }
 
 const TypingIndicator = () => (
@@ -35,9 +33,7 @@ export default function Chatwindow() {
   const [inputValue, setInputValue] = useState("")
   const [isThinking, setIsThinking] = useState(false)
   const scrollAreaRef = useRef(null)
-  // Ref to manage the WebSocket connection
   const ws = useRef<WebSocket | null>(null);
-  // Maximum number of attempts to reconnect
   const [reconnectAttempts, setReconnectAttempts] = useState<number>(0);
   const maxReconnectAttempts = 5;
 
@@ -63,31 +59,22 @@ export default function Chatwindow() {
 
   const setupWebSocket = () => {
     ws.current = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
-    let ongoingStream: { id: string; content: string } | null = null; // To track the ongoing stream's ID
+    let ongoingStream: { id: string; content: string } | null = null;
 
     ws.current.onopen = () => {
       console.log("WebSocket connected!");
-      setReconnectAttempts(0); // Reset reconnect attempts on successful connection
+      setReconnectAttempts(0);
     };
 
     ws.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
 
-      // const newMessage: ResponseMessage = {type: 'ai', content: data.answer}
-      // setResponses(prevResponses => [...prevResponses, newMessage]);
-
-      // let type_of_message: message_type = data.name == 'ai' ? 'ai' : 'human'
-
-      // Handle different types of events from the WebSocket
-
       if (data.event === 'start') {
         setIsThinking(false)
-        // When a new stream starts
         ongoingStream = { id: data.id, content: '' };
         const newMessage: ResponseMessage = {type: 'ai', content: '', id: data.id}
         setMessages(prevMessages => [...prevMessages, newMessage]);
       } else if (data.event === 'stream' && ongoingStream && data.id === ongoingStream.id) {
-        // During a stream, appending new chunks of data
         setMessages(prevMessages => prevMessages.map(msg =>
           msg.id === data.id ? { ...msg, content: msg.content + data.chunk } : msg));
       }
@@ -103,46 +90,35 @@ export default function Chatwindow() {
     };
   };
 
-  // Function to handle reconnection attempts with exponential backoff
   const handleReconnect = () => {
     if (reconnectAttempts < maxReconnectAttempts) {
-      let timeout = Math.pow(2, reconnectAttempts) * 1000; // Exponential backoff
+      let timeout = Math.pow(2, reconnectAttempts) * 1000;
       setTimeout(() => {
-        setupWebSocket(); // Attempt to reconnect
+        setupWebSocket();
       }, timeout);
     } else {
       console.log("Max reconnect attempts reached, not attempting further reconnects.");
     }
   };
 
-  // Effect hook to setup and cleanup the WebSocket connection
   useEffect(() => {
-    setupWebSocket(); // Setup WebSocket on component mount
+    setupWebSocket();
 
     return () => {
       if (ws.current?.readyState === WebSocket.OPEN) {
-        ws.current.close(); // Close WebSocket on component unmount
+        ws.current.close();
       }
     };
   }, []);
 
-
   const handleSendMessage = (e: FormEvent) => {
     if (inputValue.trim()) {
-      // setMessages([...messages, { id: messages.length + 1, text: inputValue, sender: "user" }])
-      setInputValue("") //Clear input field
+      setInputValue("")
       setIsThinking(true)
 
       const userMessage: ResponseMessage = { type: "human", content: inputValue };
       setMessages(prevMessages => [...prevMessages, userMessage]);
-      ws.current?.send(JSON.stringify({ user_input: inputValue, history: messages})); // Send message through WebSocket
-
-
-      // Here you would typically call an API to get the bot's response
-      // setTimeout(() => {
-      //   setIsThinking(false)
-      //   setMessages(prev => [...prev, { id: prev.length + 1, text: "I'm a demo bot. I can't actually respond!", sender: "bot" }])
-      // }, 2000)
+      ws.current?.send(JSON.stringify({ user_input: inputValue, history: messages}));
     }
   }
 
@@ -171,29 +147,28 @@ export default function Chatwindow() {
                 <div
                   key={message.id}
                   className={`mb-4 flex items-start ${
-                    message.type === 'human' ? 'justify-end' : 'justify-start'
+                    message.type === 'human' ? 'flex-row-reverse' : 'flex-row'
                   }`}
                 >
-                  {message.type === 'ai' && (
-                    <Bot className="h-6 w-6 mr-2 text-primary" />
+                  {message.type === 'ai' ? (
+                    <Bot className="h-6 w-6 mx-2 flex-shrink-0 text-primary" />
+                  ) : (
+                    <User className="h-6 w-6 mx-2 flex-shrink-0 text-primary" />
                   )}
-                  <span
-                    className={`inline-block p-2 rounded-lg max-w-[80%] break-words ${
+                  <div
+                    className={`inline-block p-2 rounded-lg max-w-[70%] break-words ${
                       message.type === 'human'
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-muted'
                     }`}
                   >
-                    {message.content}
-                  </span>
-                  {message.type === 'human' && (
-                    <User className="h-6 w-6 ml-2 text-primary" />
-                  )}
+                    <span className="whitespace-pre-wrap overflow-wrap-anywhere">{message.content}</span>
+                  </div>
                 </div>
               ))}
               {isThinking && (
                 <div className="flex items-start mb-4">
-                  <Bot className="h-6 w-6 mr-2 text-primary" />
+                  <Bot className="h-6 w-6 mr-2 flex-shrink-0 text-primary" />
                   <span className="inline-block p-2 rounded-lg bg-muted">
                     <TypingIndicator />
                   </span>
