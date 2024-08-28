@@ -12,10 +12,12 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain.indexes import VectorstoreIndexCreator
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_openai import OpenAI
 from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 from langchain.retrievers.document_compressors import LLMChainFilter
+from langchain.retrievers.document_compressors import LLMChainExtractor
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain_core.runnables import RunnableParallel
 from langchain_core.runnables import ConfigurableFieldSpec
@@ -93,7 +95,18 @@ def get_document_chain(socket):
     embeddings = OpenAIEmbeddings()
     faiss_path = r"C:\Users\Aiden\OneDrive\Documents\GitHub\CourseCatalogRAG\backend\faiss_index"
     new_db = FAISS.load_local(faiss_path, embeddings, allow_dangerous_deserialization=True)
-    retriever =  new_db.as_retriever()
+
+    retriever =  new_db.as_retriever(
+        search_kwargs={"k": 10}
+    )
+    llm = OpenAI(temperature=0)
+    compressor = LLMChainExtractor.from_llm(llm)
+
+    compression_retriever = ContextualCompressionRetriever(
+    base_compressor=compressor, base_retriever=retriever
+    )
+
+    
 
     context_system_prompt = """Given a chat history and the latest user question \
     which might reference context in the chat history, formulate a standalone question \
@@ -107,7 +120,7 @@ def get_document_chain(socket):
     ])
 
     history_aware_retriever = create_history_aware_retriever(
-        context_model, retriever, context_prompt
+        context_model, compression_retriever, context_prompt
     )
 
     # It's also crucial that you \
@@ -213,7 +226,7 @@ def select_chain(user_question, socket):
     # category = int(category[0]['label'])
     
     # print(category, labels[category])
-    
+
     category = 3
 
     match category:
