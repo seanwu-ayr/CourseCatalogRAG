@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef, useCallback, FormEvent } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { MessageCircle, X, Send, User, Bot } from "lucide-react"
+import { Resizable } from 're-resizable'
 
 type message_type = 'human' | 'ai' | 'system' | 'function' | 'tool'
 
@@ -36,6 +37,7 @@ export default function Chatwindow() {
   const ws = useRef<WebSocket | null>(null);
   const [reconnectAttempts, setReconnectAttempts] = useState<number>(0);
   const maxReconnectAttempts = 5;
+  const [windowSize, setWindowSize] = useState({ width: 384, height: 500 })
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
 
@@ -112,6 +114,7 @@ export default function Chatwindow() {
   }, []);
 
   const handleSendMessage = (e: FormEvent) => {
+    e.preventDefault()
     if (inputValue.trim()) {
       setInputValue("")
       setIsThinking(true)
@@ -120,6 +123,12 @@ export default function Chatwindow() {
       setMessages(prevMessages => [...prevMessages, userMessage]);
       ws.current?.send(JSON.stringify({ user_input: inputValue, history: messages}));
     }
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.target.value)
+    e.target.style.height = 'auto'
+    e.target.style.height = `${e.target.scrollHeight}px`
   }
 
   return (
@@ -133,70 +142,82 @@ export default function Chatwindow() {
           <span className="sr-only">Open chat</span>
         </Button>
       ) : (
-        <Card className="w-80 sm:w-96 h-[500px] flex flex-col shadow-xl transition-all duration-300 ease-in-out">
-          <CardHeader className="p-3 flex flex-row items-center justify-between">
-            <h3 className="font-semibold text-lg">Chat Bot</h3>
-            <Button variant="ghost" size="icon" onClick={toggleExpand}>
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close chat</span>
-            </Button>
-          </CardHeader>
-          <CardContent className="flex-grow p-0 overflow-hidden">
-            <ScrollArea className="h-full p-4" ref={scrollAreaRef}>
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`mb-4 flex items-start ${
-                    message.type === 'human' ? 'flex-row-reverse' : 'flex-row'
-                  }`}
-                >
-                  {message.type === 'ai' ? (
-                    <Bot className="h-6 w-6 mx-2 flex-shrink-0 text-primary" />
-                  ) : (
-                    <User className="h-6 w-6 mx-2 flex-shrink-0 text-primary" />
-                  )}
+        <Resizable
+          size={{ width: windowSize.width, height: windowSize.height }}
+          onResizeStop={(e, direction, ref, d) => {
+            setWindowSize({
+              width: windowSize.width + d.width,
+              height: windowSize.height + d.height,
+            })
+          }}
+          minWidth={300}
+          minHeight={400}
+          maxWidth={800}
+          maxHeight={800}
+        >
+          <Card className="w-full h-full flex flex-col shadow-xl transition-all duration-300 ease-in-out">
+            <CardHeader className="p-3 flex flex-row items-center justify-between">
+              <h3 className="font-semibold text-lg">Chat Bot</h3>
+              <Button variant="ghost" size="icon" onClick={toggleExpand}>
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close chat</span>
+              </Button>
+            </CardHeader>
+            <CardContent className="flex-grow p-0 overflow-hidden">
+              <ScrollArea className="h-full p-4" ref={scrollAreaRef}>
+                {messages.map((message, index) => (
                   <div
-                    className={`inline-block p-2 rounded-lg max-w-[70%] break-words ${
-                      message.type === 'human'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted'
+                    key={index}
+                    className={`mb-4 flex items-start ${
+                      message.type === 'human' ? 'flex-row-reverse' : 'flex-row'
                     }`}
                   >
-                    <span className="whitespace-pre-wrap overflow-wrap-anywhere">{message.content}</span>
+                    {message.type === 'ai' ? (
+                      <Bot className="h-6 w-6 mx-2 flex-shrink-0 text-primary" />
+                    ) : (
+                      <User className="h-6 w-6 mx-2 flex-shrink-0 text-primary" />
+                    )}
+                    <div
+                      className={`inline-block p-2 rounded-lg max-w-[70%] break-words ${
+                        message.type === 'human'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted'
+                      }`}
+                    >
+                      <span className="whitespace-pre-wrap overflow-wrap-anywhere">{message.content}</span>
+                    </div>
                   </div>
-                </div>
-              ))}
-              {isThinking && (
-                <div className="flex items-start mb-4">
-                  <Bot className="h-6 w-6 mr-2 flex-shrink-0 text-primary" />
-                  <span className="inline-block p-2 rounded-lg bg-muted">
-                    <TypingIndicator />
-                  </span>
-                </div>
-              )}
-            </ScrollArea>
-          </CardContent>
-          <CardFooter className="p-3">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                handleSendMessage(e)
-              }}
-              className="flex w-full items-center space-x-2"
-            >
-              <Input
-                type="text"
-                placeholder="Type your message..."
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-              <Button type="submit" size="icon">
-                <Send className="h-4 w-4" />
-                <span className="sr-only">Send</span>
-              </Button>
-            </form>
-          </CardFooter>
-        </Card>
+                ))}
+                {isThinking && (
+                  <div className="flex items-start mb-4">
+                    <Bot className="h-6 w-6 mr-2 flex-shrink-0 text-primary" />
+                    <span className="inline-block p-2 rounded-lg bg-muted">
+                      <TypingIndicator />
+                    </span>
+                  </div>
+                )}
+              </ScrollArea>
+            </CardContent>
+            <CardFooter className="p-3">
+              <form
+                onSubmit={handleSendMessage}
+                className="flex w-full items-end space-x-2"
+              >
+                <Textarea
+                  placeholder="Type your message..."
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  className="min-h-[40px] max-h-[120px] resize-none"
+                  rows={1}
+                />
+                <Button type="submit" size="icon" className="mb-[1px]">
+                  <Send className="h-4 w-4" />
+                  <span className="sr-only">Send</span>
+                </Button>
+              </form>
+            </CardFooter>
+          </Card>
+        </Resizable>
       )}
     </div>
   )
