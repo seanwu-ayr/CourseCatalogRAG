@@ -33,11 +33,15 @@ from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 import transformers as tr
 import uuid 
+from langchain.chains import RetrievalQA  
+from langchain_openai import ChatOpenAI
+from langchain_openai import OpenAIEmbeddings
+from langchain_pinecone import PineconeVectorStore
 
 # import chain_tools as ct
 
 
-load_dotenv('.env')
+load_dotenv()
 
 
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
@@ -91,8 +95,16 @@ def get_document_chain(socket):
     context_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
     output_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.2, streaming=True, callbacks=[CustomCallbackHandler(socket=socket)])
     embeddings = OpenAIEmbeddings()
+    '''
     faiss_path = r"C:\Users\Aiden\OneDrive\Documents\GitHub\CourseCatalogRAG\backend\faiss_index"
     new_db = FAISS.load_local(faiss_path, embeddings, allow_dangerous_deserialization=True)
+    '''
+    index = os.environ['PINECONE_INDEX_NAME']
+    # Initialize a LangChain object for retrieving information from Pinecone.
+    new_db = PineconeVectorStore.from_existing_index(
+        index_name=index,
+        embedding=embeddings
+    )
     retriever =  new_db.as_retriever()
 
     context_system_prompt = """Given a chat history and the latest user question \

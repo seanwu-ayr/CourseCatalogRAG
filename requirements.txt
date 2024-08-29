@@ -6,10 +6,10 @@ langchain_community
 PyPDF2
 faiss-cpu
 bs4
-chromadb
 lark
 transformers
 torch
 django
-daphne
+langchain_pinecone
+langchain_core
 channels
