@@ -5,7 +5,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 import json
 import tempfile
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain_community.chat_message_histories import ChatMessageHistory
@@ -29,24 +29,27 @@ from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain.callbacks.base import AsyncCallbackHandler
+from langchain_pinecone import PineconeVectorStore
 
 from typing import List
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 import transformers as tr
-import uuid 
+import uuid
 
-# import chain_tools as ct
+from pinecone import Pinecone
+from pinecone import ServerlessSpec
+import time
 
+load_dotenv(find_dotenv())
 
-load_dotenv('.env')
+LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 
-
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_API_KEY"] = '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'
-os.environ["OPENAI_API_KEY"] = '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'
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-# os.environ["BERT_PATH"] = r"C:\Users\Aiden\OneDrive\Documents\GitHub\CourseCatalogRAG\backend\prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+# os.environ["BERT_PATH"] = ''
 os.environ['USER_AGENT'] = 'myagent'
 
 # "..\prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
@@ -92,11 +95,50 @@ def get_document_chain(socket):
 
     context_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
     output_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.2, streaming=True, callbacks=[CustomCallbackHandler(socket=socket)])
-    embeddings = OpenAIEmbeddings()
-    faiss_path = r"C:\Users\Aiden\OneDrive\Documents\GitHub\CourseCatalogRAG\backend\faiss_index"
-    new_db = FAISS.load_local(faiss_path, embeddings, allow_dangerous_deserialization=True)
 
-    retriever =  new_db.as_retriever(
+    #Set up pinecone db retriever
+
+    index_name = "course-catalog-scu"
+    index_dimension = 3072
+    index_namespace = "scu"
+    cloud = os.environ.get('PINECONE_CLOUD') or 'aws'
+    region = os.environ.get('PINECONE_REGION') or 'us-east-1'
+
+    print(PINECONE_API_KEY)
+    pc = Pinecone(api_key=PINECONE_API_KEY)
+
+    if index_name not in pc.list_indexes().names():
+        pc.create_index(
+            name=index_name,
+            dimension=index_dimension, 
+            metric="cosine", 
+            spec=ServerlessSpec(
+                cloud=cloud, 
+                region=region
+            ) 
+        )
+
+    while not pc.describe_index(index_name).status["ready"]:
+            time.sleep(1)
+
+    index = pc.Index(index_name)
+    response = index.fetch(ids=["132b1c85-feef-44ea-a5b8-d6c178943c4"])
+    print(response)
+    if not response["vectors"]:
+        print("record not exist")
+
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+
+    # Embed each chunk and upsert the embeddings into your Pinecone index.
+    vectorstore = PineconeVectorStore(index=index, embedding=embeddings, namespace=index_namespace)
+
+
+
+    # embeddings = OpenAIEmbeddings()
+    # faiss_path = r"C:\Users\Aiden\OneDrive\Documents\GitHub\CourseCatalogRAG\backend\faiss_index"
+    # new_db = FAISS.load_local(faiss_path, embeddings, allow_dangerous_deserialization=True)
+
+    retriever =  vectorstore.as_retriever(
         search_kwargs={"k": 10}
     )
     llm = OpenAI(temperature=0)
