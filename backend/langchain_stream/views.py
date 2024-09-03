@@ -1,25 +1,15 @@
 
-from langchain_core.output_parsers import StrOutputParser
-from channels.generic.websocket import AsyncWebsocketConsumer
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 import json
-import tempfile
 from dotenv import load_dotenv, find_dotenv
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain.indexes import VectorstoreIndexCreator
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_openai import OpenAI
-from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
-from langchain.retrievers.document_compressors import LLMChainFilter
 from langchain.retrievers.document_compressors import LLMChainExtractor
 from langchain.retrievers import ContextualCompressionRetriever
-from langchain_core.runnables import RunnableParallel
 from langchain_core.runnables import ConfigurableFieldSpec
 from langchain.chains import create_history_aware_retriever
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -32,11 +22,8 @@ from langchain.callbacks.base import AsyncCallbackHandler
 from langchain_pinecone import PineconeVectorStore
 
 from typing import List
-from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
-import transformers as tr
 import uuid
-from typing import Optional
 
 from pinecone import Pinecone
 from pinecone import ServerlessSpec
@@ -387,64 +374,6 @@ def unwrapHistory(history, client_id):
             )
 
     return unwrappedMessages
-
-
-# class ChatConsumer(AsyncWebsocketConsumer):
-
-#     async def connect(self):
-#         await self.accept()
-
-#     async def disconnect(self, close_code):
-#         pass
-
-#     async def receive(self, text_data):
-#         text_data_json = json.loads(text_data)
-#         user_input = text_data_json["user_input"]
-#         history = text_data_json["history"]
-
-#         # try:
-
-#         chain, category = select_chain(user_input, socket=self)
-
-
-#         history_dict = {
-#             "abc123": wrapHistory(history)
-#         }
-
-#         # response = chain.invoke(
-#         #     {'input': user_input},
-#         #     config={"configurable": {"session_id": "abc123", "hist": history_dict}},
-#         # )
-
-#         # print(response)
-
-#         # Stream the response
-
-#         # async for chunk in chain.astream_events(
-#         #     {'input': user_input},
-#         #     config={"configurable": {"session_id": "abc123", "hist": history_dict}},
-#         #     version="v2",
-#         #     include_names=["ai"]
-#         # ):
-
-#         response = await chain.ainvoke(
-#             {'input': user_input},
-#             config={"configurable": {"session_id": "abc123", "hist": history_dict}},
-#         )
-
-#         print(response)
-
-#         # await self.send(text_data=json.dumps({"answer": response["answer"]}))
-
-#             # if chunk["event"] in ["on_chain_start", "on_chain_stream"]:
-#             #     print(chunk)
-#                 # await self.send(text_data=json.dumps(chunk))``
-
-#             # if chunk["event"] in ["on_parser_end"]:
-#             #     await self.send(text_data=json.dumps(unwrapHistory(history_dict)))
-
-#         # except Exception as e:
-#         #     print(e)
 
 
 class ConnectionManager:
