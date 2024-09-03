@@ -412,7 +412,7 @@ app.add_middleware(
 
 connection_manager = ConnectionManager()
 
-@app.websocket("/ws/socket/{client_id}")
+@app.websocket("/socket/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: str):
     # , client_id: Optional[str] = Query(None)
     await connection_manager.connect(client_id, websocket)
