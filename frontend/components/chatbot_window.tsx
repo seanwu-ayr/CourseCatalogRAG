@@ -65,7 +65,7 @@ export default function Chatwindow() {
     if(!socket_id.current)
       socket_id.current = uuidv4()
 
-    ws.current = new WebSocket(`ws://127.0.0.1:8000/socket/${socket_id.current}`);
+    ws.current = new WebSocket(`ws://18.116.44.137:80/socket/${socket_id.current}`);
 
     let heartbeatInterval: NodeJS.Timeout;
     let ongoingStream: { id: string; content: string } | null = null;
