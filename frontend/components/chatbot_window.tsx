@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { MessageCircle, X, Send, User, Bot } from "lucide-react"
 import { Resizable } from 're-resizable'
+import {v4 as uuidv4} from 'uuid';
 
 type message_type = 'human' | 'ai' | 'system' | 'function' | 'tool'
 
@@ -38,6 +39,7 @@ export default function Chatwindow() {
   const [reconnectAttempts, setReconnectAttempts] = useState<number>(0);
   const maxReconnectAttempts = 5;
   const [windowSize, setWindowSize] = useState({ width: 384, height: 500 })
+  const socket_id = useRef(null)
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
 
@@ -60,18 +62,32 @@ export default function Chatwindow() {
   }, [messages, isExpanded, scrollToBottom])
 
   const setupWebSocket = () => {
-    ws.current = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+    if(!socket_id.current)
+      socket_id.current = uuidv4()
+
+    ws.current = new WebSocket(`ws://127.0.0.1:8000/socket/${socket_id.current}`);
+
+    let heartbeatInterval: NodeJS.Timeout;
     let ongoingStream: { id: string; content: string } | null = null;
 
     ws.current.onopen = () => {
+
       console.log("WebSocket connected!");
       setReconnectAttempts(0);
+
+      heartbeatInterval = setInterval(() => {
+        if (ws.current?.readyState === WebSocket.OPEN) {
+          ws.current.send(JSON.stringify({event: 'ping'}));
+        }
+      }, 30000);
     };
 
     ws.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
-
-      if (data.event === 'start') {
+      
+      if (data.event === 'pong') {
+        console.log("Received pong, connection is alive");
+      } else if (data.event === 'start') {
         setIsThinking(false)
         ongoingStream = { id: data.id, content: '' };
         const newMessage: ResponseMessage = {type: 'ai', content: '', id: data.id}
@@ -88,6 +104,7 @@ export default function Chatwindow() {
 
     ws.current.onclose = (event) => {
       console.log(`WebSocket is closed now. Code: ${event.code}, Reason: ${event.reason}`);
+      clearInterval(heartbeatInterval);
       handleReconnect();
     };
   };
@@ -121,7 +138,18 @@ export default function Chatwindow() {
 
       const userMessage: ResponseMessage = { type: "human", content: inputValue };
       setMessages(prevMessages => [...prevMessages, userMessage]);
-      ws.current?.send(JSON.stringify({ user_input: inputValue, history: messages}));
+      try{
+        ws.current?.send(JSON.stringify({ event: 'user_message', user_input: inputValue, history: messages}));
+      } catch(e: any) {
+        console.log(e)
+        if(e.message == 'An attempt was made to use an object that is not, or is no longer, usable') {
+          setTimeout(() => {
+            setIsThinking(false)
+            const newMessage: ResponseMessage = {type: 'ai', content: 'Connection error. Try again.', id: uuidv4()}
+            setMessages(prevMessages => [...prevMessages, newMessage]);
+          }, 2000);
+        }
+      }
     }
   }
 

@@ -1,25 +1,15 @@
 
-from langchain_core.output_parsers import StrOutputParser
-from channels.generic.websocket import AsyncWebsocketConsumer
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 import json
-import tempfile
 from dotenv import load_dotenv, find_dotenv
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain.indexes import VectorstoreIndexCreator
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_openai import OpenAI
-from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
-from langchain.retrievers.document_compressors import LLMChainFilter
 from langchain.retrievers.document_compressors import LLMChainExtractor
 from langchain.retrievers import ContextualCompressionRetriever
-from langchain_core.runnables import RunnableParallel
 from langchain_core.runnables import ConfigurableFieldSpec
 from langchain.chains import create_history_aware_retriever
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -32,25 +22,26 @@ from langchain.callbacks.base import AsyncCallbackHandler
 from langchain_pinecone import PineconeVectorStore
 
 from typing import List
-from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
-import transformers as tr
 import uuid
 
 from pinecone import Pinecone
 from pinecone import ServerlessSpec
 import time
 
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query
+from fastapi.middleware.cors import CORSMiddleware
+
 load_dotenv(find_dotenv())
 
 LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
+USER_AGENT = os.getenv("USER_AGENT")
 
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 # os.environ["BERT_PATH"] = ''
-os.environ['USER_AGENT'] = 'myagent'
 
 # "..\prompt_classifier\BERT_tuned\content\model_out\checkpoint-348"
 
@@ -60,21 +51,21 @@ class Category(BaseModel):
     description: str = Field(description="description of prompt category")
     
 class CustomCallbackHandler(AsyncCallbackHandler):
-    def __init__(self, socket):
-        self.socket = socket
+    def __init__(self, client_id: str):
+        self.client_id = client_id
 
     async def on_llm_start(self, serialized: dict, prompts: list[str], **kwargs) -> None:
         self.run_id = uuid.uuid4()
-        await self.socket.send(text_data=json.dumps({
+        await connection_manager.send(self.client_id, json.dumps({
             "event": "start",
-            "id": self.run_id.int,
+            "id": self.run_id.hex,
             "chunk": ''
         }))
 
     async def on_llm_new_token(self, token: str, **kwargs) -> any:
-        await self.socket.send(text_data=json.dumps({
+        await connection_manager.send(self.client_id, json.dumps({
             "event": "stream",
-            "id": self.run_id.int,
+            "id": self.run_id.hex,
             "chunk": token
         }))
        
@@ -89,12 +80,12 @@ def fetch_history(session_id: str, hist: dict) -> BaseChatMessageHistory:
 
 
 
-def get_document_chain(socket):
+def get_document_chain(client_id: str):
 
     # print("\n\nSESSION HISTORY STORE:", hist, "\n\n")
 
     context_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
-    output_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.2, streaming=True, callbacks=[CustomCallbackHandler(socket=socket)])
+    output_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.2, streaming=True, callbacks=[CustomCallbackHandler(client_id=client_id)])
 
     #Set up pinecone db retriever
 
@@ -104,7 +95,6 @@ def get_document_chain(socket):
     cloud = os.environ.get('PINECONE_CLOUD') or 'aws'
     region = os.environ.get('PINECONE_REGION') or 'us-east-1'
 
-    print(PINECONE_API_KEY)
     pc = Pinecone(api_key=PINECONE_API_KEY)
 
     if index_name not in pc.list_indexes().names():
@@ -123,9 +113,9 @@ def get_document_chain(socket):
 
     index = pc.Index(index_name)
     response = index.fetch(ids=["132b1c85-feef-44ea-a5b8-d6c178943c4"])
-    print(response)
+
     if not response["vectors"]:
-        print("record not exist")
+        print("record does not exist")
 
     embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
@@ -251,7 +241,7 @@ def get_conversational_chain():
     return chain
 
 
-def select_chain(user_question, socket):
+def select_chain(user_question, client_id: str):
 
     # classifier = tr.pipeline(task="text-classification", model=os.environ["BERT_PATH"])
 
@@ -283,7 +273,7 @@ def select_chain(user_question, socket):
             # output = response["output_text"]
 
         case 1:
-            chain = get_document_chain(socket=socket)
+            chain = get_document_chain(client_id=client_id)
      
             # response = chain.invoke(
             #     {"input": user_question}, 
@@ -298,7 +288,7 @@ def select_chain(user_question, socket):
             # print(hist, hist["abc123"].messages)
 
         case 2:
-            chain = get_document_chain(socket=socket)
+            chain = get_document_chain(client_id=client_id)
      
             # response = chain.invoke(
             #     {"input": user_question}, 
@@ -313,7 +303,7 @@ def select_chain(user_question, socket):
             # print(hist, hist["abc123"].messages)
 
         case 3:
-            chain = get_document_chain(socket=socket)
+            chain = get_document_chain(client_id=client_id)
      
             # response = chain.invoke(
             #     {"input": user_question}, 
@@ -373,8 +363,8 @@ def wrapHistory(messages):
 
     return history
 
-def unwrapHistory(history):
-    messages = history["abc123"].messages
+def unwrapHistory(history, client_id):
+    messages = history[client_id].messages
     unwrappedMessages = []
     for message in messages:
             # print(message)
@@ -386,59 +376,80 @@ def unwrapHistory(history):
     return unwrappedMessages
 
 
-class ChatConsumer(AsyncWebsocketConsumer):
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: dict[str, WebSocket] = {}
+        # self.socket = WebSocket()
 
-    async def connect(self):
-        await self.accept()
+    async def connect(self, client_id: str, websocket: WebSocket):
+        print(f'attempting to connect to client {client_id}')
+        await websocket.accept()
+        print('connection successful')
+        self.active_connections[client_id] = websocket
 
-    async def disconnect(self, close_code):
-        pass
+    def disconnect(self, client_id):
+        self.active_connections.pop(client_id, None)
 
-    async def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        user_input = text_data_json["user_input"]
-        history = text_data_json["history"]
+    async def send(self, client_id: str, msg_data):
+        client_socket = self.active_connections.get(client_id)
+        if client_socket:
+            await client_socket.send_text(msg_data)
+        else:
+            print(f"socket ({client_id}) not found")
 
-        # try:
+    async def broadcast(self, message: str):
+        for connection in self.active_connections:
+            await connection.send_text(message)
 
-        chain, category = select_chain(user_input, socket=self)
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust this to your needs
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+connection_manager = ConnectionManager()
 
-        history_dict = {
-            "abc123": wrapHistory(history)
-        }
+@app.websocket("/socket/{client_id}")
+async def websocket_endpoint(websocket: WebSocket, client_id: str):
+    # , client_id: Optional[str] = Query(None)
+    await connection_manager.connect(client_id, websocket)
 
-        # response = chain.invoke(
-        #     {'input': user_input},
-        #     config={"configurable": {"session_id": "abc123", "hist": history_dict}},
-        # )
+    # await websocket.accept()
+    try:
+        while True:
+            
+            # data = await websocket.receive_text()
+            # print(f"Received data: {data}")
+            # await websocket.send_text(f"Received: {data}")
 
-        # print(response)
+            msg_data = await websocket.receive()
+            if msg_data:
+                msg_data_json = json.loads(msg_data['text'])
+                event = msg_data_json["event"] 
 
-        # Stream the response
+                if event == 'ping':
+                    await websocket.send_json({"event": "pong"})
+                else:
+                           
+                    user_input = msg_data_json["user_input"]
+                    history = msg_data_json["history"]
 
-        # async for chunk in chain.astream_events(
-        #     {'input': user_input},
-        #     config={"configurable": {"session_id": "abc123", "hist": history_dict}},
-        #     version="v2",
-        #     include_names=["ai"]
-        # ):
+                    chain, category = select_chain(user_input, client_id=client_id)
 
-        response = await chain.ainvoke(
-            {'input': user_input},
-            config={"configurable": {"session_id": "abc123", "hist": history_dict}},
-        )
+                    history_dict = {
+                        client_id: wrapHistory(history)
+                    }
 
-        print(response)
+                    response = await chain.ainvoke(
+                        {'input': user_input},
+                        config={"configurable": {"session_id": client_id, "hist": history_dict}},
+                    )
 
-        # await self.send(text_data=json.dumps({"answer": response["answer"]}))
+                print(response)
 
-            # if chunk["event"] in ["on_chain_start", "on_chain_stream"]:
-            #     print(chunk)
-                # await self.send(text_data=json.dumps(chunk))``
-
-            # if chunk["event"] in ["on_parser_end"]:
-            #     await self.send(text_data=json.dumps(unwrapHistory(history_dict)))
-
-        # except Exception as e:
-        #     print(e)
+    except WebSocketDisconnect:
+        connection_manager.disconnect(client_id)
+        # print("socket disconnected")
