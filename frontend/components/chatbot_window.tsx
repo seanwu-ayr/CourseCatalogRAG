@@ -34,15 +34,16 @@ export default function Chatwindow() {
   const [messages, setMessages] = useState([starterMessage])
   const [inputValue, setInputValue] = useState("")
   const [isThinking, setIsThinking] = useState(false)
-  const scrollAreaRef = useRef(null)
+  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
   const ws = useRef<WebSocket | null>(null);
   const [reconnectAttempts, setReconnectAttempts] = useState<number>(0);
   const maxReconnectAttempts = 5;
   const [windowSize, setWindowSize] = useState({ width: 384, height: 500 })
-  const socket_id = useRef(null)
+  const socket_id = useRef<string | null>(null);
+
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
-
+  
   const scrollToBottom = useCallback(() => {
     if (scrollAreaRef.current) {
       const scrollableNode = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]')
@@ -65,7 +66,7 @@ export default function Chatwindow() {
     if(!socket_id.current)
       socket_id.current = uuidv4()
 
-    ws.current = new WebSocket(`ws://127.0.0.1:8000/socket/${socket_id.current}`);
+    ws.current = new WebSocket(`ws://18.116.44.137:80/socket/${socket_id.current}`);
 
     let heartbeatInterval: NodeJS.Timeout;
     let ongoingStream: { id: string; content: string } | null = null;
