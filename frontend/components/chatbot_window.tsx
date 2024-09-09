@@ -1,5 +1,7 @@
 "use client";
 
+// import React from 'react'
+// import ReactDOM from 'react-dom';
 import { useState, useEffect, useRef, useCallback, FormEvent } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
@@ -8,6 +10,10 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { MessageCircle, X, Send, User, Bot } from "lucide-react"
 import { Resizable } from 're-resizable'
 import {v4 as uuidv4} from 'uuid';
+import '../globals.css'
+
+// import r2wc from "@r2wc/react-to-web-component"
+// import { defineCustomElements } from '@webcomponents/custom-elements';
 
 type message_type = 'human' | 'ai' | 'system' | 'function' | 'tool'
 
@@ -28,7 +34,7 @@ const TypingIndicator = () => (
   </div>
 )
 
-export default function Chatwindow() {
+function ChatbotWindow() {
   const [isExpanded, setIsExpanded] = useState(false)
   const starterMessage: ResponseMessage = { id: '', content: "Hello! How can I help you today?", type: "ai" }
   const [messages, setMessages] = useState([starterMessage])
@@ -251,3 +257,9 @@ export default function Chatwindow() {
     </div>
   )
 }
+
+export default ChatbotWindow;
+
+// Convert to a web component and register it
+// const ChatbotWindowElement = r2wc(ChatbotWindow);
+// customElements.define('chatbot-window', ChatbotWindowElement);
