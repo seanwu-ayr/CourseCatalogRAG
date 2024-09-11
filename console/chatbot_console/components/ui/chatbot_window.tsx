@@ -5,12 +5,11 @@
 import { useState, useEffect, useRef, useCallback, FormEvent } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { MessageCircle, X, Send, User, Bot } from "lucide-react"
 import { Resizable } from 're-resizable'
 import {v4 as uuidv4} from 'uuid';
-import '../globals.css'
 
 // import r2wc from "@r2wc/react-to-web-component"
 // import { defineCustomElements } from '@webcomponents/custom-elements';

@@ -1,20 +1,10 @@
 'use client'
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { BarChart, Bot, FileText, Layout, LogOut, MessageSquare, RocketIcon, Settings, User } from "lucide-react"
-import Link from "next/link"
+import { BarChart, Bot, FileText, MessageSquare } from "lucide-react"
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
+
+import StatCard from "@/components/ui/stat-card"
 
 const conversationData = [
   { name: 'Mon', conversations: 120 },
@@ -36,60 +26,29 @@ const satisfactionData = [
   { name: 'Sun', satisfaction: 92 },
 ]
 
+const messageSquareIcon = <MessageSquare className="h-4 w-4 text-scuBrandRed" />
+const botIcon = <Bot className="h-4 w-4 text-scuBrandRed" />
+const fileTextIcon = <FileText className="h-4 w-4 text-scuBrandRed" />
+const barChartIcon = <BarChart className="h-4 w-4 text-scuBrandRed" />
+  
 export default function Home() {
 
   return (
     <>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Welcome to Your Chatbot Console</h1>
+        <h1 className="text-3xl font-bold text-gray-800">Welcome to SCU Chatbot Console</h1>
       </div>
 
       <p className="text-gray-600 mb-8">
-        Manage and monitor your university&apos;s custom chatbot from this central dashboard.
+        Manage and monitor Santa Clara&apos;s custom chatbot from this central dashboard.
       </p>
 
       {/* Quick stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Conversations</CardTitle>
-            <MessageSquare className="h-4 w-4 text-blue-600" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1,234</div>
-            <p className="text-xs text-muted-foreground">+10% from last month</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg. Response Time</CardTitle>
-            <Bot className="h-4 w-4 text-blue-600" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1.5s</div>
-            <p className="text-xs text-muted-foreground">-0.2s from last week</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Documents Uploaded</CardTitle>
-            <FileText className="h-4 w-4 text-blue-600" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">42</div>
-            <p className="text-xs text-muted-foreground">+3 new this week</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">User Satisfaction</CardTitle>
-            <BarChart className="h-4 w-4 text-blue-600" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">89%</div>
-            <p className="text-xs text-muted-foreground">+2% from last month</p>
-          </CardContent>
-        </Card>
+        <StatCard statName="Total Conversations" statVal="1,234" statComment="+10% from last month" Icon={messageSquareIcon}></StatCard>
+        <StatCard statName="Avg. Response Time" statVal="1.5s" statComment="-0.2s from last week" Icon={botIcon}></StatCard>
+        <StatCard statName="Documents Uploaded" statVal="42" statComment="+3 new this week" Icon={fileTextIcon}></StatCard>
+        <StatCard statName="User Satisfaction" statVal="89%" statComment="+2% from last month" Icon={barChartIcon}></StatCard>
       </div>
 
       {/* Analytics Graphs */}
@@ -104,7 +63,7 @@ export default function Home() {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="conversations" stroke="#3b82f6" strokeWidth={2} />
+                <Line type="monotone" dataKey="conversations" stroke="#b30738" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
@@ -119,7 +78,7 @@ export default function Home() {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="satisfaction" stroke="#3b82f6" strokeWidth={2} />
+                <Line type="monotone" dataKey="satisfaction" stroke="#b30738" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>

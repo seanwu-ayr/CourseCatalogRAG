@@ -63,7 +63,7 @@ module.exports = {
       template: './frontend/index.html', // Ensure this path is correct and the file exists
     }),
   ],
-  devtool: 'source-map', // Provides source maps for debugging
+  devtool: false, // Provides source maps for debugging
   devServer: {
     static: path.resolve(__dirname, 'dist'), // Ensure it serves the correct directory
     hot: true,
