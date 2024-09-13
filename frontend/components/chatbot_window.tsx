@@ -60,7 +60,7 @@ export default function Chatwindow() {
   }, [messages, isExpanded, scrollToBottom])
 
   const setupWebSocket = () => {
-    ws.current = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+    ws.current = new WebSocket('wss://scubotbackend.net/ws/');
     let ongoingStream: { id: string; content: string } | null = null;
 
     ws.current.onopen = () => {
