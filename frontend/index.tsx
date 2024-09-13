@@ -12,4 +12,8 @@ function renderChatbotWindow(rootId: string) {
   root.render(<ChatbotWindow />);
 }
 
-export { renderChatbotWindow };
+function importChatbotWindow() {
+    return <ChatbotWindow />
+}
+
+export { renderChatbotWindow, importChatbotWindow };

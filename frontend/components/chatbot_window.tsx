@@ -72,7 +72,7 @@ function ChatbotWindow() {
     if(!socket_id.current)
       socket_id.current = uuidv4()
 
-    ws.current = new WebSocket(`ws://18.116.44.137:80/socket/${socket_id.current}`);
+    ws.current = new WebSocket(`wss://scubotbackend.net/socket/${socket_id.current}`);
 
     let heartbeatInterval: NodeJS.Timeout;
     let ongoingStream: { id: string; content: string } | null = null;
@@ -192,7 +192,7 @@ function ChatbotWindow() {
         >
           <Card className="w-full h-full flex flex-col shadow-xl transition-all duration-300 ease-in-out">
             <CardHeader className="p-3 flex flex-row items-center justify-between">
-              <h3 className="font-semibold text-lg">Chat Bot</h3>
+              <h3 className="font-semibold text-lg">SCU Chat Bot</h3>
               <Button variant="ghost" size="icon" onClick={toggleExpand}>
                 <X className="h-4 w-4" />
                 <span className="sr-only">Close chat</span>
