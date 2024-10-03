@@ -210,7 +210,7 @@ class ChatbotWindow extends HTMLElement {
       this.socket_id = uuidv4();
     }
 
-    this.ws = new WebSocket(`ws://18.116.44.137:80/socket/${this.socket_id}`);
+    this.ws = new WebSocket(`wss://scubotbackend.net/socket/${this.socket_id}`);
 
     let heartbeatInterval;
     let ongoingStream = null;
