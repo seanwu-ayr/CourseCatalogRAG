@@ -22,7 +22,7 @@ This repository contains a chatbot application with a Next.js/React frontend and
 ```bash
 git clone https://github.com/seogenis/CourseCatalogRAG.git
 cd CourseCatalogRAG
-git checkout redesign
+git checkout main
 ```
 
 ### Backend Setup
