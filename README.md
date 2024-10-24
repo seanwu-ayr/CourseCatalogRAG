@@ -24,6 +24,7 @@ git clone https://github.com/seogenis/CourseCatalogRAG.git
 cd CourseCatalogRAG
 git checkout main
 ```
+### MAKE YOUR OWN BRANCH FOR CHANGES
 
 ### Backend Setup
 
