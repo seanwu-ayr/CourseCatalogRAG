@@ -1,68 +1,166 @@
-from sqlalchemy import create_engine
-import getpass
-import os
-from operator import itemgetter
-from langchain_community.utilities import SQLDatabase
+from pydantic import BaseModel
+from langchain.schema import Document
+from langchain_core.retrievers import BaseRetriever
+from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool, QuerySQLCheckerTool
 from langchain.chains import create_sql_query_chain
+from typing import List, Dict, Any, Optional
+from langchain.callbacks.manager import CallbackManagerForRetrieverRun, AsyncCallbackManagerForRetrieverRun
+from sqlalchemy import create_engine
+from langchain_community.utilities import SQLDatabase
 from langchain_openai import ChatOpenAI
-from langchain_core.runnables import RunnablePassthrough
-from langchain_core.output_parsers import StrOutputParser
-from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
-from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv, find_dotenv
+import os
+import getpass
+from pinecone import Pinecone, ServerlessSpec
+from langchain_pinecone import PineconeVectorStore
+from langchain_openai import OpenAIEmbeddings
+import time
+from langchain.retrievers import EnsembleRetriever
 
-from langchain_community.agent_toolkits import create_sql_agent
 
-load_dotenv(find_dotenv())
+
+# It's so beautiful but I fucking hate this thing
+################################################################################################################
+class SQLRetriever(BaseRetriever):
+    llm: Any  # The language model used for generating SQL queries
+    db: SQLDatabase  # The database instance for connecting and running SQL queries
+
+    def _get_relevant_documents(
+        self, query: str, *, run_manager: CallbackManagerForRetrieverRun
+    ) -> List[Document]:
+        """
+        Synchronous method to retrieve relevant documents based on the query.
+        
+        Args:
+        - query: String query to be converted into SQL.
+        - run_manager: Callback manager to handle progress or other callback functionality.
+
+        Returns:
+        - List[Document]: List of LangChain Document objects.
+        """
+        # Create and execute the SQL query chain
+        write_query = create_sql_query_chain(llm, db)
+        check_query = QuerySQLCheckerTool(llm=llm, db=db)
+        execute_query = QuerySQLDataBaseTool(db=db)
+        query_chain = write_query | check_query | execute_query
+        response = query_chain.invoke({"question": query})
+        
+        # Convert SQL results into LangChain Document objects
+        documents = self._format_sql_result(response)
+        return documents
+
+    async def _aget_relevant_documents(
+        self, query: str, *, run_manager: AsyncCallbackManagerForRetrieverRun
+    ) -> List[Document]:
+        """
+        Asynchronous method to retrieve relevant documents based on the query.
+        
+        Args:
+        - query: String query to be converted into SQL.
+        - run_manager: AsyncCallbackManager to handle async callbacks.
+
+        Returns:
+        - List[Document]: List of LangChain Document objects.
+        """
+        # Create and execute the SQL query chain
+        write_query = create_sql_query_chain(llm, db)
+        check_query = QuerySQLCheckerTool(llm=llm, db=db)
+        execute_query = QuerySQLDataBaseTool(db=db)
+        query_chain = write_query | check_query | execute_query
+        response = await query_chain.invoke_async({"question": query})
+        
+        # Convert SQL results into LangChain Document objects
+        documents = self._format_sql_result(response)
+        return documents
+
+    def _format_sql_result(self, result: Any) -> List[Document]:
+        """
+        Formats the SQL query result into LangChain Document objects.
+        
+        Args:
+        - result: The raw result from the SQL query execution.
+
+        Returns:
+        - List[Document]: A list of LangChain Document objects, each containing 
+          a row of the SQL result with metadata.
+        """
+        documents = []
+        content = str(result)  # Convert the row into a string or format as needed
+        metadata = {"source": "SQL Database"}  # Add any additional metadata as needed
+        documents.append(Document(page_content=content, metadata=metadata))
+        
+        return documents
+################################################################################################################
+
+
+
+
+# Setup Openai
+load_dotenv(find_dotenv()) 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
+llm = ChatOpenAI(model="gpt-4o-mini", openai_api_key=OPENAI_API_KEY)
 
-
-# Database connection parameters
+# Setup the database connection
 host = "scu-info.cpkec8qcwpzs.us-east-2.rds.amazonaws.com"
 port = 5432  # Default PostgreSQL port
 database = "SCU_INFO"
 user = "sakadaai"
 password = "sakadaai2000"
-
-# Create the SQLAlchemy engine
 db_url = f"postgresql://{user}:{password}@{host}:{port}/{database}"
 engine = create_engine(db_url)
 db = SQLDatabase(engine)
 
-# print(db.dialect)
-# print(db.get_usable_table_names())
+# Initialize custom retriever
+sql_retriever = SQLRetriever(llm=llm, db=db)
 
-llm = ChatOpenAI(model="gpt-4o", temperature=0)
+# Test sql retrieval 
+documents = sql_retriever._get_relevant_documents("What is the acla102Z course?", run_manager=None)
+for doc in documents:
+    print(doc.page_content)
 
 
-# # Create a tool to execute queries on the database
-# execute_query = QuerySQLDataBaseTool(db=db)
 
-# # Create an SQL query chain using the language model and database
-# write_query = create_sql_query_chain(llm, db)
+# IMPORTANT: BEFORE YOU TRY ANYTHING BELOW, MAKE SURE THE STUFF ABOVE WORKS FIRST
+# This pinecone initialization is already in views.py
+# I've changed to new pinecone gitbook/calendar-only db
+##############################################################################################################
 
-# # Create a prompt template for answering questions based on SQL query results
-# answer_prompt = PromptTemplate.from_template(
-#     """Given the following user question, corresponding SQL query, and SQL result, answer the user question.
+index_name = "calendar-gitbook-scu"
+index_dimension = 3072
+index_namespace = "scu"
+cloud = os.environ.get('PINECONE_CLOUD') or 'aws'
+region = os.environ.get('PINECONE_REGION') or 'us-east-1'
 
-# Question: {question}
-# SQL Query: {query}
-# SQL Result: {result}
-# Answer: """
-# )
 
-# # Chain to generate the answer based on the query and result
-# answer = answer_prompt | llm | StrOutputParser()
+pc = Pinecone(api_key=PINECONE_API_KEY)
 
-# # Define the full chain of operations
-# chain = (
-#     RunnablePassthrough.assign(query=write_query).assign(
-#         result=itemgetter("query") | execute_query
-#     )
-#     | answer
-# )
-# # Invoke the chain with a user question
-# print(chain.invoke({"question": "What is the ACLA_102Z course?"}))
+if index_name not in pc.list_indexes().names():
+    pc.create_index(
+        name=index_name,
+        dimension=index_dimension, 
+        metric="cosine", 
+        spec=ServerlessSpec(
+            cloud=cloud, 
+            region=region
+        ) 
+    )
+while not pc.describe_index(index_name).status["ready"]:
+        time.sleep(1)
+index = pc.Index(index_name)
 
-agent_executor = create_sql_agent(llm, db=db, agent_type="openai-tools", verbose=True)
-print(agent_executor.invoke({"input":"What are the prerequisites to coen11?"}))
+embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+vectorstore = PineconeVectorStore(index=index, embedding=embeddings, namespace=index_namespace)
+pinecone_retriever =  vectorstore.as_retriever(
+    search_kwargs={"k": 10}
+)
+##############################################################################################################
+
+ensemble_retriever = EnsembleRetriever(
+    retrievers=[sql_retriever, pinecone_retriever], weights=[0.5, 0.5]
+)
+
+ensemble_retriever.invoke("what are prerequisites to csen11")
+
+config = {"configurable": {"search_kwargs_faiss": {"k": 3}}}
+print(ensemble_retriever.invoke("apples", config=config))

@@ -28,6 +28,9 @@ try:
     cursor.execute(query_columns, (table_name,))
     columns = cursor.fetchall()
 
+    # Store column names separately for later use
+    column_names = [col[0] for col in columns]
+
     print(f"Columns in the table '{table_name}':")
     for column in columns:
         print(f"Column Name: {column[0]}, Data Type: {column[1]}, Is Nullable: {column[2]}")
@@ -42,7 +45,7 @@ try:
 
     print(f"Size of the table '{table_name}': {table_size[0]}")
 
-    # 3. Fetch Row Count
+    # 3. Row Count
     print("\n3. Row Count:")
     query_row_count = f"SELECT COUNT(*) FROM {table_name};"
     cursor.execute(query_row_count)
@@ -55,14 +58,17 @@ try:
     query_sample = f"""
         SELECT *
         FROM {table_name}
-        LIMIT 5;
+        WHERE courselisting LIKE 'ACLA%'
+        LIMIT 2750;
     """
     cursor.execute(query_sample)
     rows = cursor.fetchall()
 
     print(f"Sample rows from the table '{table_name}':")
     for row in rows:
-        print(row)
+        print("Row:")
+        for col_name, value in zip(column_names, row):
+            print(f"  {col_name}: {value}")
 
     # 5. Fetch Index Information
     print("\n5. Index Information:")
