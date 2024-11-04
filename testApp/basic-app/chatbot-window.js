@@ -8,7 +8,9 @@ import { MessageCircle, X, Send, User, Bot, createIcons } from 'lucide';
 class ChatbotWindow extends HTMLElement {
   constructor() {
     super();
+    const myCSS = "<link href=./random.css” rel=“stylesheet”>";
     this.attachShadow({ mode: 'open' });
+    this.shadowRoot.innerHTML = "${myCSS}${otherHTML} ";
 
     // State
     this.isExpanded = false;
@@ -61,52 +63,114 @@ class ChatbotWindow extends HTMLElement {
     return `
       <button class="fixed bottom-4 right-4 w-14 h-14 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl bg-primary text-primary-foreground">
         <i data-lucide="message-circle"></i>
-        <span class="sr-only">Open chat</span>
+        <span class="sr-only">a</span>
       </button>
     `;
   }
 
   expandedTemplate() {
     return `
-      <div class="fixed bottom-4 right-4 z-50">
+    <div style="
+      display: flex;
+      position: absolute;
+      justify-content: flex-end;
+      bottom: 20px;
+      right: 20px;
+      min-height: 400px;
+      max-height: 600px;
+      ">
+      <div class="fixed bottom-4 right-4 z-50" style=" box-shadow: 1px 0px 7px 0px #bdbdbd;
+        box-shadow: 1px 0px 7px 0px #bdbdbd;
+        padding: 5px;
+        display: inline-block;
+        border-radius: 2%;
+        background-color: white;
+        width: 550px;
+        ">
         <div class="w-[${this.windowSize.width}px] h-[${this.windowSize.height}px] flex flex-col shadow-xl transition-all duration-300 ease-in-out bg-background rounded-lg border border-border">
-          <div class="p-3 flex flex-row items-center justify-between border-b border-border">
-            <h3 class="font-semibold text-lg">Chat Bot</h3>
-            <button class="text-muted-foreground hover:text-foreground">
+          <header class="background-red" style="display: flex; justify-content: space-between; padding-top: 10px;padding-bottom: 10px;">
+            <h3 class="font-semibold text-lg" 
+            style="
+            font-size: large;
+            font-weight: 700;
+            margin-left: 4px;
+            ">
+            Chat Bot</h3>
+            <button class="text-muted-foreground hover:text-foreground" style="padding-right:2px">
               <i data-lucide="x"></i>
-              <span class="sr-only">Close chat</span>
+              <span class="sr-only" style="display: inline-block;width: 24px;">x</span>
             </button>
-          </div>
-          <div class="flex-grow p-0 overflow-hidden">
+          </header>
+          <div class="flex-grow p-0 overflow-hidden"
+          style="
+            margin-top: auto;
+            padding-top: 10px;
+            overflow-y: auto;
+            min-height: 300px;
+            max-height: 500px;
+            margin-bottom: 50px;
+            padding-bottom: 5px;
+          ">
             <div class="h-full p-4 overflow-y-auto">
               ${this.renderMessages()}
               ${this.isThinking ? this.renderTypingIndicator() : ''}
             </div>
           </div>
-          <div class="p-3 border-t border-border">
+          <div class="p-3 border-t border-border" 
+            style="
+            position: absolute;
+            bottom: 0px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            "
+          >
             <form class="flex w-full items-end space-x-2">
               <textarea
                 placeholder="Type your message..."
                 class="flex-grow min-h-[40px] max-h-[120px] resize-none rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 rows="1"
+
+                style="
+                  resize: vertical;
+                  width: 90%;
+                  max-height: 120px;
+                  min-height: 40px;
+                  padding: .5rem;
+                  border: 1px solid hsl(0 0% 89.8%);
+                  border-radius: 5px;"
               ></textarea>
-              <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-10">
-                <i data-lucide="send"></i>
-                <span class="sr-only">Send</span>
+              <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-10"
+              
+              style="    
+              border: 1px solid;
+              bottom: 7px;
+              position: absolute;
+              height: 40px;
+              margin-left: 5px;
+              border-radius: 5px;
+              width: 35px;
+              color: #b30638;
+              background: #b30638;"
+              >
+                <i data-lucide=""></i>
+                <span class="sr-only"></span>
               </button>
             </form>
           </div>
         </div>
       </div>
+    </div>
     `;
   }
 
   renderMessages() {
     return this.messages.map(message => `
-      <div class="mb-4 flex items-start ${message.type === 'human' ? 'flex-row-reverse' : 'flex-row'}">
+      <div class="mb-4 flex items-start ${message.type === 'human' ? 'flex-row-reverse' : 'flex-row'}"
+      style= "display: flex;  ${message.type === 'ai' ? '' : "flex-direction: row-reverse;"}">
         ${message.type === 'ai' ? '<i data-lucide="bot" class="h-6 w-6 mx-2 flex-shrink-0 text-primary"></i>' : '<i data-lucide="user" class="h-6 w-6 mx-2 flex-shrink-0 text-primary"></i>'}
-        <div class="inline-block p-2 rounded-lg max-w-[70%] break-words ${message.type === 'human' ? 'bg-primary text-primary-foreground' : 'bg-muted'}">
-          <span class="whitespace-pre-wrap overflow-wrap-anywhere">${message.content}</span>
+        <div class="inline-block p-2 rounded-lg max-w-[70%] break-words ${message.type === 'human' ? 'bg-primary text-primary-foreground' : 'bg-muted'}"  style = "padding:8px; margin:5px; ${message.type === 'human' ? "background: black" :"background:#f5f5f5"}; border-radius: 5px; " >
+          <span class="whitespace-pre-wrap overflow-wrap-anywhere" style="${message.type === 'human' ? "color: white;" : "color: black;"}">${message.content}</span>
         </div>
       </div>
     `).join('');
