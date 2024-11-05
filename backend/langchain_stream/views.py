@@ -1,6 +1,7 @@
-
 import os
 import json
+import psycopg2
+from datetime import datetime
 from dotenv import load_dotenv, find_dotenv
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_openai import OpenAIEmbeddings
@@ -39,7 +40,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 USER_AGENT = os.getenv("USER_AGENT")
 
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 # os.environ["BERT_PATH"] = ''
 
@@ -49,35 +50,36 @@ os.environ["LANGCHAIN_TRACING_V2"] = "true"
 class Category(BaseModel):
     id: int = Field(description="numerical value of prompt category")
     description: str = Field(description="description of prompt category")
-    
+
+
 class CustomCallbackHandler(AsyncCallbackHandler):
     def __init__(self, client_id: str):
         self.client_id = client_id
 
-    async def on_llm_start(self, serialized: dict, prompts: list[str], **kwargs) -> None:
+    async def on_llm_start(
+        self, serialized: dict, prompts: list[str], **kwargs
+    ) -> None:
         self.run_id = uuid.uuid4()
-        await connection_manager.send(self.client_id, json.dumps({
-            "event": "start",
-            "id": self.run_id.hex,
-            "chunk": ''
-        }))
+        await connection_manager.send(
+            self.client_id,
+            json.dumps({"event": "start", "id": self.run_id.hex, "chunk": ""}),
+        )
 
     async def on_llm_new_token(self, token: str, **kwargs) -> any:
-        await connection_manager.send(self.client_id, json.dumps({
-            "event": "stream",
-            "id": self.run_id.hex,
-            "chunk": token
-        }))
-       
+        await connection_manager.send(
+            self.client_id,
+            json.dumps({"event": "stream", "id": self.run_id.hex, "chunk": token}),
+        )
+
 
 def fetch_history(session_id: str, hist: dict) -> BaseChatMessageHistory:
 
-    if session_id not in hist:  
+    if session_id not in hist:
         hist[session_id] = ChatMessageHistory()
         print("INITIALIZING MESSAGE HISTORY")
-    else: print("\nMESSAGE HISTORY: ", hist[session_id].messages, "\n")
+    else:
+        print("\nMESSAGE HISTORY: ", hist[session_id].messages, "\n")
     return hist[session_id]
-
 
 
 def get_document_chain(client_id: str):
@@ -85,31 +87,33 @@ def get_document_chain(client_id: str):
     # print("\n\nSESSION HISTORY STORE:", hist, "\n\n")
 
     context_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
-    output_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.2, streaming=True, callbacks=[CustomCallbackHandler(client_id=client_id)])
+    output_model = ChatOpenAI(
+        model="gpt-4o-mini",
+        temperature=0.2,
+        streaming=True,
+        callbacks=[CustomCallbackHandler(client_id=client_id)],
+    )
 
-    #Set up pinecone db retriever
+    # Set up pinecone db retriever
 
     index_name = "course-catalog-scu"
     index_dimension = 3072
     index_namespace = "scu"
-    cloud = os.environ.get('PINECONE_CLOUD') or 'aws'
-    region = os.environ.get('PINECONE_REGION') or 'us-east-1'
+    cloud = os.environ.get("PINECONE_CLOUD") or "aws"
+    region = os.environ.get("PINECONE_REGION") or "us-east-1"
 
     pc = Pinecone(api_key=PINECONE_API_KEY)
 
     if index_name not in pc.list_indexes().names():
         pc.create_index(
             name=index_name,
-            dimension=index_dimension, 
-            metric="cosine", 
-            spec=ServerlessSpec(
-                cloud=cloud, 
-                region=region
-            ) 
+            dimension=index_dimension,
+            metric="cosine",
+            spec=ServerlessSpec(cloud=cloud, region=region),
         )
 
     while not pc.describe_index(index_name).status["ready"]:
-            time.sleep(1)
+        time.sleep(1)
 
     index = pc.Index(index_name)
     response = index.fetch(ids=["132b1c85-feef-44ea-a5b8-d6c178943c4"])
@@ -120,36 +124,34 @@ def get_document_chain(client_id: str):
     embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
     # Embed each chunk and upsert the embeddings into your Pinecone index.
-    vectorstore = PineconeVectorStore(index=index, embedding=embeddings, namespace=index_namespace)
-
-
+    vectorstore = PineconeVectorStore(
+        index=index, embedding=embeddings, namespace=index_namespace
+    )
 
     # embeddings = OpenAIEmbeddings()
     # faiss_path = r"C:\Users\Aiden\OneDrive\Documents\GitHub\CourseCatalogRAG\backend\faiss_index"
     # new_db = FAISS.load_local(faiss_path, embeddings, allow_dangerous_deserialization=True)
 
-    retriever =  vectorstore.as_retriever(
-        search_kwargs={"k": 10}
-    )
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 10})
     llm = OpenAI(temperature=0)
     compressor = LLMChainExtractor.from_llm(llm)
 
     compression_retriever = ContextualCompressionRetriever(
-    base_compressor=compressor, base_retriever=retriever
+        base_compressor=compressor, base_retriever=retriever
     )
-
-    
 
     context_system_prompt = """Given a chat history and the latest user question \
     which might reference context in the chat history, formulate a standalone question \
     which can be understood without the chat history. Do NOT answer the question, \
     just reformulate it if needed and otherwise return it as is."""
 
-    context_prompt = ChatPromptTemplate.from_messages([
+    context_prompt = ChatPromptTemplate.from_messages(
+        [
             ("system", context_system_prompt),
             MessagesPlaceholder("chat_history"),
             ("human", "{input}"),
-    ])
+        ]
+    )
 
     history_aware_retriever = create_history_aware_retriever(
         context_model, compression_retriever, context_prompt
@@ -178,47 +180,51 @@ def get_document_chain(client_id: str):
             ("human", "{input}"),
         ]
     )
-    # prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"]) 
-      
+    # prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
+
     doc_prompt_template = """
     Document Content: {page_content}
 
     Source: {source}
     """
-    doc_prompt = PromptTemplate(template=doc_prompt_template, input_variables=["page_content", "source"])
+    doc_prompt = PromptTemplate(
+        template=doc_prompt_template, input_variables=["page_content", "source"]
+    )
 
-    qa_chain = create_stuff_documents_chain(output_model, qa_prompt, document_prompt=doc_prompt)
+    qa_chain = create_stuff_documents_chain(
+        output_model, qa_prompt, document_prompt=doc_prompt
+    )
     rag_chain = create_retrieval_chain(history_aware_retriever, qa_chain)
     # chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
 
-    
-
     conversational_rag_chain = RunnableWithMessageHistory(
-    rag_chain,
-    fetch_history,
-    input_messages_key="input",
-    history_messages_key="chat_history",
-    output_messages_key="answer",
-    history_factory_config= [
-        ConfigurableFieldSpec(
-            id="session_id",
-            annotation=str,
-            name="Session ID",
-            description="Unique identifier for the session.",
-            default="abc123",
-            is_shared=True,
-        ),
-        ConfigurableFieldSpec(
-            id="hist",
-            annotation=dict,
-            name="History",
-            description="Dictionary containing chat history.",
-            default={},
-            is_shared=True,
-        )]
+        rag_chain,
+        fetch_history,
+        input_messages_key="input",
+        history_messages_key="chat_history",
+        output_messages_key="answer",
+        history_factory_config=[
+            ConfigurableFieldSpec(
+                id="session_id",
+                annotation=str,
+                name="Session ID",
+                description="Unique identifier for the session.",
+                default="abc123",
+                is_shared=True,
+            ),
+            ConfigurableFieldSpec(
+                id="hist",
+                annotation=dict,
+                name="History",
+                description="Dictionary containing chat history.",
+                default={},
+                is_shared=True,
+            ),
+        ],
     )
-    
+
     return conversational_rag_chain
+
 
 def get_conversational_chain():
 
@@ -234,9 +240,12 @@ def get_conversational_chain():
 
     model = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
 
-
-    prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
-    chain = load_qa_chain(model, chain_type="stuff", prompt=prompt).with_config({"name": "ai"})
+    prompt = PromptTemplate(
+        template=prompt_template, input_variables=["context", "question"]
+    )
+    chain = load_qa_chain(model, chain_type="stuff", prompt=prompt).with_config(
+        {"name": "ai"}
+    )
 
     return chain
 
@@ -256,7 +265,7 @@ def select_chain(user_question, client_id: str):
     #           4: "Miscellanious"
     #         }
     # category = int(category[0]['label'])
-    
+
     # print(category, labels[category])
 
     category = 3
@@ -274,28 +283,28 @@ def select_chain(user_question, client_id: str):
 
         case 1:
             chain = get_document_chain(client_id=client_id)
-     
+
             # response = chain.invoke(
-            #     {"input": user_question}, 
+            #     {"input": user_question},
             #     config={"configurable": {"session_id": "abc123", "hist": hist}}
             #     )
-                # print(temp_r, "\n\n\n")
+            # print(temp_r, "\n\n\n")
 
             # print(response)
-            
+
             # output = response["answer"]
 
             # print(hist, hist["abc123"].messages)
 
         case 2:
             chain = get_document_chain(client_id=client_id)
-     
+
             # response = chain.invoke(
-            #     {"input": user_question}, 
+            #     {"input": user_question},
             #     config={"configurable": {"session_id": "abc123", "hist": hist}}
             #     )
-                # print(temp_r, "\n\n\n")
-            
+            # print(temp_r, "\n\n\n")
+
             # print(response)
 
             # output = response["answer"]
@@ -304,13 +313,13 @@ def select_chain(user_question, client_id: str):
 
         case 3:
             chain = get_document_chain(client_id=client_id)
-     
+
             # response = chain.invoke(
-            #     {"input": user_question}, 
+            #     {"input": user_question},
             #     config={"configurable": {"session_id": "abc123", "hist": hist}}
             #     )
-                # print(temp_r, "\n\n\n")
-            
+            # print(temp_r, "\n\n\n")
+
             # print(response)
             # output = response["answer"]
 
@@ -329,6 +338,7 @@ def select_chain(user_question, client_id: str):
     #     log_file.write(f"Question: {user_question}\nAnswer: {output}")
 
     return (chain, category)
+
 
 # os.environ["LANGCHAIN_TRACING_V2"] = "true"
 # os.environ["LANGCHAIN_API_KEY"] = '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'
@@ -354,24 +364,26 @@ def wrapHistory(messages):
     history = ChatMessageHistory()
     wrappedMessages = []
     for message in messages:
-        if message["type"] == 'human':
+        if message["type"] == "human":
             wrappedMessages.append(HumanMessage(content=message["content"]))
-        elif message["type"] == 'ai':
+        elif message["type"] == "ai":
             wrappedMessages.append(AIMessage(content=message["content"]))
 
     history.add_messages(wrappedMessages)
 
     return history
 
+
 def unwrapHistory(history, client_id):
     messages = history[client_id].messages
     unwrappedMessages = []
     for message in messages:
-            # print(message)
-            unwrappedMessages.append(
-                {'content':message.content, 'type':'human'} if message.type == 'human' else
-                {'content':message.content, 'type':'ai'}
-            )
+        # print(message)
+        unwrappedMessages.append(
+            {"content": message.content, "type": "human"}
+            if message.type == "human"
+            else {"content": message.content, "type": "ai"}
+        )
 
     return unwrappedMessages
 
@@ -382,9 +394,9 @@ class ConnectionManager:
         # self.socket = WebSocket()
 
     async def connect(self, client_id: str, websocket: WebSocket):
-        print(f'attempting to connect to client {client_id}')
+        print(f"attempting to connect to client {client_id}")
         await websocket.accept()
-        print('connection successful')
+        print("connection successful")
         self.active_connections[client_id] = websocket
 
     def disconnect(self, client_id):
@@ -401,6 +413,7 @@ class ConnectionManager:
         for connection in self.active_connections:
             await connection.send_text(message)
 
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -412,6 +425,7 @@ app.add_middleware(
 
 connection_manager = ConnectionManager()
 
+
 @app.websocket("/socket/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: str):
     # , client_id: Optional[str] = Query(None)
@@ -420,33 +434,81 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
     # await websocket.accept()
     try:
         while True:
-            
+
             # data = await websocket.receive_text()
             # print(f"Received data: {data}")
             # await websocket.send_text(f"Received: {data}")
 
             msg_data = await websocket.receive()
             if msg_data:
-                msg_data_json = json.loads(msg_data['text'])
-                event = msg_data_json["event"] 
+                msg_data_json = json.loads(msg_data["text"])
+                event = msg_data_json["event"]
 
-                if event == 'ping':
+                if event == "ping":
                     await websocket.send_json({"event": "pong"})
                 else:
-                           
+
+                    start_time = datetime.now()
+
                     user_input = msg_data_json["user_input"]
                     history = msg_data_json["history"]
 
                     chain, category = select_chain(user_input, client_id=client_id)
 
-                    history_dict = {
-                        client_id: wrapHistory(history)
-                    }
+                    history_dict = {client_id: wrapHistory(history)}
 
                     response = await chain.ainvoke(
-                        {'input': user_input},
-                        config={"configurable": {"session_id": client_id, "hist": history_dict}},
+                        {"input": user_input},
+                        config={
+                            "configurable": {
+                                "session_id": client_id,
+                                "hist": history_dict,
+                            }
+                        },
                     )
+
+                    end_time = datetime.now()
+
+                    # logic to store statistics associated with the current chat in our Vercel SQL backend, as a row in the "messages" table.
+                    conn = None
+                    cur = None
+
+                    try:
+                        conn = psycopg2.connect(
+                            host=os.getenv("VERCEL_HOST"),
+                            dbname="verceldb",
+                            user="default",
+                            port="5432",
+                            password=os.getenv("VERCEL_PASSWORD"),
+                            sslmode="require",
+                        )
+                        cur = conn.cursor()
+
+                        cur.execute(
+                            """
+                            INSERT INTO messages (user_id, date_and_time_of_message, response_time_secs, user_satisfied)
+                            VALUES (%s, %s, %s, %s)
+                            RETURNING message_id;
+                        """,
+                            (
+                                "SCU-001",
+                                datetime.now(),
+                                (end_time - start_time).total_seconds(),
+                                True,
+                            ),
+                        )
+                        conn.commit()
+                    except Exception as error:
+                        conn.rollback()
+                        print(
+                            f"A SQL Server Error occured: {error}. Session analytics not logged."
+                        )
+                    finally:
+                        # Close the cursor and connection
+                        if cur is not None:
+                            cur.close()
+                        if conn is not None:
+                            conn.close()
 
                 print(response)
 
