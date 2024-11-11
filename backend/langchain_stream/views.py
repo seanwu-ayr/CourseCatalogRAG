@@ -39,6 +39,8 @@ LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 USER_AGENT = os.getenv("USER_AGENT")
+POSTGRES_HOST = os.getenv("POSTGRES_HOST")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
@@ -475,11 +477,11 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 
                     try:
                         conn = psycopg2.connect(
-                            host=os.getenv("POSTGRES_HOST"),
+                            host=POSTGRES_HOST,
                             dbname="verceldb",
                             user="default",
                             port="5432",
-                            password=os.getenv("POSTGRES_PASSWORD"),
+                            password=POSTGRES_PASSWORD,
                             sslmode="require",
                         )
                         cur = conn.cursor()
