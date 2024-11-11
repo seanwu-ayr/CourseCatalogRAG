@@ -475,11 +475,11 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 
                     try:
                         conn = psycopg2.connect(
-                            host=os.getenv("VERCEL_HOST"),
+                            host=os.getenv("POSTGRES_HOST"),
                             dbname="verceldb",
                             user="default",
                             port="5432",
-                            password=os.getenv("VERCEL_PASSWORD"),
+                            password=os.getenv("POSTGRES_PASSWORD"),
                             sslmode="require",
                         )
                         cur = conn.cursor()
